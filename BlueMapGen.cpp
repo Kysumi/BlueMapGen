@@ -31,13 +31,17 @@ int main(int argc, char* argv[]) {
             result = 0;
         // END
     }
+    
     isolate->Dispose();
+
     v8::V8::Dispose();
     v8::V8::ShutdownPlatform();
-    delete create_params.array_buffer_allocator;
+    
+    //delete create_params.array_buffer_allocator;
 
     return result;
 }
+
 // Extracts a C string from a V8 Utf8Value.
 const char* ToCString(const v8::String::Utf8Value& value) {
     return *value ? *value : "<string conversion failed>";

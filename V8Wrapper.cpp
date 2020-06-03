@@ -10,6 +10,8 @@ void Version(const v8::FunctionCallbackInfo<v8::Value>& args);
 
 void V8Wrapper::runScript(std::string fileName)
 {
+    v8::Isolate* isolate = context->GetIsolate();
+	
     v8::Local<v8::String> file_name =
         v8::String::NewFromUtf8(isolate, "test.js", v8::NewStringType::kNormal)
         .ToLocalChecked();
@@ -31,10 +33,10 @@ void V8Wrapper::runScript(std::string fileName)
     }
 }
 
-void V8Wrapper::startV8()
+void V8Wrapper::startV8(char* dir)
 {
-    //v8::V8::InitializeICUDefaultLocation(argv[0]);
-    //v8::V8::InitializeExternalStartupData(argv[0]);
+    v8::V8::InitializeICUDefaultLocation(dir);
+    v8::V8::InitializeExternalStartupData(dir);
     platform = v8::platform::NewDefaultPlatform();
     v8::V8::InitializePlatform(platform.get());
     v8::V8::Initialize();
@@ -43,11 +45,11 @@ void V8Wrapper::startV8()
     v8::Isolate::CreateParams create_params;
     create_params.array_buffer_allocator = v8::ArrayBuffer::Allocator::NewDefaultAllocator();
 	
-    isolate = v8::Isolate::New(create_params);
-
+    v8::Isolate* isolate = v8::Isolate::New(create_params);
     v8::Isolate::Scope isolate_scope(isolate);
     v8::HandleScope handle_scope(isolate);
-    v8::Local<v8::Context> context = CreateShellContext(isolate);
+
+    context = CreateShellContext(isolate);
 	
     if (context.IsEmpty()) {
         fprintf(stderr, "Error creating context\n");
@@ -59,7 +61,7 @@ void V8Wrapper::startV8()
 
 void V8Wrapper::shutdownV8()
 {
-    isolate->Dispose();
+    // isolate->Dispose();
 
     v8::V8::Dispose();
     v8::V8::ShutdownPlatform();
@@ -67,8 +69,8 @@ void V8Wrapper::shutdownV8()
 
 // Creates a new execution environment containing the built-in
 // functions.
-v8::Local<v8::Context> V8Wrapper::CreateShellContext(v8::Isolate* isolate) {
-
+v8::Local<v8::Context> V8Wrapper::CreateShellContext(v8::Isolate* isolate)
+{
     // Create a template for the global object.
     v8::Local<v8::ObjectTemplate> global = v8::ObjectTemplate::New(isolate);
 	

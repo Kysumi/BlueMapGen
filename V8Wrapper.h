@@ -6,10 +6,11 @@
 class V8Wrapper
 {
 public:
-    v8::Isolate* isolate;
+    // v8::Isolate* isolate;
     std::unique_ptr<v8::Platform> platform;
+    v8::Local<v8::Context> context;
 
-    void startV8();
+    void startV8(char* argv);
     void shutdownV8();
 
     v8::Local<v8::Context> CreateShellContext(v8::Isolate* isolate);

@@ -3,6 +3,8 @@
 #include <iostream>
 #include <queue>
 
+
+#include "Chakra.h"
 #include "Helper.h"
 
 void CALLBACK PromiseContinuationCallback(JsValueRef task, void* callbackState)
@@ -32,49 +34,21 @@ void runPromiseSample()
         JsValueRef task = taskQueue.front();
         taskQueue.pop();
         JsCallFunction(task, &global, 1, &result);
+
+    	
         JsRelease(task, nullptr);
     }
 }
 
 int main()
 {
-    JsRuntimeHandle runtime;
-    JsContextRef context;
-    JsValueRef result;
-    unsigned currentSourceContext = 0;
+    Chakra chakra;
 
-    // Your script; try replace hello-world with something else
-    std::wstring script = Helper::getFileContents("tesast.js");
+    chakra.runScript("test.js");
 
-    // Create a runtime. 
-    JsCreateRuntime(JsRuntimeAttributeNone, nullptr, &runtime);
+    chakra.shutDown();
 
-    // Create an execution context. 
-    JsCreateContext(runtime, &context);
-
-    // Now set the current execution context.
-    JsSetCurrentContext(context);
-
-    // Run the script.
-    JsRunScript(script.c_str(), currentSourceContext++, L"", &result);
-
-    // Convert your script result to String in JavaScript; redundant if your script returns a String
-    JsValueRef resultJSString;
-    JsConvertValueToString(result, &resultJSString);
-
-    // Project script result back to C++.
-    const wchar_t* resultWC;
-    size_t stringLength;
-    JsStringToPointer(resultJSString, &resultWC, &stringLength);
-
-    std::wstring resultW(resultWC);
-    std::cout << std::string(resultW.begin(), resultW.end()) << std::endl;
-
-    // Dispose runtime
-    JsSetCurrentContext(JS_INVALID_REFERENCE);
-    JsDisposeRuntime(runtime);
-
-    runPromiseSample();
+    // runPromiseSample();
 
     return 0;
 }

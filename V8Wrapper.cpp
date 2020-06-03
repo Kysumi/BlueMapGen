@@ -28,7 +28,7 @@ bool V8Wrapper::runScript(std::string fileName)
         continue;
     }
 
-    return success;
+   return success;
 }
 
 void V8Wrapper::startV8(char* dir)
@@ -55,7 +55,7 @@ void V8Wrapper::startV8(char* dir)
     }
 
     v8::Context::Scope context_scope(context);
-    // runScript("test.js"); // Works from here though
+    runScript("test.js");
 }
 
 void V8Wrapper::shutdownV8()

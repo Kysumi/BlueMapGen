@@ -17,8 +17,7 @@ Chakra::Chakra()
 
 void Chakra::runScript(std::string fileName)
 {
-	const std::wstring script = Helper::getFileContents(fileName.c_str());
-	
+	const auto script = Helper::getFileContents(fileName.c_str());
     JsRunScript(script.c_str(), currentSourceContext++, L"", &result);
 
     // Convert your script result to String in JavaScript; redundant if your script returns a String

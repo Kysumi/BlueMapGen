@@ -8,11 +8,34 @@ void Load(const v8::FunctionCallbackInfo<v8::Value>& args);
 void Quit(const v8::FunctionCallbackInfo<v8::Value>& args);
 void Version(const v8::FunctionCallbackInfo<v8::Value>& args);
 
+void V8Wrapper::runScript(std::string fileName)
+{
+    v8::Local<v8::String> file_name =
+        v8::String::NewFromUtf8(isolate, "test.js", v8::NewStringType::kNormal)
+        .ToLocalChecked();
+
+    v8::Local<v8::String> source;
+
+    if (!Helper::ReadFile(isolate, "test.js").ToLocal(&source)) {
+        fprintf(stderr, "Error reading '%s'\n", "test.js");
+        //continue;
+    }
+
+    bool success = ExecuteString(isolate, source, file_name, true, true);
+    while (v8::platform::PumpMessageLoop(platform.get(), isolate)) {
+        continue;
+    }
+
+    if (success) {
+        throw "AHHHHHHHHHHHHHHHHH failed to run";
+    }
+}
+
 void V8Wrapper::startV8()
 {
     //v8::V8::InitializeICUDefaultLocation(argv[0]);
     //v8::V8::InitializeExternalStartupData(argv[0]);
-    std::unique_ptr<v8::Platform> platform = v8::platform::NewDefaultPlatform();
+    platform = v8::platform::NewDefaultPlatform();
     v8::V8::InitializePlatform(platform.get());
     v8::V8::Initialize();
 	
@@ -20,7 +43,7 @@ void V8Wrapper::startV8()
     v8::Isolate::CreateParams create_params;
     create_params.array_buffer_allocator = v8::ArrayBuffer::Allocator::NewDefaultAllocator();
 	
-    v8::Isolate* isolate = v8::Isolate::New(create_params);
+    isolate = v8::Isolate::New(create_params);
 
     v8::Isolate::Scope isolate_scope(isolate);
     v8::HandleScope handle_scope(isolate);
@@ -34,38 +57,50 @@ void V8Wrapper::startV8()
     v8::Context::Scope context_scope(context);
 }
 
+void V8Wrapper::shutdownV8()
+{
+    isolate->Dispose();
+
+    v8::V8::Dispose();
+    v8::V8::ShutdownPlatform();
+}
+
 // Creates a new execution environment containing the built-in
 // functions.
 v8::Local<v8::Context> V8Wrapper::CreateShellContext(v8::Isolate* isolate) {
+
     // Create a template for the global object.
     v8::Local<v8::ObjectTemplate> global = v8::ObjectTemplate::New(isolate);
 	
     // Bind the global 'print' function to the C++ Print callback.
     global->Set(
-        v8::String::NewFromUtf8(isolate, "print", v8::NewStringType::kNormal)
-        .ToLocalChecked(),
-        v8::FunctionTemplate::New(isolate, Print));
+        v8::String::NewFromUtf8(isolate, "print", v8::NewStringType::kNormal).ToLocalChecked(),
+        v8::FunctionTemplate::New(isolate, Print)
+    );
 	
     // Bind the global 'read' function to the C++ Read callback.
     global->Set(v8::String::NewFromUtf8(
         isolate, "read", v8::NewStringType::kNormal).ToLocalChecked(),
-        v8::FunctionTemplate::New(isolate, Read));
+        v8::FunctionTemplate::New(isolate, Read)
+    );
 	
     // Bind the global 'load' function to the C++ Load callback.
     global->Set(v8::String::NewFromUtf8(
         isolate, "load", v8::NewStringType::kNormal).ToLocalChecked(),
-        v8::FunctionTemplate::New(isolate, Load));
+        v8::FunctionTemplate::New(isolate, Load)
+    );
 	
     // Bind the 'quit' function
     global->Set(v8::String::NewFromUtf8(
         isolate, "quit", v8::NewStringType::kNormal).ToLocalChecked(),
-        v8::FunctionTemplate::New(isolate, Quit));
+        v8::FunctionTemplate::New(isolate, Quit)
+    );
 	
     // Bind the 'version' function
     global->Set(
-        v8::String::NewFromUtf8(isolate, "version", v8::NewStringType::kNormal)
-        .ToLocalChecked(),
-        v8::FunctionTemplate::New(isolate, Version));
+        v8::String::NewFromUtf8(isolate, "version", v8::NewStringType::kNormal).ToLocalChecked(),
+        v8::FunctionTemplate::New(isolate, Version)
+    );
 	
     return v8::Context::New(isolate, NULL, global);
 }

@@ -6,12 +6,19 @@
 class V8Wrapper
 {
 public:
+    v8::Isolate* isolate;
+    std::unique_ptr<v8::Platform> platform;
+
     void startV8();
+    void shutdownV8();
 
     v8::Local<v8::Context> CreateShellContext(v8::Isolate* isolate);
+
     bool ExecuteString(v8::Isolate* isolate, v8::Local<v8::String> source,
         v8::Local<v8::Value> name, bool print_result,
         bool report_exceptions);
+
+    void runScript(std::string fileName);
 
     //void Print(const v8::FunctionCallbackInfo<v8::Value>& args);
     //void Read(const v8::FunctionCallbackInfo<v8::Value>& args);
@@ -23,4 +30,3 @@ public:
 
     void ReportException(v8::Isolate* isolate, v8::TryCatch* handler);
 };
-

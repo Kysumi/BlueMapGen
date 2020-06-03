@@ -11,6 +11,9 @@ public:
 	void shutDown();
 	
 private:
+
+	void consoleLog();
+	
 	unsigned currentSourceContext = 0;
 	JsRuntimeHandle runtime;
 	JsContextRef context;

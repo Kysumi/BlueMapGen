@@ -24,6 +24,9 @@
     <ClCompile Include="Chakra.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Console.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
@@ -35,6 +38,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Chakra.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Console.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

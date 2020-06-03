@@ -43,9 +43,7 @@ void runPromiseSample()
 int main()
 {
     Chakra chakra;
-
     chakra.runScript("test.js");
-
     chakra.shutDown();
 
     // runPromiseSample();

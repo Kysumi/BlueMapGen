@@ -1,6 +1,7 @@
 #pragma once
 #include <ChakraCommon.h>
 #include <string>
+#include "Console.h"
 
 class Chakra
 {
@@ -11,6 +12,7 @@ public:
 	void shutDown();
 	
 private:
+	Console console;
 
 	void consoleLog();
 	

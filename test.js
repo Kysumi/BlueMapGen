@@ -1,6 +1,5 @@
-//console.log('test tesy???');
 const temp = () => {
-    return "hehhehehe";
+    console.log("Abomy has the happy");
 }
 
 console.log(12312312312);

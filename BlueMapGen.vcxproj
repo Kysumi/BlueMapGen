@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="BlueMapGen.cpp" />
     <ClCompile Include="Chakra.cpp" />
+    <ClCompile Include="Console.cpp" />
     <ClCompile Include="Helper.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -150,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Chakra.h" />
+    <ClInclude Include="Console.h" />
     <ClInclude Include="Helper.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

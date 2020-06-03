@@ -1,5 +1,4 @@
 #include "Console.h"
-
 #include <ChakraCommon.h>
 #include <ChakraCore.h>
 #include <cwchar>

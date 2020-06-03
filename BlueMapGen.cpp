@@ -1,16 +1,15 @@
-#include "ChakraCore.h"
-#include <string>
 #include <iostream>
 #include <queue>
-
-
 #include "Chakra.h"
 #include "Helper.h"
+
+//https://github.com/microsoft/Chakra-Samples/blob/master/ChakraCore%20Samples/JSRT%20Hosting%20Samples/C%2B%2B/ChakraCoreHost/ChakraCoreHost.cpp
+//https://github.com/microsoft/ChakraCore/wiki/JavaScript-Runtime-%28JSRT%29-Overview
 
 void CALLBACK PromiseContinuationCallback(JsValueRef task, void* callbackState)
 {
     // Save promise task in taskQueue.
-    std::queue<JsValueRef>* q = (std::queue<JsValueRef>*)callbackState;
+    auto q = (std::queue<JsValueRef>*)callbackState;
     q->push(task);
     JsAddRef(task, nullptr);
 }
@@ -31,7 +30,7 @@ void runPromiseSample()
 
     // Execute promise tasks stored in taskQueue
     while (!taskQueue.empty()) {
-        JsValueRef task = taskQueue.front();
+	    auto task = taskQueue.front();
         taskQueue.pop();
         JsCallFunction(task, &global, 1, &result);
 
@@ -46,7 +45,7 @@ int main()
     chakra.runScript("test.js");
     chakra.shutDown();
 
-    // runPromiseSample();
+    runPromiseSample();
 
     return 0;
 }

@@ -8,7 +8,7 @@ void Load(const v8::FunctionCallbackInfo<v8::Value>& args);
 void Quit(const v8::FunctionCallbackInfo<v8::Value>& args);
 void Version(const v8::FunctionCallbackInfo<v8::Value>& args);
 
-void V8Wrapper::runScript(std::string fileName)
+bool V8Wrapper::runScript(std::string fileName)
 {
     v8::Isolate* isolate = context->GetIsolate();
 	
@@ -28,9 +28,7 @@ void V8Wrapper::runScript(std::string fileName)
         continue;
     }
 
-    if (success) {
-        throw "AHHHHHHHHHHHHHHHHH failed to run";
-    }
+    return success;
 }
 
 void V8Wrapper::startV8(char* dir)
@@ -55,8 +53,9 @@ void V8Wrapper::startV8(char* dir)
         fprintf(stderr, "Error creating context\n");
         throw "SHIT FUCKED";
     }
-	
+
     v8::Context::Scope context_scope(context);
+    // runScript("test.js"); // Works from here though
 }
 
 void V8Wrapper::shutdownV8()

@@ -19,7 +19,7 @@ public:
         v8::Local<v8::Value> name, bool print_result,
         bool report_exceptions);
 
-    void runScript(std::string fileName);
+    bool runScript(std::string fileName);
 
     //void Print(const v8::FunctionCallbackInfo<v8::Value>& args);
     //void Read(const v8::FunctionCallbackInfo<v8::Value>& args);

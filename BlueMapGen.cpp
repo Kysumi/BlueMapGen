@@ -6,8 +6,10 @@ int main(int argc, char* argv[]) {
 
     v8.startV8(argv[0]);
 
-    v8.runScript("test.js");
 
+	// Doesn't work from here for some reason
+    // v8.runScript("test.js");
+    
     v8.shutdownV8();
 
 

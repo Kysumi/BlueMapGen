@@ -148,7 +148,9 @@
     <ClCompile Include="BlueMapGen.cpp" />
     <ClCompile Include="Chakra.cpp" />
     <ClCompile Include="Console.cpp" />
+    <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Helper.cpp" />
+    <ClCompile Include="Node.cpp" />
     <ClCompile Include="Task.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -159,7 +161,9 @@
   <ItemGroup>
     <ClInclude Include="Chakra.h" />
     <ClInclude Include="Console.h" />
+    <ClInclude Include="Grid.h" />
     <ClInclude Include="Helper.h" />
+    <ClInclude Include="Node.h" />
     <ClInclude Include="Task.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

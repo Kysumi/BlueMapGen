@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "Chakra.h"
+#include "Grid.h"
 
 //https://github.com/microsoft/Chakra-Samples/blob/master/ChakraCore%20Samples/JSRT%20Hosting%20Samples/C%2B%2B/ChakraCoreHost/ChakraCoreHost.cpp
 //https://github.com/microsoft/ChakraCore/wiki/JavaScript-Runtime-%28JSRT%29-Overview
@@ -12,11 +13,16 @@ int main()
     Chakra chakra;
     chakra.runScript("test.js");
 
-    // create the window
 
-    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
+	// Create grid
+    Grid grid(sf::Vector2i(32, 32));
+
+	
+    // create the window
+    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML works!");
+    window.setFramerateLimit(60);
+
+    sf::Clock clock;
 
     while (window.isOpen())
     {
@@ -24,11 +30,20 @@ int main()
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
+            {
                 window.close();
+            }                
         }
 
-        window.clear();
-        window.draw(shape);
+        auto time = clock.getElapsedTime();
+    	if (time.asSeconds() > 1)
+    	{
+            grid.Process();
+            clock.restart();
+    	}
+
+        window.clear(sf::Color::Blue);
+        grid.Draw(window);
         window.display();
     }
 	

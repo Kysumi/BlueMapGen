@@ -29,6 +29,11 @@ JsValueRef CALLBACK happyConsole(JsValueRef callee, bool isConstructCall, JsValu
 
 Console::Console()
 {
+    ConsoleLog();
+}
+
+void Console::ConsoleLog()
+{
     JsValueRef console, logFunc, global;
     JsPropertyIdRef consolePropId, logPropId;
     const char* logString = "log";

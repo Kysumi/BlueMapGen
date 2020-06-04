@@ -143,6 +143,7 @@
     <ClCompile Include="Chakra.cpp" />
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="Helper.cpp" />
+    <ClCompile Include="Task.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -153,6 +154,7 @@
     <ClInclude Include="Chakra.h" />
     <ClInclude Include="Console.h" />
     <ClInclude Include="Helper.h" />
+    <ClInclude Include="Task.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

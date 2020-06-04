@@ -1,7 +1,9 @@
 #pragma once
 #include <ChakraCommon.h>
+#include <queue>
 #include <string>
 #include "Console.h"
+#include "Task.h"
 
 class Chakra
 {
@@ -19,6 +21,6 @@ private:
 	unsigned currentSourceContext = 0;
 	JsRuntimeHandle runtime;
 	JsContextRef context;
-	JsValueRef result;
+	std::queue<Task*> taskQueue;
 };
 

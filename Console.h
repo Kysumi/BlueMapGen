@@ -6,5 +6,5 @@ public:
 	Console();
 	
 private:
-   
+	void ConsoleLog();
 };

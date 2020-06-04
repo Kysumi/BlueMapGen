@@ -1,51 +1,16 @@
-#include <iostream>
-#include <queue>
 #include "Chakra.h"
-#include "Helper.h"
 
 //https://github.com/microsoft/Chakra-Samples/blob/master/ChakraCore%20Samples/JSRT%20Hosting%20Samples/C%2B%2B/ChakraCoreHost/ChakraCoreHost.cpp
 //https://github.com/microsoft/ChakraCore/wiki/JavaScript-Runtime-%28JSRT%29-Overview
 
-void CALLBACK PromiseContinuationCallback(JsValueRef task, void* callbackState)
-{
-    // Save promise task in taskQueue.
-    auto q = (std::queue<JsValueRef>*)callbackState;
-    q->push(task);
-    JsAddRef(task, nullptr);
-}
-
-void runPromiseSample()
-{
-	std::queue<JsValueRef> taskQueue;
-    JsValueRef result;
-    JsSetPromiseContinuationCallback(PromiseContinuationCallback, &taskQueue);
-    JsRunScript(
-        L"//The JavaScript ES6 Promise code goes here\n" \
-        L"new Promise((resolve, reject) => resolve('basic:success'))" \
-        L".then(() => {return 'second:success'});",
-        JS_SOURCE_CONTEXT_NONE, L"", &result);
-
-    JsValueRef global;
-    JsGetGlobalObject(&global);
-
-    // Execute promise tasks stored in taskQueue
-    while (!taskQueue.empty()) {
-	    auto task = taskQueue.front();
-        taskQueue.pop();
-        JsCallFunction(task, &global, 1, &result);
-
-    	
-        JsRelease(task, nullptr);
-    }
-}
+// Task queue example
+// https://github.com/Microsoft/Chakra-Samples/tree/master/ChakraCore%20Samples/OpenGL%20Engine/OpenGLEngine
 
 int main()
 {
     Chakra chakra;
     chakra.runScript("test.js");
     chakra.shutDown();
-
-    runPromiseSample();
 
     return 0;
 }

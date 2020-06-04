@@ -27,7 +27,9 @@ Chakra::Chakra()
 
     // Set up ES6 Promise 
     if (JsSetPromiseContinuationCallback(PromiseContinuationCallback, &taskQueue) != JsNoError)
-        throw "failed to set PromiseContinuationCallback.";
+    {
+		throw "failed to set PromiseContinuationCallback.";
+    }       
 }
 
 void Chakra::runScript(std::string fileName)
@@ -45,20 +47,20 @@ void Chakra::runScript(std::string fileName)
 	        JsValueRef exception;
 	        if (JsGetAndClearException(&exception) != JsNoError)
 	        {
-	            std::cout << L"failed to get and clear exception" << std::endl;
+	            std::wcout << L"failed to get and clear exception" << std::endl;
 	        }
 
 	        JsPropertyIdRef messageName;
 	        if (JsGetPropertyIdFromName(L"message", &messageName) != JsNoError)
 	        {
-	            std::cout << L"failed to get error message id" << std::endl;
+	            std::wcout << L"failed to get error message id" << std::endl;
 	        }
 
 
 	        JsValueRef messageValue;
 	        if (JsGetProperty(exception, messageName, &messageValue))
 	        {
-	            std::cout << L"failed to get error message" << std::endl;
+	            std::wcout << L"failed to get error message" << std::endl;
 	        }
 
 	        const wchar_t* message;
@@ -66,10 +68,10 @@ void Chakra::runScript(std::string fileName)
 
 	        if (JsStringToPointer(messageValue, &message, &length) != JsNoError)
 	        {
-	            std::cout << L"failed to convert error message" << std::endl;
+	            std::wcout << L"failed to convert error message" << std::endl;
 	        }
 
-	        std::cout << message << std::endl;
+	        std::wcout << message << std::endl;
 
 			return;
 	    }

@@ -6,13 +6,24 @@ console.log(12312312312);
 
 temp();
 
-
-const asdf = async() => {
-
-    return await sleep(1000);
+let thenable = {
+    then(a, b) {
+        console.log('then called');
+        a(1);
+    },
 };
 
-console.log('asdasd');
-await asdf();
+let native = new Promise(resolve => resolve(1));
 
-console.log('asdasdasdasdasas');
+console.log(0);
+
+Promise.resolve(thenable).then(() => {
+    console.log(1);
+});
+
+Promise.resolve(native).then(() => {
+    console.log(2);
+});
+
+//
+//console.log('asdasdasdasdasas');

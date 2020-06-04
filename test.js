@@ -25,5 +25,4 @@ Promise.resolve(native).then(() => {
     console.log(2);
 });
 
-//
-//console.log('asdasdasdasdasas');
+console.log('asdasdasdasdasas');

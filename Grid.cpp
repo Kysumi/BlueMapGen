@@ -4,7 +4,6 @@ Grid::Grid(sf::Vector2i size)
 {
 	this->size = size;
 
-	gridCopy = std::vector<std::vector<Node>>(size.x, std::vector<Node>(size.y));
 	grid = std::vector<std::vector<Node>>(size.x, std::vector<Node>(size.y));
 
 	for (auto xAxis = 0; xAxis < size.x; xAxis++) {		
@@ -17,13 +16,12 @@ Grid::Grid(sf::Vector2i size)
 			/* generate secret number between 1 and 10: */
 			auto number = rand() % 10 + 1;
 
-			if (number > 5)
+			if (number > 3)
 			{
 				node.born();
 			}
 			
 			grid[xAxis][yAxis] = node;
-			gridCopy[xAxis][yAxis] = node;
 		}
 	}
 }
@@ -46,7 +44,7 @@ void Grid::Draw(sf::RenderWindow& window)
 void Grid::Process()
 {
 	// Replicate grid state to copy
-	gridCopy = grid;
+	auto gridCopy = grid;
 
 	for (auto xAxis = 0; xAxis < size.x; xAxis++) {
 		for (auto yAxis = 0; yAxis < size.y; yAxis++) {
@@ -104,7 +102,7 @@ std::vector<Node> Grid::getNeighbours(int x, int y)
 				continue;
 			}
 
-			if (xAxis > grid.size() || yAxis > grid[0].size())
+			if (xAxis > grid.size() - 1 || yAxis > grid[0].size() - 1)
 			{
 				continue;
 			}
@@ -115,7 +113,7 @@ std::vector<Node> Grid::getNeighbours(int x, int y)
 				continue;
 			}
 			
-			neigbours.push_back(grid[x][y]);
+			neigbours.push_back(grid[xAxis][yAxis]);
 		}
 	}
 

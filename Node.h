@@ -8,6 +8,7 @@ public:
 	Node(){};
 	Node(int i, int j, int w);
 	~Node();
+	bool alive;
 	
 	bool isAlive();
 	void draw(sf::RenderWindow& window);
@@ -18,7 +19,6 @@ public:
 	int getX();
 	int getY();
 private:
-	bool alive;
 	sf::RectangleShape shape;
 	int x, y;
 	int cellSize;

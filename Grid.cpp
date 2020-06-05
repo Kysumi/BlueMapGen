@@ -13,7 +13,6 @@ Grid::Grid(sf::Vector2i size)
 			
 			Node node(xAxis, yAxis, nodeSize);
 
-
 			/* generate secret number between 1 and 10: */
 			auto number = rand() % 10 + 1;
 

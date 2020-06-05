@@ -6,12 +6,13 @@ Grid::Grid(sf::Vector2i size)
 
 	grid = std::vector<std::vector<Node>>(size.x, std::vector<Node>(size.y));
 
+	srand(time(NULL));
+	
 	for (auto xAxis = 0; xAxis < size.x; xAxis++) {		
 		for (auto yAxis = 0; yAxis < size.y; yAxis++) {
 			
 			Node node(xAxis, yAxis, nodeSize);
 
-			srand(time(NULL));
 
 			/* generate secret number between 1 and 10: */
 			auto number = rand() % 10 + 1;

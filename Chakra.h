@@ -12,12 +12,9 @@ public:
 	void runScript(std::string fileName);
 
 	void shutDown();
+	void pushTask(Task *task);
 	
-private:
-	Console console;
-
-	void consoleLog();
-	
+private:	
 	unsigned currentSourceContext = 0;
 	JsRuntimeHandle runtime;
 	JsContextRef context;

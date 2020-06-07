@@ -2,7 +2,6 @@
 #include <ChakraCommon.h>
 #include <queue>
 #include <string>
-#include "Console.h"
 #include "Task.h"
 
 class Chakra

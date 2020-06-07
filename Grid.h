@@ -16,7 +16,7 @@ private:
 	sf::Vector2i size;
 
 	std::vector<std::vector<Node>> grid;
-
+	
 	std::vector<Node> getNeighbours(int x, int y);
 	std::vector<Node> getNeighbours(sf::Vector2i position);
 	std::vector<Node> getAliveNeighbours(sf::Vector2i position);

@@ -16,7 +16,7 @@ Grid::Grid(sf::Vector2i size)
 			/* generate secret number between 1 and 10: */
 			auto number = rand() % 10 + 1;
 
-			if (number > 3)
+			if (number > 7)
 			{
 				node.born();
 			}

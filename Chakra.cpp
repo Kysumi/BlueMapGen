@@ -23,7 +23,7 @@ Chakra::Chakra()
     // Now set the current execution context.
     JsSetCurrentContext(context);
 	
-    console = Console();
+    //console = Console();
 
     // Set up ES6 Promise 
     if (JsSetPromiseContinuationCallback(PromiseContinuationCallback, &taskQueue) != JsNoError)
@@ -121,4 +121,9 @@ void Chakra::shutDown()
     // Dispose runtime
     JsSetCurrentContext(JS_INVALID_REFERENCE);
     JsDisposeRuntime(runtime);
+}
+
+void Chakra::pushTask(Task* task)
+{
+	taskQueue.push(task);
 }

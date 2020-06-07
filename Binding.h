@@ -1,4 +1,5 @@
 #pragma once
+
 #include <ChakraCommon.h>
 #include <vector>
 #include "Chakra.h"
@@ -21,5 +22,3 @@ private:
 	//static JsValueRef CALLBACK JSSetMouseClickCallback(JsValueRef callee, bool isConstructCall, JsValueRef* arguments, unsigned short argumentCount, void* callbackState);
 	static void projectNativeClass(const wchar_t* className, JsNativeFunction constructor, JsValueRef& prototype, std::vector<const wchar_t*> memberNames, std::vector<JsNativeFunction> memberFuncs);
 };
-
-Chakra* Binding::host = new Chakra;

@@ -1,4 +1,6 @@
 #include <SFML/Graphics.hpp>
+
+#include "Binding.h"
 #include "Chakra.h"
 #include "Grid.h"
 
@@ -10,10 +12,10 @@
 
 int main()
 {
-    Chakra chakra;
-    chakra.runScript("test.js");
-
-
+	// Bind Chakra to helper functions
+    Binding::BindNativeFunctions();
+    Binding::host->runScript("test.js");
+	
 	// Create grid
     Grid grid(sf::Vector2i(32, 32));
 
@@ -46,8 +48,8 @@ int main()
         grid.Draw(window);
         window.display();
     }
-	
-    chakra.shutDown();
+
+    //Binding::host->shutDown();
 
     return 0;
 }

@@ -2,6 +2,8 @@
 #include <cassert>
 #include "Task.h"
 
+Chakra* Binding::host = new Chakra;
+
 // add all native bindings
 void Binding::BindNativeFunctions() {
 	// project general methods - console.log, setTimeout, setInterval

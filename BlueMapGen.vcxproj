@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Binding.cpp" />
     <ClCompile Include="BlueMapGen.cpp" />
     <ClCompile Include="Chakra.cpp" />
     <ClCompile Include="Console.cpp" />
@@ -159,6 +160,7 @@
     <None Include="test.js" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Binding.h" />
     <ClInclude Include="Chakra.h" />
     <ClInclude Include="Console.h" />
     <ClInclude Include="Grid.h" />

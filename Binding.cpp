@@ -90,18 +90,22 @@ JsValueRef CALLBACK Binding::JSSetInterval(JsValueRef callee, bool isConstructCa
 
 // project a custom native class and its member functions to JS
 // there must be a one-to-one mapping between elements in memberNames and memberFunc
-void Binding::projectNativeClass(const wchar_t* className, JsNativeFunction constructor, JsValueRef& prototype, std::vector<const wchar_t*> memberNames, std::vector<JsNativeFunction> memberFuncs) {
+void Binding::ProjectNativeClass(const wchar_t* className, JsNativeFunction constructor, JsValueRef& prototype, std::vector<const wchar_t*> memberNames, std::vector<JsNativeFunction> memberFuncs){
 	// project constructor to global scope 
 	JsValueRef globalObject;
 	JsGetGlobalObject(&globalObject);
+
 	JsValueRef jsConstructor;
 	JsCreateFunction(constructor, nullptr, &jsConstructor);
 	setProperty(globalObject, className, jsConstructor);
+
 	// create class's prototype and project its member functions
 	JsCreateObject(&prototype);
 	assert(memberNames.size() == memberNames.size());
+
 	for (int i = 0; i < memberNames.size(); ++i) {
 		setCallback(prototype, memberNames[i], memberFuncs[i], nullptr);
 	}
+	
 	setProperty(jsConstructor, L"prototype", prototype);
 }

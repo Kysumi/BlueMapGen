@@ -18,7 +18,6 @@ int main()
 	
 	// Create grid
     Grid grid(sf::Vector2i(32, 32));
-
 	
     // create the window
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML works!");

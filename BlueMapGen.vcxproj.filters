@@ -42,7 +42,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
-    <None Include="test.js" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -22,7 +22,7 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{b5d5695b-f5c4-471a-8266-bd0bb1bf213b}</ProjectGuid>
-    <RootNamespace>BlueMapGen</RootNamespace>
+    <RootNamespace>OnGrid</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -146,7 +146,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Binding.cpp" />
-    <ClCompile Include="BlueMapGen.cpp" />
+    <ClCompile Include="OnGrid.cpp" />
     <ClCompile Include="Chakra.cpp" />
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="Grid.cpp" />

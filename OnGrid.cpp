@@ -81,7 +81,7 @@ int main()
     Grid::BindToJS();
 	
     // create the window
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Blue Map Generation");
+    sf::RenderWindow window(sf::VideoMode(800, 600), "On Grid");
     window.setFramerateLimit(60);
 
     sf::Clock clock;

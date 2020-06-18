@@ -69,13 +69,14 @@ void Grid::Process()
 std::vector<Node> Grid::getAliveNeighbours(sf::Vector2i position)
 {
 	auto neighbours = getNeighbours(position);
-	std::vector <Node> aliveNodes;
+	std::vector<Node> aliveNodes;
+	aliveNodes.reserve(9); // maximum possible
 
 	for (auto node : neighbours)
 	{
 		if (node.isAlive())
 		{
-			aliveNodes.push_back(node);
+			aliveNodes.emplace_back(node);
 		}
 	}
 
@@ -89,7 +90,8 @@ std::vector<Node> Grid::getNeighbours(sf::Vector2i position)
 
 std::vector<Node> Grid::getNeighbours(int x, int y)
 {
-	std::vector<Node> neigbours;
+	std::vector<Node> neighbours;
+	neighbours.reserve(9); // Maximum possible neighbours
 	
 	for (auto xAxis = x - 1; xAxis <= x + 1; xAxis++)
 	{
@@ -111,9 +113,9 @@ std::vector<Node> Grid::getNeighbours(int x, int y)
 				continue;
 			}
 			
-			neigbours.push_back(grid[xAxis][yAxis]);
+			neighbours.emplace_back(grid[xAxis][yAxis]);
 		}
 	}
 
-	return neigbours;
+	return neighbours;
 }

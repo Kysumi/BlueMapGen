@@ -23,7 +23,7 @@
     // grid = gridCopy;
 
 
-var grid = new Grid(20,20);
+var grid = new Grid(62,62);
 
 function mainloop() {
 

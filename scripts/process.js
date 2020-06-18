@@ -35,10 +35,7 @@ function mainloop() {
     Window.display();
 }
 
-// setInterval(mainloop, 0.5);
-
-
-while(Window.isOpen())
+while (Window.isOpen())
 {
     console.log(Window.isOpen())
 

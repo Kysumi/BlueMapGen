@@ -1,11 +1,10 @@
-#include <iostream>
 #include <SFML/Graphics.hpp>
 
 #include "Binding.h"
 #include "Chakra.h"
-#include "Grid.h"
 #include "Setting.h"
 #include "WindowBinding.h"
+#include "GridBinding.h"
 
 //https://github.com/microsoft/Chakra-Samples/blob/master/ChakraCore%20Samples/JSRT%20Hosting%20Samples/C%2B%2B/ChakraCoreHost/ChakraCoreHost.cpp
 //https://github.com/microsoft/ChakraCore/wiki/JavaScript-Runtime-%28JSRT%29-Overview
@@ -21,7 +20,7 @@ int main()
 
 	// Binding functions to JS
     og::WindowBinding::bind();
-    Grid::BindToJS();
+    og::GridBinding::bind();
 	
     // Create the window
     sf::RenderWindow window(sf::VideoMode(800, 600), "On Grid");

@@ -48,6 +48,9 @@
     <ClCompile Include="WindowBinding.cpp">
       <Filter>Source Files\Bindings</Filter>
     </ClCompile>
+    <ClCompile Include="GridBinding.cpp">
+      <Filter>Source Files\Bindings</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
@@ -76,6 +79,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="WindowBinding.h">
+      <Filter>Header Files\Bindings</Filter>
+    </ClInclude>
+    <ClInclude Include="GridBinding.h">
       <Filter>Header Files\Bindings</Filter>
     </ClInclude>
   </ItemGroup>

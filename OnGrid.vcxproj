@@ -146,6 +146,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Binding.cpp" />
+    <ClCompile Include="GridBinding.cpp" />
     <ClCompile Include="OnGrid.cpp" />
     <ClCompile Include="Chakra.cpp" />
     <ClCompile Include="Grid.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="Binding.h" />
     <ClInclude Include="Chakra.h" />
     <ClInclude Include="Grid.h" />
+    <ClInclude Include="GridBinding.h" />
     <ClInclude Include="Helper.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Setting.h" />

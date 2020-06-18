@@ -1,9 +1,7 @@
 #pragma once
-
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include "Node.h"
-#include <ChakraCommon.h>
 
 class Grid {
 public:
@@ -13,13 +11,10 @@ public:
 	void Process();
 	void Draw(sf::RenderWindow& window);
 
-	static void BindToJS();
-
 	std::vector<Node> getNeighbours(sf::Vector2i position);
 	std::vector<Node> getAliveNeighbours(sf::Vector2i position);
 	std::vector<Node> getNeighbours(int x, int y);
 	
-	static JsValueRef JSGridPrototype;
 	
 private:
 	const int nodeSize = 12;

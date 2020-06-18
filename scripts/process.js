@@ -1,27 +1,4 @@
-	// Replicate grid state to copy
-	// auto gridCopy = grid;
-
-	// for (auto xAxis = 0; xAxis < size.x; xAxis++) {
-	// 	for (auto yAxis = 0; yAxis < size.y; yAxis++) {
-
-	// 		auto node = gridCopy[xAxis][yAxis];
-	// 		auto count = getAliveNeighbours(sf::Vector2i(xAxis, yAxis)).size();
-
-	// 		if (count < 2) {
-	// 			gridCopy[xAxis][yAxis].kill();
-	// 		}
-	// 		else if (count > 3) {
-	// 			gridCopy[xAxis][yAxis].kill();
-	// 		}
-	// 		else if (count == 3) {
-	// 			gridCopy[xAxis][yAxis].born();
-	// 		}
-	// 	}
-	// }
-
-	// // Flip array back again
-    // grid = gridCopy;
-
+import {temp} from './export.js'
 
 var grid = new Grid(62,62);
 
@@ -42,4 +19,6 @@ while (Window.isOpen())
     Window.processEventQueue();
 
     mainloop();
+
+    temp();
 }

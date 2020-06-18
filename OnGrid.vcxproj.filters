@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Bindings">
+      <UniqueIdentifier>{56961fc1-39fb-469a-8dde-f9545f99f5d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Bindings">
+      <UniqueIdentifier>{f5b67234-bc5a-4cbc-bfbd-d6bd015318c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="OnGrid.cpp">
@@ -41,6 +47,9 @@
     </ClCompile>
     <ClCompile Include="Setting.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowBinding.cpp">
+      <Filter>Source Files\Bindings</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -71,6 +80,9 @@
     </ClInclude>
     <ClInclude Include="Setting.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowBinding.h">
+      <Filter>Header Files\Bindings</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

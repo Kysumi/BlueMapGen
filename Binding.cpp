@@ -84,7 +84,9 @@ JsValueRef CALLBACK Binding::JSSetInterval(JsValueRef callee, bool isConstructCa
 	JsValueRef func = arguments[1];
 	int delay = 0;
 	JsNumberToInt(arguments[2], &delay);
+	
 	host->pushTask(new Task(func, delay, arguments[0], JS_INVALID_REFERENCE, true));
+	
 	return JS_INVALID_REFERENCE;
 }
 

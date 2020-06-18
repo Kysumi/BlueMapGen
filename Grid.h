@@ -12,9 +12,8 @@ public:
 
 	void Process();
 	void Draw(sf::RenderWindow& window);
-	void ProjectClass();
 
-	void BindToJS();
+	static void BindToJS();
 
 	std::vector<Node> getNeighbours(sf::Vector2i position);
 	std::vector<Node> getAliveNeighbours(sf::Vector2i position);

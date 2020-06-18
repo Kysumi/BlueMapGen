@@ -35,7 +35,6 @@ void Chakra::runScript(std::string fileName)
     const auto script = Helper::getFileContents(fileName.c_str());
 
     JsValueRef result;
-    JsValueRef promiseResult;
 	
     try
     {

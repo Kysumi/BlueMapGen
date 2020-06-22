@@ -1,4 +1,4 @@
-// import {temp} from './export.js'
+import {temp} from './export.js'
 
 var grid = new Grid(62,62);
 

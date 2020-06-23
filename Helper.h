@@ -20,5 +20,10 @@ public:
     	
         return L"";
     }
+
+	static const std::wstring stdStringToWString(std::string string)
+    {
+	    return std::wstring(string.begin(), string.end());
+    }
 };
 

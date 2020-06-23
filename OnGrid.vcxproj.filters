@@ -51,6 +51,9 @@
     <ClCompile Include="GridBinding.cpp">
       <Filter>Source Files\Bindings</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
@@ -83,6 +86,12 @@
     </ClInclude>
     <ClInclude Include="GridBinding.h">
       <Filter>Header Files\Bindings</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleJob.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleHandler.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

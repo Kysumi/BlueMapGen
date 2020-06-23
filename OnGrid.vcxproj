@@ -147,6 +147,7 @@
   <ItemGroup>
     <ClCompile Include="Binding.cpp" />
     <ClCompile Include="GridBinding.cpp" />
+    <ClCompile Include="ModuleHandler.cpp" />
     <ClCompile Include="OnGrid.cpp" />
     <ClCompile Include="Chakra.cpp" />
     <ClCompile Include="Grid.cpp" />
@@ -166,6 +167,8 @@
     <ClInclude Include="Grid.h" />
     <ClInclude Include="GridBinding.h" />
     <ClInclude Include="Helper.h" />
+    <ClInclude Include="ModuleHandler.h" />
+    <ClInclude Include="ModuleJob.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Setting.h" />
     <ClInclude Include="Task.h" />

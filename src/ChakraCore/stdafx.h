@@ -157,8 +157,8 @@ do { \
 #define ENABLE_TEST_HOOKS
 #endif
 
-#include "TestHooks.h"
-#include "ChakraRtInterface.h"
+//#include "TestHooks.h"
+//#include "ChakraRtInterface.h"
 #include "HostConfigFlags.h"
 #include "MessageQueue.h"
 #include "RuntimeThreadData.h"
@@ -199,10 +199,10 @@ public:
     {
         JsValueRef strValue;
         JsValueType type;
-        ChakraRTInterface::JsGetValueType(value, &type);
+        JsGetValueType(value, &type);
         if (type != JsString)
         {
-            errorCode = ChakraRTInterface::JsConvertValueToString(value, &strValue);
+            errorCode = JsConvertValueToString(value, &strValue);
         }
         else
         {
@@ -211,12 +211,12 @@ public:
         size_t length = 0;
         if (errorCode == JsNoError)
         {
-            errorCode = ChakraRTInterface::JsCopyString(strValue, nullptr, 0, &length);
+            errorCode = JsCopyString(strValue, nullptr, 0, &length);
             if (errorCode == JsNoError)
             {
                 data = (char*)malloc((length + 1) * sizeof(char));
                 size_t writtenLength = 0;
-                errorCode = ChakraRTInterface::JsCopyString(strValue, data, length, &writtenLength);
+                errorCode = JsCopyString(strValue, data, length, &writtenLength);
                 if (errorCode == JsNoError)
                 {
                     AssertMsg(length == writtenLength, "Inconsistent length in utf8 encoding");
@@ -345,8 +345,8 @@ public:
 
 inline JsErrorCode CreatePropertyIdFromString(const char* str, JsPropertyIdRef *Id)
 {
-    return ChakraRTInterface::JsCreatePropertyId(str, strlen(str), Id);
+    return JsCreatePropertyId(str, strlen(str), Id);
 }
 
 void GetBinaryPathWithFileNameA(char *path, const size_t buffer_size, const char* filename);
-extern "C" HRESULT __stdcall OnChakraCoreLoadedEntry(TestHooks& testHooks);
+//extern "C" HRESULT __stdcall OnChakraCoreLoadedEntry(TestHooks& testHooks);

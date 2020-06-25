@@ -80,7 +80,7 @@ void HostConfigFlags::PrintUsage()
 
     wprintf(_u("\nHost Config Flags: \n\n"));
     HostConfigFlags::PrintUsageString();
-    ChakraRTInterface::PrintConfigFlagsUsageString();
+//    PrintConfigFlagsUsageString();
 }
 
 int HostConfigFlags::FindArg(int argc, _In_reads_(argc) PWSTR argv[], PCWSTR targetArg, size_t targetArgLen)

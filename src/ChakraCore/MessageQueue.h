@@ -255,7 +255,7 @@ public:
             msg->Call(fileName);
             delete msg;
 
-            ChakraRTInterface::JsTTDNotifyYield();
+            JsTTDNotifyYield();
         }
         return S_OK;
     }

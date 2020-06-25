@@ -223,16 +223,17 @@ HRESULT Helpers::LoadScriptFromFile(LPCSTR filenameToLoad, LPCSTR& contents, UIN
                 char16 wszBuff[MAX_URI_LENGTH];
                 fprintf(stderr, "Error in opening file '%s' ", filename);
                 wszBuff[0] = 0;
-                if (FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
-                    nullptr,
-                    lastError,
-                    0,
-                    wszBuff,
-                    _countof(wszBuff),
-                    nullptr))
-                {
-                    fwprintf(stderr, _u(": %s"), wszBuff);
-                }
+// TODO fix this at some stage
+//                if (FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+//                    nullptr,
+//                    lastError,
+//                    0,
+//                    wszBuff,
+//                    _countof(wszBuff),
+//                    nullptr))
+//                {
+//                    fwprintf(stderr, _u(": %s"), wszBuff);
+//                }
                 fwprintf(stderr, _u("\n"));
 #elif defined(_POSIX_VERSION)
                 fprintf(stderr, "Error in opening file: ");
@@ -359,7 +360,7 @@ Error:
 LPCWSTR Helpers::JsErrorCodeToString(JsErrorCode jsErrorCode)
 {
     bool hasException = false;
-    ChakraRTInterface::JsHasException(&hasException);
+    JsHasException(&hasException);
     if (hasException)
     {
         WScriptJsrt::PrintException("", JsErrorScriptException);
@@ -457,16 +458,17 @@ HRESULT Helpers::LoadBinaryFile(LPCSTR filename, LPCSTR& contents, UINT& lengthB
             DWORD lastError = GetLastError();
             char16 wszBuff[MAX_URI_LENGTH];
             wszBuff[0] = 0;
-            if (FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
-                nullptr,
-                lastError,
-                0,
-                wszBuff,
-                _countof(wszBuff),
-                nullptr))
-            {
-                fwprintf(stderr, _u(": %s"), wszBuff);
-            }
+            // TODO fix this at some stage
+//            if (FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+//                nullptr,
+//                lastError,
+//                0,
+//                wszBuff,
+//                _countof(wszBuff),
+//                nullptr))
+//            {
+//                fwprintf(stderr, _u(": %s"), wszBuff);
+//            }
 #endif
             fprintf(stderr, "\n");
         }

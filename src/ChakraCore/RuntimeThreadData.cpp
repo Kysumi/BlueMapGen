@@ -55,9 +55,9 @@ DWORD RuntimeThreadData::ThreadProc()
 
     threadLocalData.Initialize(this);
 
-    IfJsErrorFailLog(ChakraRTInterface::JsCreateRuntime(JsRuntimeAttributeNone, nullptr, &runtime));
-    IfJsErrorFailLog(ChakraRTInterface::JsCreateContext(runtime, &context));
-    IfJsErrorFailLog(ChakraRTInterface::JsSetCurrentContext(context));
+    IfJsErrorFailLog(JsCreateRuntime(JsRuntimeAttributeNone, nullptr, &runtime));
+    IfJsErrorFailLog(JsCreateContext(runtime, &context));
+    IfJsErrorFailLog(JsSetCurrentContext(context));
 
 
     if (!WScriptJsrt::Initialize())
@@ -66,13 +66,13 @@ DWORD RuntimeThreadData::ThreadProc()
     }
 
 
-    IfJsErrorFailLog(ChakraRTInterface::JsCreateExternalArrayBuffer((void*)this->initialSource.c_str(),
+    IfJsErrorFailLog(JsCreateExternalArrayBuffer((void*)this->initialSource.c_str(),
         (unsigned int)this->initialSource.size(), nullptr, nullptr, &scriptSource));
 
 
-    ChakraRTInterface::JsCreateString(fullPath, strlen(fullPath), &fname);
+    JsCreateString(fullPath, strlen(fullPath), &fname);
 
-    ChakraRTInterface::JsRun(scriptSource, WScriptJsrt::GetNextSourceContext(), fname, JsParseScriptAttributeNone, nullptr);
+    JsRun(scriptSource, WScriptJsrt::GetNextSourceContext(), fname, JsParseScriptAttributeNone, nullptr);
 
     SetEvent(this->parent->hevntInitialScriptCompleted);
 
@@ -86,16 +86,16 @@ DWORD RuntimeThreadData::ThreadProc()
         if (waitRet == WAIT_OBJECT_0)
         {
             JsValueRef args[3];
-            ChakraRTInterface::JsGetGlobalObject(&args[0]);
-            ChakraRTInterface::JsCreateSharedArrayBufferWithSharedContent(this->parent->sharedContent, &args[1]);
-            ChakraRTInterface::JsDoubleToNumber(1, &args[2]);
+            JsGetGlobalObject(&args[0]);
+            JsCreateSharedArrayBufferWithSharedContent(this->parent->sharedContent, &args[1]);
+            JsDoubleToNumber(1, &args[2]);
 
             // notify the parent we received the data
             ReleaseSemaphore(this->parent->hSemaphore, 1, NULL);
 
             if (this->receiveBroadcastCallbackFunc)
             {
-                ChakraRTInterface::JsCallFunction(this->receiveBroadcastCallbackFunc, args, 3, nullptr);
+                JsCallFunction(this->receiveBroadcastCallbackFunc, args, 3, nullptr);
             }
         }
 
@@ -105,10 +105,10 @@ DWORD RuntimeThreadData::ThreadProc()
 
             if (this->receiveBroadcastCallbackFunc)
             {
-                ChakraRTInterface::JsRelease(this->receiveBroadcastCallbackFunc, nullptr);
+                JsRelease(this->receiveBroadcastCallbackFunc, nullptr);
             }
-            ChakraRTInterface::JsSetCurrentContext(nullptr);
-            ChakraRTInterface::JsDisposeRuntime(runtime);
+            JsSetCurrentContext(nullptr);
+            JsDisposeRuntime(runtime);
 
             threadLocalData.Uninitialize();
             return 0;
@@ -122,8 +122,8 @@ DWORD RuntimeThreadData::ThreadProc()
 
 Error:
 
-    ChakraRTInterface::JsSetCurrentContext(nullptr);
-    ChakraRTInterface::JsDisposeRuntime(runtime);
+    JsSetCurrentContext(nullptr);
+    JsDisposeRuntime(runtime);
     threadLocalData.Uninitialize();
     return 0;
 }

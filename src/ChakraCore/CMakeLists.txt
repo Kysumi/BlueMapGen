@@ -7,8 +7,6 @@ list(APPEND ChakraSource
         ${CMAKE_CURRENT_LIST_DIR}/AssemblyCommon.h
         ${CMAKE_CURRENT_LIST_DIR}/ChakraCoreVersion.h
         ${CMAKE_CURRENT_LIST_DIR}/ChakraICU.h
-        ${CMAKE_CURRENT_LIST_DIR}/ChakraRtInterface.cpp
-        ${CMAKE_CURRENT_LIST_DIR}/ChakraRtInterface.h
         ${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt
         ${CMAKE_CURRENT_LIST_DIR}/CommonDefines.h
         ${CMAKE_CURRENT_LIST_DIR}/CommonPal.h
@@ -31,8 +29,6 @@ list(APPEND ChakraSource
         ${CMAKE_CURRENT_LIST_DIR}/stdafx.h
         ${CMAKE_CURRENT_LIST_DIR}/SystemInfo.h
         ${CMAKE_CURRENT_LIST_DIR}/TargetVer.h
-        ${CMAKE_CURRENT_LIST_DIR}/TestHooks.cpp
-        ${CMAKE_CURRENT_LIST_DIR}/TestHooks.h
         ${CMAKE_CURRENT_LIST_DIR}/Thread.h
         ${CMAKE_CURRENT_LIST_DIR}/Utf8Codex.cpp
         ${CMAKE_CURRENT_LIST_DIR}/Utf8Codex.h

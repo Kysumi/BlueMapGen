@@ -3,6 +3,8 @@
 # Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 #-------------------------------------------------------------------------------------------------------
 
+# https://github.com/microsoft/Chakra-Samples/blob/master/ChakraCore%20Samples/Hello%20World/CMake/CMakeLists.txt
+
 if (NOT ICU_INCLUDE_PATH)
     if (CMAKE_SYSTEM_NAME STREQUAL Darwin)
         set (ICU_INCLUDE_PATH "/usr/local/opt/icu4c/include")

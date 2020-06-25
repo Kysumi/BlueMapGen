@@ -5,9 +5,6 @@ cmake_minimum_required(VERSION 3.8)
 
 project("OnGrid")
 
-# Include sub-projects.
-add_subdirectory("OnGrid")
-
 # set(ICU_INCLUDE_PATH ......) # -> if you have a custom ICU setup
 # set(CHAKRACORE_PATH "................/Github/ChakraCore/") # -> location of the ChakraCore Repo
 # set(CHAKRACORE_LIB_TYPE ....Release or Test or Debug) # -> by default Release
@@ -23,25 +20,23 @@ if (NOT SFML_DIR)
             ")
 endif ()
 
+add_executable(OnGrid sample.cpp)
+
 message("-- Compiling ChakraCore..")
 
 # Embed ChakraCore
 include(ChakraCoreEmbed.cmake)
 
-target_include_directories(Sample
+target_include_directories(OnGrid
         PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
         ${CHAKRACORE_INCLUDE_PATH} # add ChakraCore include path
         )
 
-target_link_libraries(Sample
+target_link_libraries(OnGrid
         ${CHAKRACORE_LINKER_OPTIONS} # add ChakraCore linker options
         )
 
 # SFML Config
 set(SFML_STATIC_LIBRARIES TRUE)
-
 find_package(SFML 2.5.1 COMPONENTS graphics audio REQUIRED)
-
-
-add_executable(OnGrid sample.cpp)
-target_link_libraries(SFMLTest sfml-graphics sfml-audio)
+target_link_libraries(OnGrid sfml-graphics sfml-audio)

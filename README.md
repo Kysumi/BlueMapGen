@@ -17,3 +17,8 @@ ChakraCore.dll into the cmake build DIR
 
 
 The DLL will be in /ChakraCoreSource/Build/VcBuild/bin/x64_release/
+
+
+Ensure you are compiling for x64 on clion this is under
+
+Settings -> Build, Execution, Deployment -> Toolchains -> "Architecture"

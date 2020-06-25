@@ -15,8 +15,8 @@ if (NOT CHAKRACORE_PATH)
 endif ()
 
 if (NOT SFML_DIR)
-    message(FATAL_ERROR "You should set SFML_PATH to run this sample.
-            You may set it from CMake or command line (-DSFML_PATH=<path>)
+    message(FATAL_ERROR "You should set SFML_DIR to run this sample.
+            You may set it from CMake or command line (-DSFML_DIR=<path>)
             ")
 endif ()
 

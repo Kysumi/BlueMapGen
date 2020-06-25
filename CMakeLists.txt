@@ -20,7 +20,7 @@ if (NOT SFML_DIR)
             ")
 endif ()
 
-add_executable(OnGrid sample.cpp)
+add_executable(OnGrid src/main.cpp)
 
 message("-- Compiling ChakraCore..")
 

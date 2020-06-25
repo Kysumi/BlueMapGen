@@ -20,7 +20,11 @@ if (NOT SFML_DIR)
             ")
 endif ()
 
-add_executable(OnGrid src/main.cpp)
+file(GLOB CHAKRA ${PROJECT_SOURCE_DIR}/src/ChakraCore/*.cpp)
+
+include(${PROJECT_SOURCE_DIR}/src/ChakraCore/CMakeLists.txt)
+
+add_executable(OnGrid src/main.cpp ${ChakraSource})
 
 message("-- Compiling ChakraCore..")
 

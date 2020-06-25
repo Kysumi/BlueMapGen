@@ -3,3 +3,4 @@ debug
 packages
 release
 cmake-build-debug-visual-studio
+.idea

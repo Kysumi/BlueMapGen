@@ -117,8 +117,8 @@ bool WScriptJsrt::CreateArgumentsObject(JsValueRef *argsObject)
             return false;
         }
         JsErrorCode errCode  = JsCreateString(
-            argNarrow,
-            strlen(argNarrow), &value);
+                argNarrow,
+                strlen(argNarrow), &value);
         free(argNarrow);
         IfJsrtErrorFail(errCode, false);
 
@@ -246,7 +246,7 @@ JsValueRef WScriptJsrt::LoadScriptFileHelper(JsValueRef callee, JsValueRef *argu
         }
     }
 
-Error:
+    Error:
 
     SetExceptionIf(errorCode, errorMessage);
     return returnValue;
@@ -380,7 +380,7 @@ JsValueRef __stdcall WScriptJsrt::SerializeObject(JsValueRef callee, bool isCons
         errorCode = JsCreateExternalArrayBuffer((void*)blob, sizeof(SerializerBlob), nullptr, nullptr, &returnValue);
         IfJsrtErrorSetGo(JsVarSerializerFree(serializerHandle));
     }
-Error:
+    Error:
     SetExceptionIf(errorCode, errorMessage);
 
     if (transferVarsArray)
@@ -473,7 +473,7 @@ JsValueRef __stdcall WScriptJsrt::Deserialize(JsValueRef callee, bool isConstruc
 
     }
 
-Error:
+    Error:
     SetExceptionIf(errorCode, errorMessage);
     if (transferables)
     {
@@ -595,7 +595,7 @@ JsValueRef WScriptJsrt::LoadScriptHelper(JsValueRef callee, bool isConstructCall
         }
     }
 
-Error:
+    Error:
     SetExceptionIf(errorCode, errorMessage);
     return returnValue;
 }
@@ -660,12 +660,12 @@ JsErrorCode WScriptJsrt::LoadModuleFromString(LPCSTR fileName, LPCSTR fileConten
         if (isFile && fullName)
         {
             errorCode = JsCreateString(
-                fullName, strlen(fullName), &specifier);
+                    fullName, strlen(fullName), &specifier);
         }
         if (errorCode == JsNoError)
         {
             errorCode = JsInitializeModuleRecord(
-                nullptr, specifier, &requestModule);
+                    nullptr, specifier, &requestModule);
         }
         if (errorCode == JsNoError)
         {
@@ -691,9 +691,9 @@ JsErrorCode WScriptJsrt::LoadModuleFromString(LPCSTR fileName, LPCSTR fileConten
 
     // ParseModuleSource is sync, while additional fetch & evaluation are async.
     unsigned int fileContentLength = (fileContent == nullptr) ? 0 : (unsigned int)strlen(fileContent);
- 
+
     errorCode = JsParseModuleSource(requestModule, dwSourceCookie, (LPBYTE)fileContent,
-        fileContentLength, JsParseModuleSourceFlags_DataIsUTF8, &errorObject);
+                                                       fileContentLength, JsParseModuleSourceFlags_DataIsUTF8, &errorObject);
     if ((errorCode != JsNoError) && errorObject != JS_INVALID_REFERENCE && fileContent != nullptr && !HostConfigFlags::flags.IgnoreScriptErrorCode && moduleErrMap[requestModule] == RootModule)
     {
         JsSetException(errorObject);
@@ -705,7 +705,7 @@ JsErrorCode WScriptJsrt::LoadModuleFromString(LPCSTR fileName, LPCSTR fileConten
 
 
 JsValueRef WScriptJsrt::LoadScript(JsValueRef callee, LPCSTR fileName,
-    LPCSTR fileContent, LPCSTR scriptInjectType, bool isSourceModule, JsFinalizeCallback finalizeCallback, bool isFile)
+                                   LPCSTR fileContent, LPCSTR scriptInjectType, bool isSourceModule, JsFinalizeCallback finalizeCallback, bool isFile)
 {
     HRESULT hr = E_FAIL;
     JsErrorCode errorCode = JsNoError;
@@ -745,10 +745,10 @@ JsValueRef WScriptJsrt::LoadScript(JsValueRef callee, LPCSTR fileName,
 
         JsValueRef scriptSource;
         IfJsrtErrorSetGo(JsCreateExternalArrayBuffer((void*)fileContent,
-            (unsigned int)strlen(fileContent), finalizeCallback, callbackArg, &scriptSource));
+                                                                        (unsigned int)strlen(fileContent), finalizeCallback, callbackArg, &scriptSource));
         JsValueRef fname;
         IfJsrtErrorSetGo(JsCreateString(fullPath,
-            strlen(fullPath), &fname));
+                                                           strlen(fullPath), &fname));
         JsSourceContext sourceContext = GetNextSourceContext();
         RegisterScriptDir(sourceContext, fullPath);
 
@@ -791,10 +791,10 @@ JsValueRef WScriptJsrt::LoadScript(JsValueRef callee, LPCSTR fileName,
 
         JsValueRef scriptSource;
         IfJsrtErrorSetGo(JsCreateExternalArrayBuffer((void*)fileContent,
-            (unsigned int)strlen(fileContent), finalizeCallback, callbackArg, &scriptSource));
+                                                                        (unsigned int)strlen(fileContent), finalizeCallback, callbackArg, &scriptSource));
         JsValueRef fname;
         IfJsrtErrorSetGo(JsCreateString(fullPath,
-            strlen(fullPath), &fname));
+                                                           strlen(fullPath), &fname));
         JsSourceContext sourceContext = GetNextSourceContext();
         RegisterScriptDir(sourceContext, fullPath);
 
@@ -847,7 +847,7 @@ JsValueRef WScriptJsrt::LoadScript(JsValueRef callee, LPCSTR fileName,
         errorMessage = _u("Unsupported argument type inject type.");
     }
 
-Error:
+    Error:
     JsValueRef value = returnValue;
     if (errorCode != JsNoError)
     {
@@ -889,7 +889,7 @@ JsValueRef WScriptJsrt::SetTimeoutCallback(JsValueRef callee, bool isConstructCa
     IfJsrtErrorSetGo(JsDoubleToNumber(static_cast<double>(msg->GetId()), &timerId));
     return timerId;
 
-Error:
+    Error:
     SetExceptionIf(errorCode, errorMessage);
     return JS_INVALID_REFERENCE;
 }
@@ -919,7 +919,7 @@ JsValueRef WScriptJsrt::ClearTimeoutCallback(JsValueRef callee, bool isConstruct
     IfJsrtErrorSetGo(JsGetUndefinedValue(&undef));
     return undef;
 
-Error:
+    Error:
     SetExceptionIf(errorCode, errorMessage);
     return JS_INVALID_REFERENCE;
 }
@@ -960,7 +960,7 @@ JsValueRef WScriptJsrt::AttachCallback(JsValueRef callee, bool isConstructCall, 
 
         return msg.CallFunction("");
     });
-Error:
+    Error:
     SetExceptionIf(errorCode, errorMessage);
     return JS_INVALID_REFERENCE;
 }
@@ -995,7 +995,7 @@ JsValueRef WScriptJsrt::DetachCallback(JsValueRef callee, bool isConstructCall, 
 //        }
         return msg.CallFunction("");
     });
-Error:
+    Error:
     SetExceptionIf(errorCode, errorMessage);
     return JS_INVALID_REFERENCE;
 }
@@ -1022,7 +1022,7 @@ JsValueRef WScriptJsrt::DumpFunctionPositionCallback(JsValueRef callee, bool isC
 }
 
 JsValueRef WScriptJsrt::RequestAsyncBreakCallback(JsValueRef callee, bool isConstructCall,
-    JsValueRef * arguments, unsigned short argumentCount, void * callbackState)
+                                                  JsValueRef * arguments, unsigned short argumentCount, void * callbackState)
 {
 //    if (Debugger::debugger != nullptr && !Debugger::debugger->IsDetached())
 //    {
@@ -1037,24 +1037,24 @@ JsValueRef WScriptJsrt::RequestAsyncBreakCallback(JsValueRef callee, bool isCons
 }
 
 JsValueRef WScriptJsrt::EmptyCallback(JsValueRef callee, bool isConstructCall,
-    JsValueRef * arguments, unsigned short argumentCount, void * callbackState)
+                                      JsValueRef * arguments, unsigned short argumentCount, void * callbackState)
 {
     return JS_INVALID_REFERENCE;
 }
 
 bool WScriptJsrt::CreateNamedFunction(const char* nameString, JsNativeFunction callback,
-    JsValueRef* functionVar)
+                                      JsValueRef* functionVar)
 {
     JsValueRef nameVar;
     IfJsrtErrorFail(JsCreateString(
-        nameString, strlen(nameString), &nameVar), false);
+            nameString, strlen(nameString), &nameVar), false);
     IfJsrtErrorFail(JsCreateNamedFunction(nameVar, callback,
-        nullptr, functionVar), false);
+                                                             nullptr, functionVar), false);
     return true;
 }
 
 bool WScriptJsrt::InstallObjectsOnObject(JsValueRef object, const char* name,
-    JsNativeFunction nativeFunction)
+                                         JsNativeFunction nativeFunction)
 {
     JsValueRef propertyValueRef;
     JsPropertyIdRef propertyId;
@@ -1064,7 +1064,7 @@ bool WScriptJsrt::InstallObjectsOnObject(JsValueRef object, const char* name,
         return false;
     }
     IfJsrtErrorFail(JsSetProperty(object, propertyId,
-        propertyValueRef, true), false);
+                                                     propertyValueRef, true), false);
     return true;
 }
 
@@ -1121,9 +1121,9 @@ bool WScriptJsrt::Initialize()
     IfJsrtErrorFail(CreatePropertyIdFromString("ARCH", &archProperty), false);
     JsValueRef archValue;
     IfJsrtErrorFail(JsCreateString(
-        CPU_ARCH_TEXT, strlen(CPU_ARCH_TEXT), &archValue), false);
+            CPU_ARCH_TEXT, strlen(CPU_ARCH_TEXT), &archValue), false);
     IfJsrtErrorFail(JsSetProperty(platformObject, archProperty,
-        archValue, true), false);
+                                                     archValue, true), false);
 
     // Set Build Type
     JsPropertyIdRef buildProperty;
@@ -1132,14 +1132,14 @@ bool WScriptJsrt::Initialize()
 #ifdef _DEBUG
 #define BUILD_TYPE_STRING_CH "Debug" // (O0)
 #elif defined(ENABLE_DEBUG_CONFIG_OPTIONS)
-#define BUILD_TYPE_STRING_CH "Test" // (O3 with debug config options)
+    #define BUILD_TYPE_STRING_CH "Test" // (O3 with debug config options)
 #else
 #define BUILD_TYPE_STRING_CH "Release" // (O3)
 #endif
     IfJsrtErrorFail(JsCreateString(
-        BUILD_TYPE_STRING_CH, strlen(BUILD_TYPE_STRING_CH), &buildValue), false);
+            BUILD_TYPE_STRING_CH, strlen(BUILD_TYPE_STRING_CH), &buildValue), false);
     IfJsrtErrorFail(JsSetProperty(platformObject, buildProperty,
-        buildValue, true), false);
+                                                     buildValue, true), false);
 #undef BUILD_TYPE_STRING_CH
 
     // Set Link Type [static / shared]
@@ -1147,9 +1147,9 @@ bool WScriptJsrt::Initialize()
     IfJsrtErrorFail(CreatePropertyIdFromString("LINK_TYPE", &linkProperty), false);
     JsValueRef linkValue;
     IfJsrtErrorFail(JsCreateString(
-        LINK_TYPE, strlen(LINK_TYPE), &linkValue), false);
+            LINK_TYPE, strlen(LINK_TYPE), &linkValue), false);
     IfJsrtErrorFail(JsSetProperty(platformObject, linkProperty,
-      linkValue, true), false);
+                                                     linkValue, true), false);
 
     // Set Binary Location
     JsValueRef binaryPathValue;
@@ -1159,19 +1159,19 @@ bool WScriptJsrt::Initialize()
     IfJsrtErrorFail(CreatePropertyIdFromString("BINARY_PATH", &binaryPathProperty), false);
 
     IfJsrtErrorFail(JsCreateString(
-        CH_BINARY_LOCATION,
-        strlen(CH_BINARY_LOCATION), &binaryPathValue), false);
+            CH_BINARY_LOCATION,
+            strlen(CH_BINARY_LOCATION), &binaryPathValue), false);
     IfJsrtErrorFail(JsSetProperty(
-        platformObject, binaryPathProperty, binaryPathValue, true), false);
+            platformObject, binaryPathProperty, binaryPathValue, true), false);
 
     // Set destination OS
     JsPropertyIdRef osProperty;
     IfJsrtErrorFail(CreatePropertyIdFromString("OS", &osProperty), false);
     JsValueRef osValue;
     IfJsrtErrorFail(JsCreateString(
-        DEST_PLATFORM_TEXT, strlen(DEST_PLATFORM_TEXT), &osValue), false);
+            DEST_PLATFORM_TEXT, strlen(DEST_PLATFORM_TEXT), &osValue), false);
     IfJsrtErrorFail(JsSetProperty(platformObject, osProperty,
-        osValue, true), false);
+                                                     osValue, true), false);
 
     // set Internationalization library
     JsPropertyIdRef intlLibraryProp;
@@ -1186,7 +1186,7 @@ bool WScriptJsrt::Initialize()
     IfJsrtErrorFail(JsSetProperty(platformObject, icuVersionProp, icuVersionNum, true), false);
 
     IfJsrtErrorFail(JsSetProperty(wscript, platformProperty,
-        platformObject, true), false);
+                                                     platformObject, true), false);
 
     JsValueRef argsObject;
 
@@ -1236,7 +1236,7 @@ bool WScriptJsrt::Initialize()
 
         // $262
         const char Test262[] =
-            #include "262.js"
+#include "262.js"
         ;
 
         JsValueRef Test262ScriptRef;
@@ -1247,7 +1247,7 @@ bool WScriptJsrt::Initialize()
         IfJsrtErrorFailLogAndRetFalse(JsRun(Test262ScriptRef, WScriptJsrt::GetNextSourceContext(), fname, JsParseScriptAttributeNone, nullptr));
     }
 
-Error:
+    Error:
     return hr == S_OK;
 }
 
@@ -1298,7 +1298,7 @@ void CALLBACK WScriptJsrt::JsContextBeforeCollectCallback(JsRef contextRef, void
 
 FileNode * SourceMap::root = nullptr;
 JsValueRef __stdcall WScriptJsrt::RegisterModuleSourceCallback(JsValueRef callee, bool isConstructCall,
-    JsValueRef *arguments, unsigned short argumentCount, void *callbackState)
+                                                               JsValueRef *arguments, unsigned short argumentCount, void *callbackState)
 {
     HRESULT hr = E_FAIL;
     JsValueRef returnValue = JS_INVALID_REFERENCE;
@@ -1318,7 +1318,7 @@ JsValueRef __stdcall WScriptJsrt::RegisterModuleSourceCallback(JsValueRef callee
         SourceMap::Add(fileName, data);
     }
 
-Error:
+    Error:
     return returnValue;
 }
 
@@ -1352,11 +1352,11 @@ JsValueRef __stdcall WScriptJsrt::LoadTextFileCallback(JsValueRef callee, bool i
             }
 
             IfJsrtErrorSetGo(JsCreateString(
-                fileContent, lengthBytes, &returnValue));
+                    fileContent, lengthBytes, &returnValue));
         }
     }
 
-Error:
+    Error:
     if (fileContent)
     {
         free((void*)fileContent);
@@ -1409,41 +1409,41 @@ JsValueRef __stdcall WScriptJsrt::ReadLineStdinCallback(JsValueRef callee, bool 
         goto Error;
     }
 
-    while ((gotlength = JsFgets(buf + buflength, bufsize - buflength, from)) > 0) 
+    while ((gotlength = JsFgets(buf + buflength, bufsize - buflength, from)) > 0)
     {
         buflength += gotlength;
 
         // are we done?
-        if (buf[buflength - 2] == '\r' && buf[buflength - 1] == '\n') 
+        if (buf[buflength - 2] == '\r' && buf[buflength - 1] == '\n')
         {
             buf[buflength - 1] = '\0';
             buf[buflength - 2] = '\0';
             buflength -= 2;
             break;
         }
-        else if (buf[buflength - 1] == '\n') 
+        else if (buf[buflength - 1] == '\n')
         {
             buf[buflength - 1] = '\0';
             buflength -= 1;
             break;
         }
-        else if (buflength < bufsize - 1) 
+        else if (buflength < bufsize - 1)
         {
             break;
         }
 
         // Else, grow our buffer for another pass.
         bufsize *= 2;
-        if (bufsize > buflength) 
+        if (bufsize > buflength)
         {
             tmp = static_cast<char*>(realloc(buf, bufsize));
         }
-        else 
+        else
         {
             goto Error;
         }
 
-        if (!tmp) 
+        if (!tmp)
         {
             goto Error;
         }
@@ -1452,13 +1452,13 @@ JsValueRef __stdcall WScriptJsrt::ReadLineStdinCallback(JsValueRef callee, bool 
     }
 
     //Treat the empty string specially.
-    if (buflength == 0) 
+    if (buflength == 0)
     {
-        if (feof(from)) 
+        if (feof(from))
         {
             goto Error;
         }
-        else 
+        else
         {
             JsValueRef emptyStringObject;
             IfJsrtErrorSetGo(JsCreateString(buf, buflength, &emptyStringObject));
@@ -1467,14 +1467,14 @@ JsValueRef __stdcall WScriptJsrt::ReadLineStdinCallback(JsValueRef callee, bool 
         }
     }
 
-   
+
     // Turn buf into a JSString. Note that buflength includes the trailing null character.
     JsValueRef stringObject;
     IfJsrtErrorSetGo(JsCreateString(buf, buflength, &stringObject));
     free(buf);
     return stringObject;
 
-Error:
+    Error:
     if (buf)
     {
         free(buf);
@@ -1483,7 +1483,7 @@ Error:
 }
 
 JsValueRef __stdcall WScriptJsrt::LoadBinaryFileCallback(JsValueRef callee,
-    bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount, void *callbackState)
+                                                         bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount, void *callbackState)
 {
     HRESULT hr = E_FAIL;
     JsValueRef returnValue = JS_INVALID_REFERENCE;
@@ -1530,7 +1530,7 @@ JsValueRef __stdcall WScriptJsrt::LoadBinaryFileCallback(JsValueRef callee,
                     returnValue = arrayBuffer;
                 }
             }
-ErrorStillFree:
+            ErrorStillFree:
             if (isHeapAlloc)
             {
                 HeapFree(GetProcessHeap(), 0, (void*)fileContent);
@@ -1538,7 +1538,7 @@ ErrorStillFree:
         }
     }
 
-Error:
+    Error:
     return returnValue;
 }
 
@@ -1560,7 +1560,7 @@ JsValueRef __stdcall WScriptJsrt::FlagCallback(JsValueRef callee, bool isConstru
     }
 #endif
 
-Error:
+    Error:
     return returnValue;
 }
 
@@ -1604,7 +1604,7 @@ JsValueRef __stdcall WScriptJsrt::BroadcastCallback(JsValueRef callee, bool isCo
         }
     }
 
-Error:
+    Error:
     return returnValue;
 }
 
@@ -1630,7 +1630,7 @@ JsValueRef __stdcall WScriptJsrt::ReceiveBroadcastCallback(JsValueRef callee, bo
         }
     }
 
-Error:
+    Error:
     return returnValue;
 }
 
@@ -1663,7 +1663,7 @@ JsValueRef __stdcall WScriptJsrt::ReportCallback(JsValueRef callee, bool isConst
         }
     }
 
-Error:
+    Error:
     return returnValue;
 }
 
@@ -1692,7 +1692,7 @@ JsValueRef __stdcall WScriptJsrt::GetReportCallback(JsValueRef callee, bool isCo
         }
     }
 
-Error:
+    Error:
     return returnValue;
 }
 
@@ -1713,7 +1713,7 @@ JsValueRef __stdcall WScriptJsrt::LeavingCallback(JsValueRef callee, bool isCons
         }
     }
 
-Error:
+    Error:
     return returnValue;
 }
 
@@ -1732,7 +1732,7 @@ JsValueRef __stdcall WScriptJsrt::SleepCallback(JsValueRef callee, bool isConstr
         Sleep((DWORD)timeout);
     }
 
-Error:
+    Error:
     return returnValue;
 }
 
@@ -1759,7 +1759,7 @@ JsValueRef __stdcall WScriptJsrt::GetProxyPropertiesCallback(JsValueRef callee, 
             JsPropertyIdRef targetProperty;
             JsPropertyIdRef handlerProperty;
             JsPropertyIdRef revokedProperty;
-            
+
             IfJsrtErrorSetGo(CreatePropertyIdFromString("target", &targetProperty));
             IfJsrtErrorSetGo(CreatePropertyIdFromString("handler", &handlerProperty));
             IfJsrtErrorSetGo(CreatePropertyIdFromString("revoked", &revokedProperty));
@@ -1783,7 +1783,7 @@ JsValueRef __stdcall WScriptJsrt::GetProxyPropertiesCallback(JsValueRef callee, 
             IfJsrtErrorSetGo(JsSetProperty(returnValue, revokedProperty, revoked, true));
         }
     }
-Error:
+    Error:
     return returnValue;
 }
 
@@ -1815,7 +1815,7 @@ bool WScriptJsrt::PrintException(LPCSTR fileName, JsErrorCode jsErrorCode)
 
                 int line;
                 int column;
-                
+
                 IfJsrtErrorFail(CreatePropertyIdFromString("line", &linePropertyId), false);
                 IfJsrtErrorFail(JsGetProperty(exception, linePropertyId, &lineProperty), false);
                 IfJsrtErrorFail(JsNumberToInt(lineProperty, &line), false);
@@ -1828,8 +1828,8 @@ bool WScriptJsrt::PrintException(LPCSTR fileName, JsErrorCode jsErrorCode)
                 CHAR ext[_MAX_EXT];
                 _splitpath_s(fileName, nullptr, 0, nullptr, 0, shortFileName, _countof(shortFileName), ext, _countof(ext));
                 fwprintf(stderr, _u("%ls\n\tat code (%S%S:%d:%d)\n"),
-                    errorMessage.GetWideString(), shortFileName, ext, (int)line + 1,
-                    (int)column + 1);
+                         errorMessage.GetWideString(), shortFileName, ext, (int)line + 1,
+                         (int)column + 1);
             }
             else
             {
@@ -1939,8 +1939,8 @@ HRESULT WScriptJsrt::CallbackMessage::CallFunction(LPCSTR fileName)
         JsCreateString("", strlen(""), &fname);
         // Run the code
         errorCode = JsRun(stringValue, JS_SOURCE_CONTEXT_NONE,
-          fname, JsParseScriptAttributeArrayBufferIsUtf16Encoded,
-          nullptr /*no result needed*/);
+                                             fname, JsParseScriptAttributeArrayBufferIsUtf16Encoded,
+                                             nullptr /*no result needed*/);
     }
     else
     {
@@ -1953,12 +1953,12 @@ HRESULT WScriptJsrt::CallbackMessage::CallFunction(LPCSTR fileName)
         PrintException(fileName, errorCode);
     }
 
-Error:
+    Error:
     return hr;
 }
 
 WScriptJsrt::ModuleMessage::ModuleMessage(JsModuleRecord module, JsValueRef specifier, std::string* fullPathPtr)
-    : MessageBase(0), moduleRecord(module), specifier(specifier)
+        : MessageBase(0), moduleRecord(module), specifier(specifier)
 {
     fullPath = nullptr;
     JsAddRef(module, nullptr);
@@ -2035,12 +2035,12 @@ HRESULT WScriptJsrt::ModuleMessage::Call(LPCSTR fileName)
             LoadScript(nullptr, fullPath == nullptr ? *specifierStr : fullPath->c_str(), fileContent, "module", true, WScriptJsrt::FinalizeFree, true);
         }
     }
-Error:
+    Error:
     return errorCode;
 }
 
 JsErrorCode WScriptJsrt::FetchImportedModuleHelper(JsModuleRecord referencingModule,
-    JsValueRef specifier, __out JsModuleRecord* dependentModuleRecord, LPCSTR refdir)
+                                                   JsValueRef specifier, __out JsModuleRecord* dependentModuleRecord, LPCSTR refdir)
 {
     JsModuleRecord moduleRecord = JS_INVALID_REFERENCE;
     AutoString specifierStr;
@@ -2090,7 +2090,7 @@ JsErrorCode WScriptJsrt::FetchImportedModuleHelper(JsModuleRecord referencingMod
 // While this call will come back directly from ParseModuleSource, the additional
 // task are treated as Promise that will be executed later.
 JsErrorCode WScriptJsrt::FetchImportedModule(_In_ JsModuleRecord referencingModule,
-    _In_ JsValueRef specifier, _Outptr_result_maybenull_ JsModuleRecord* dependentModuleRecord)
+                                             _In_ JsValueRef specifier, _Outptr_result_maybenull_ JsModuleRecord* dependentModuleRecord)
 {
     auto moduleDirEntry = moduleDirMap.find(referencingModule);
     if (moduleDirEntry != moduleDirMap.end())
@@ -2107,7 +2107,7 @@ JsErrorCode WScriptJsrt::FetchImportedModule(_In_ JsModuleRecord referencingModu
 // While this call will come back directly from runtime script or module code, the additional
 // task can be scheduled asynchronously that executed later.
 JsErrorCode WScriptJsrt::FetchImportedModuleFromScript(_In_ JsSourceContext dwReferencingSourceContext,
-    _In_ JsValueRef specifier, _Outptr_result_maybenull_ JsModuleRecord* dependentModuleRecord)
+                                                       _In_ JsValueRef specifier, _Outptr_result_maybenull_ JsModuleRecord* dependentModuleRecord)
 {
     return FetchImportedModuleHelper(nullptr, specifier, dependentModuleRecord);
 }
@@ -2136,11 +2136,11 @@ JsErrorCode WScriptJsrt::NotifyModuleReadyCallback(_In_opt_ JsModuleRecord refer
         JsGetAndClearException(&exception);
         exception; // unused
     }
-    
+
     if (exceptionVar != nullptr || moduleErrMap[referencingModule] != ErroredModule)
     {
         WScriptJsrt::ModuleMessage* moduleMessage =
-            WScriptJsrt::ModuleMessage::Create(referencingModule, nullptr);
+                WScriptJsrt::ModuleMessage::Create(referencingModule, nullptr);
         if (moduleMessage == nullptr)
         {
             return JsErrorOutOfMemory;
@@ -2191,7 +2191,7 @@ void WScriptJsrt::PromiseRejectionTrackerCallback(JsValueRef promise, JsValueRef
         wprintf(_u("Promise rejection handled\n"));
     }
 
-    JsPropertyIdRef stackPropertyID; 
+    JsPropertyIdRef stackPropertyID;
     JsErrorCode error = JsCreatePropertyId("stack", strlen("stack"), &stackPropertyID);
     if (error == JsNoError)
     {
@@ -2208,7 +2208,7 @@ void WScriptJsrt::PromiseRejectionTrackerCallback(JsValueRef promise, JsValueRef
             }
         }
     }
-    
+
     if (error != JsNoError)
     {
         // weren't able to print stack, so just convert reason to a string

@@ -167,7 +167,7 @@ do { \
 
 #ifdef _WIN32
 #include <strsafe.h>
-#include "JITProcessManager.h"
+//#include "JITProcessManager.h"
 #endif
 
 class AutoString

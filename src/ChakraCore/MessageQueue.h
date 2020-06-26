@@ -3,6 +3,8 @@
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #pragma once
+#include <Windows.h>
+#include <ChakraCommon.h>
 
 class MessageBase
 {
@@ -142,7 +144,7 @@ private:
         // If the list is empty, just set head to newNode
         if (head == nullptr)
         {
-            Assert(node == nullptr);
+//            Assert(node == nullptr); // TODO FIX
             head = newNode;
             return;
         }
@@ -156,7 +158,7 @@ private:
             return;
         }
 
-        Assert(node);
+//        Assert(node);
         newNode->next = node->next;
         newNode->prev = node;
 
@@ -201,7 +203,7 @@ public:
 
     MessageBase* PopAndWait()
     {
-        Assert(!m_queue.IsEmpty());
+//        Assert(!m_queue.IsEmpty());
 
         ListEntry entry = m_queue.Pop();
         MessageBase *tmp = entry.message;
@@ -255,7 +257,7 @@ public:
             msg->Call(fileName);
             delete msg;
 
-            JsTTDNotifyYield();
+//            JsTTDNotifyYield(); // TODO FIx
         }
         return S_OK;
     }

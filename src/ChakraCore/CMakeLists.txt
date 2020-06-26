@@ -20,8 +20,6 @@ list(APPEND ChakraSource
         ${CMAKE_CURRENT_LIST_DIR}/HostConfigFlags.h
         ${CMAKE_CURRENT_LIST_DIR}/HostConfigFlagsList.h
         ${CMAKE_CURRENT_LIST_DIR}/ICustomConfigFlags.h
-        ${CMAKE_CURRENT_LIST_DIR}/JITProcessManager.cpp
-        ${CMAKE_CURRENT_LIST_DIR}/JITProcessManager.h
         ${CMAKE_CURRENT_LIST_DIR}/MessageQueue.h
         ${CMAKE_CURRENT_LIST_DIR}/Numbers.h
         ${CMAKE_CURRENT_LIST_DIR}/RuntimeThreadData.cpp
@@ -36,6 +34,9 @@ list(APPEND ChakraSource
         ${CMAKE_CURRENT_LIST_DIR}/Warnings.h
         ${CMAKE_CURRENT_LIST_DIR}/WScriptJsrt.cpp
         ${CMAKE_CURRENT_LIST_DIR}/WScriptJsrt.h
+        ${CMAKE_CURRENT_LIST_DIR}/CodexAssert.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/Chakra.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/Chakra.h
         )
 
 

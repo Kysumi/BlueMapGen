@@ -73,27 +73,27 @@ public:
     {
         switch (errorCode)
         {
-        case (JsErrorCode::JsErrorInvalidArgument) :
-            return _u("TypeError: InvalidArgument");
-        case (JsErrorCode::JsErrorNullArgument) :
-            return _u("TypeError: NullArgument");
-        case (JsErrorCode::JsErrorArgumentNotObject) :
-            return _u("TypeError: ArgumentNotAnObject");
-        case (JsErrorCode::JsErrorOutOfMemory) :
-            return _u("OutOfMemory");
-        case (JsErrorCode::JsErrorScriptException) :
-            return _u("ScriptError");
-        case (JsErrorCode::JsErrorScriptCompile) :
-            return _u("SyntaxError");
-        case (JsErrorCode::JsErrorFatal) :
-            return _u("FatalError");
-        case (JsErrorCode::JsErrorInExceptionState) :
-            return _u("ErrorInExceptionState");
-        case (JsErrorCode::JsErrorBadSerializedScript):
-            return _u("ErrorBadSerializedScript ");
-        default:
-            AssertMsg(false, "Unexpected JsErrorCode");
-            return nullptr;
+            case (JsErrorCode::JsErrorInvalidArgument) :
+                return _u("TypeError: InvalidArgument");
+            case (JsErrorCode::JsErrorNullArgument) :
+                return _u("TypeError: NullArgument");
+            case (JsErrorCode::JsErrorArgumentNotObject) :
+                return _u("TypeError: ArgumentNotAnObject");
+            case (JsErrorCode::JsErrorOutOfMemory) :
+                return _u("OutOfMemory");
+            case (JsErrorCode::JsErrorScriptException) :
+                return _u("ScriptError");
+            case (JsErrorCode::JsErrorScriptCompile) :
+                return _u("SyntaxError");
+            case (JsErrorCode::JsErrorFatal) :
+                return _u("FatalError");
+            case (JsErrorCode::JsErrorInExceptionState) :
+                return _u("ErrorInExceptionState");
+            case (JsErrorCode::JsErrorBadSerializedScript):
+                return _u("ErrorBadSerializedScript ");
+            default:
+                AssertMsg(false, "Unexpected JsErrorCode");
+                return nullptr;
         }
     }
 
@@ -136,7 +136,7 @@ private:
     static JsValueRef CALLBACK RegisterModuleSourceCallback(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount, void *callbackState);
     static JsValueRef CALLBACK FlagCallback(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount, void *callbackState);
     static JsValueRef CALLBACK ReadLineStdinCallback(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount, void *callbackState);
-    
+
     static JsValueRef CALLBACK BroadcastCallback(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount, void *callbackState);
     static JsValueRef CALLBACK ReceiveBroadcastCallback(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount, void *callbackState);
     static JsValueRef CALLBACK ReportCallback(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount, void *callbackState);

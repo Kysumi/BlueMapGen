@@ -4,10 +4,13 @@
 #include "ChakraCore/stdafx.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "ChakraCore/Chakra.h"
 
 int main()
 {
     std::cout << "Starting up OnGrid..." << std::endl;
+
+    Chakra::runScripty();
 
     // create the window
     sf::RenderWindow window(sf::VideoMode(800, 600), "My window");

@@ -9,6 +9,9 @@ BOOL Chakra::doTTRecord = false;
 size_t Chakra::ttUriLength = 0;
 char Chakra::ttUri[];
 
+JsRuntimeHandle Chakra::runtime;
+JsContextRef Chakra::context;
+
 JsRuntimeAttributes Chakra::jsrtAttributes = JsRuntimeAttributeNone;
 
 HRESULT Chakra::RunBgParseSync(LPCSTR fileContents, UINT lengthBytes, const char *fileName) {

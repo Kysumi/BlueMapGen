@@ -2,6 +2,16 @@
 
 class Chakra {
 public:
+    static void init() {
+        // Create a runtime.
+        JsCreateRuntime(JsRuntimeAttributeNone, nullptr, &runtime);
+
+        // Create an execution context.
+        JsCreateContext(runtime, &context);
+
+        // Now set the current execution context.
+        JsSetCurrentContext(context);
+    };
     static bool runScripty();
 
 private:
@@ -24,6 +34,10 @@ private:
     static BOOL doTTRecord;
     static size_t ttUriLength;
     static JsRuntimeAttributes jsrtAttributes;
+
+    static JsRuntimeHandle runtime;
+    static JsContextRef context;
+
 
     static bool CHAKRA_CALLBACK DummyJsSerializedScriptLoadUtf8Source(
             JsSourceContext sourceContext,

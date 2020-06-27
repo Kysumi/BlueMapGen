@@ -4,7 +4,10 @@ class Chakra {
 public:
     static void init() {
         // Create a runtime.
-        JsCreateRuntime(JsRuntimeAttributeNone, nullptr, &runtime);
+        JsCreateRuntime(JsRuntimeAttributeEnableExperimentalFeatures, nullptr, &runtime);
+
+        // enabling scripts to run as modules
+        HostConfigFlags::flags.Module = true;
 
         // Create an execution context.
         JsCreateContext(runtime, &context);

@@ -45,4 +45,6 @@ set(SFML_STATIC_LIBRARIES TRUE)
 find_package(SFML 2.5.1 COMPONENTS graphics audio REQUIRED)
 target_link_libraries(OnGrid sfml-graphics sfml-audio)
 
-file(COPY scripts DESTINATION ./)
+#file(COPY assets/scripts DESTINATION ./)
+
+add_custom_command(TARGET OnGrid POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/assets $<TARGET_FILE_DIR:OnGrid>/assets)

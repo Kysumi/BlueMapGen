@@ -8,6 +8,7 @@ public:
 
         // enabling scripts to run as modules
         HostConfigFlags::flags.Module = true;
+        HostConfigFlags::flags.TrackRejectedPromises = true;
 
         // Create an execution context.
         JsCreateContext(runtime, &context);

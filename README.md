@@ -1,5 +1,24 @@
-# OnGrid world generation
+# OnGrid
 
-This is a small world generation and simulation application inspired by [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
+## Setup
 
-The project is using [SFML](https://www.sfml-dev.org/) and [ChakraCore](https://github.com/microsoft/ChakraCore)
+### ChakraCore
+
+Clone the master version here https://github.com/microsoft/ChakraCore
+
+### SFML
+
+Download SFML from here
+
+### Side Notes
+
+Once it has finished compiling ChakraCore you'll need to copy the
+ChakraCore.dll into the cmake build DIR
+
+
+The DLL will be in /ChakraCoreSource/Build/VcBuild/bin/x64_release/
+
+
+Ensure you are compiling for x64 on clion this is under
+
+Settings -> Build, Execution, Deployment -> Toolchains -> "Architecture"

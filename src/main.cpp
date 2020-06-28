@@ -10,7 +10,7 @@ int main()
 {
     std::cout << "Starting up OnGrid..." << std::endl;
     Chakra::init();
-    Chakra::RunScript("test.js");
+    Chakra::RunScript("scripts/test.js");
 
     // create the window
     sf::RenderWindow window(sf::VideoMode(800, 600), "My window");

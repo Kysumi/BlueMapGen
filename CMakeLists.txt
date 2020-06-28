@@ -44,3 +44,5 @@ target_link_libraries(OnGrid
 set(SFML_STATIC_LIBRARIES TRUE)
 find_package(SFML 2.5.1 COMPONENTS graphics audio REQUIRED)
 target_link_libraries(OnGrid sfml-graphics sfml-audio)
+
+file(COPY scripts DESTINATION ./)

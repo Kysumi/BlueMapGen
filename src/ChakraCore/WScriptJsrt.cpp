@@ -1086,29 +1086,29 @@ bool WScriptJsrt::Initialize()
     JsValueRef wscript;
     IfJsrtErrorFail(JsCreateObject(&wscript), false);
 
-    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "Echo", EchoCallback));
-    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "Quit", QuitCallback));
-    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "LoadScriptFile", LoadScriptFileCallback));
-    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "LoadScript", LoadScriptCallback));
-    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "LoadModule", LoadModuleCallback));
-    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "SetTimeout", SetTimeoutCallback));
-    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "ClearTimeout", ClearTimeoutCallback));
-    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "Attach", AttachCallback));
-    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "Detach", DetachCallback));
-    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "DumpFunctionPosition", DumpFunctionPositionCallback));
-    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "RequestAsyncBreak", RequestAsyncBreakCallback));
-    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "LoadBinaryFile", LoadBinaryFileCallback));
-    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "LoadTextFile", LoadTextFileCallback));
-    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "Flag", FlagCallback));
-    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "RegisterModuleSource", RegisterModuleSourceCallback));
-    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "GetModuleNamespace", GetModuleNamespace));
-    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "GetProxyProperties", GetProxyPropertiesCallback));
+//    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "Echo", EchoCallback));
+//    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "Quit", QuitCallback));
+//    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "LoadScriptFile", LoadScriptFileCallback));
+//    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "LoadScript", LoadScriptCallback));
+//    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "LoadModule", LoadModuleCallback));
+//    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "setTimeout", SetTimeoutCallback));
+//    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "ClearTimeout", ClearTimeoutCallback));
+//    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "Attach", AttachCallback));
+//    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "Detach", DetachCallback));
+//    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "DumpFunctionPosition", DumpFunctionPositionCallback));
+//    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "RequestAsyncBreak", RequestAsyncBreakCallback));
+//    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "LoadBinaryFile", LoadBinaryFileCallback));
+//    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "LoadTextFile", LoadTextFileCallback));
+//    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "Flag", FlagCallback));
+//    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "RegisterModuleSource", RegisterModuleSourceCallback));
+//    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "GetModuleNamespace", GetModuleNamespace));
+//    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "GetProxyProperties", GetProxyPropertiesCallback));
 
     IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "SerializeObject", SerializeObject));
     IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "Deserialize", Deserialize));
 
     // ToDo Remove
-    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "Edit", EmptyCallback));
+//    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "Edit", EmptyCallback));
 
     // Platform
     JsValueRef platformObject;
@@ -1116,40 +1116,40 @@ bool WScriptJsrt::Initialize()
     JsPropertyIdRef platformProperty;
     IfJsrtErrorFail(CreatePropertyIdFromString("Platform", &platformProperty), false);
 
-    // Set CPU arch
-    JsPropertyIdRef archProperty;
-    IfJsrtErrorFail(CreatePropertyIdFromString("ARCH", &archProperty), false);
-    JsValueRef archValue;
-    IfJsrtErrorFail(JsCreateString(
-            CPU_ARCH_TEXT, strlen(CPU_ARCH_TEXT), &archValue), false);
-    IfJsrtErrorFail(JsSetProperty(platformObject, archProperty,
-                                                     archValue, true), false);
+//    // Set CPU arch
+//    JsPropertyIdRef archProperty;
+//    IfJsrtErrorFail(CreatePropertyIdFromString("ARCH", &archProperty), false);
+//    JsValueRef archValue;
+//    IfJsrtErrorFail(JsCreateString(
+//            CPU_ARCH_TEXT, strlen(CPU_ARCH_TEXT), &archValue), false);
+//    IfJsrtErrorFail(JsSetProperty(platformObject, archProperty,
+//                                                     archValue, true), false);
 
-    // Set Build Type
-    JsPropertyIdRef buildProperty;
-    IfJsrtErrorFail(CreatePropertyIdFromString("BUILD_TYPE", &buildProperty), false);
-    JsValueRef buildValue;
-#ifdef _DEBUG
-#define BUILD_TYPE_STRING_CH "Debug" // (O0)
-#elif defined(ENABLE_DEBUG_CONFIG_OPTIONS)
-    #define BUILD_TYPE_STRING_CH "Test" // (O3 with debug config options)
-#else
-#define BUILD_TYPE_STRING_CH "Release" // (O3)
-#endif
-    IfJsrtErrorFail(JsCreateString(
-            BUILD_TYPE_STRING_CH, strlen(BUILD_TYPE_STRING_CH), &buildValue), false);
-    IfJsrtErrorFail(JsSetProperty(platformObject, buildProperty,
-                                                     buildValue, true), false);
-#undef BUILD_TYPE_STRING_CH
-
-    // Set Link Type [static / shared]
-    JsPropertyIdRef linkProperty;
-    IfJsrtErrorFail(CreatePropertyIdFromString("LINK_TYPE", &linkProperty), false);
-    JsValueRef linkValue;
-    IfJsrtErrorFail(JsCreateString(
-            LINK_TYPE, strlen(LINK_TYPE), &linkValue), false);
-    IfJsrtErrorFail(JsSetProperty(platformObject, linkProperty,
-                                                     linkValue, true), false);
+//    // Set Build Type
+//    JsPropertyIdRef buildProperty;
+//    IfJsrtErrorFail(CreatePropertyIdFromString("BUILD_TYPE", &buildProperty), false);
+//    JsValueRef buildValue;
+//#ifdef _DEBUG
+//#define BUILD_TYPE_STRING_CH "Debug" // (O0)
+//#elif defined(ENABLE_DEBUG_CONFIG_OPTIONS)
+//    #define BUILD_TYPE_STRING_CH "Test" // (O3 with debug config options)
+//#else
+//#define BUILD_TYPE_STRING_CH "Release" // (O3)
+//#endif
+//    IfJsrtErrorFail(JsCreateString(
+//            BUILD_TYPE_STRING_CH, strlen(BUILD_TYPE_STRING_CH), &buildValue), false);
+//    IfJsrtErrorFail(JsSetProperty(platformObject, buildProperty,
+//                                                     buildValue, true), false);
+//#undef BUILD_TYPE_STRING_CH
+//
+//    // Set Link Type [static / shared]
+//    JsPropertyIdRef linkProperty;
+//    IfJsrtErrorFail(CreatePropertyIdFromString("LINK_TYPE", &linkProperty), false);
+//    JsValueRef linkValue;
+//    IfJsrtErrorFail(JsCreateString(
+//            LINK_TYPE, strlen(LINK_TYPE), &linkValue), false);
+//    IfJsrtErrorFail(JsSetProperty(platformObject, linkProperty,
+//                                                     linkValue, true), false);
 
     // Set Binary Location
     JsValueRef binaryPathValue;
@@ -1188,33 +1188,34 @@ bool WScriptJsrt::Initialize()
     IfJsrtErrorFail(JsSetProperty(wscript, platformProperty,
                                                      platformObject, true), false);
 
-    JsValueRef argsObject;
-
-    if (!CreateArgumentsObject(&argsObject))
-    {
-        return false;
-    }
-
-    JsPropertyIdRef argsName;
-    IfJsrtErrorFail(CreatePropertyIdFromString("Arguments", &argsName), false);
-    IfJsrtErrorFail(JsSetProperty(wscript, argsName, argsObject, true), false);
-
-    JsPropertyIdRef wscriptName;
-    IfJsrtErrorFail(CreatePropertyIdFromString("WScript", &wscriptName), false);
+//    JsValueRef argsObject;
+//
+//    if (!CreateArgumentsObject(&argsObject))
+//    {
+//        return false;
+//    }
+//
+//    JsPropertyIdRef argsName;
+//    IfJsrtErrorFail(CreatePropertyIdFromString("Arguments", &argsName), false);
+//    IfJsrtErrorFail(JsSetProperty(wscript, argsName, argsObject, true), false);
+//
+//    JsPropertyIdRef wscriptName;
+//    IfJsrtErrorFail(CreatePropertyIdFromString("WScript", &wscriptName), false);
 
     JsValueRef global;
     IfJsrtErrorFail(JsGetGlobalObject(&global), false);
-    IfJsrtErrorFail(JsSetProperty(global, wscriptName, wscript, true), false);
+//    IfJsrtErrorFail(JsSetProperty(global, wscriptName, wscript, true), false);
 
-    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(global, "print", EchoCallback));
-
-    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(global, "read", LoadTextFileCallback));
-    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(global, "readbuffer", LoadBinaryFileCallback));
-    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(global, "readline", ReadLineStdinCallback));
+//    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(global, "print", EchoCallback));
+//
+//    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(global, "read", LoadTextFileCallback));
+//    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(global, "readbuffer", LoadBinaryFileCallback));
+//    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(global, "readline", ReadLineStdinCallback));
 
     JsValueRef console;
     IfJsrtErrorFail(JsCreateObject(&console), false);
     IfFalseGo(WScriptJsrt::InstallObjectsOnObject(console, "log", EchoCallback));
+    IfFalseGo(WScriptJsrt::InstallObjectsOnObject(global, "setTimeout", SetTimeoutCallback));
 
     JsPropertyIdRef consoleName;
     IfJsrtErrorFail(CreatePropertyIdFromString("console", &consoleName), false);

@@ -15,7 +15,7 @@ public:
         // Now set the current execution context.
         JsSetCurrentContext(context);
     };
-    static bool runScripty();
+    static bool RunScript(const std::string& filePath);
 
 private:
     static HRESULT CreateRuntime(JsRuntimeHandle *runtime);
@@ -31,23 +31,12 @@ private:
     static HRESULT CreateParserState(LPCSTR fileContents, size_t fileLength, JsFinalizeCallback fileContentsFinalizeCallback, LPCWSTR fullPath);
 
     static JsRuntimeHandle chRuntime;
-    static const size_t ttUriBufferLength = MAX_PATH * 3;
-    static char ttUri[ttUriBufferLength];
-    static UINT32 startEventCount;
     static BOOL doTTRecord;
-    static size_t ttUriLength;
     static JsRuntimeAttributes jsrtAttributes;
 
     static JsRuntimeHandle runtime;
     static JsContextRef context;
 
-
-    static bool CHAKRA_CALLBACK DummyJsSerializedScriptLoadUtf8Source(
-            JsSourceContext sourceContext,
-            JsValueRef *scriptBuffer,
-            JsParseScriptAttributes *parseAttributes);
-
-    static HRESULT RunBgParseSync(LPCSTR fileContents, UINT lengthBytes, const char* fileName);
 
     typedef struct {
         void *scriptBody;

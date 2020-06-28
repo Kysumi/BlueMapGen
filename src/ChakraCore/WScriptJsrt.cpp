@@ -1222,31 +1222,6 @@ bool WScriptJsrt::Initialize()
 
     IfJsrtErrorFail(InitializeModuleInfo(nullptr), false);
 
-    // When the command-line argument `-Test262` is set,
-    // WScript will have the extra support API below and $262 will be
-    // added to global scope
-    if (HostConfigFlags::flags.Test262)
-    {
-        IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "Broadcast", BroadcastCallback));
-        IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "ReceiveBroadcast", ReceiveBroadcastCallback));
-        IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "Report", ReportCallback));
-        IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "GetReport", GetReportCallback));
-        IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "Leaving", LeavingCallback));
-        IfFalseGo(WScriptJsrt::InstallObjectsOnObject(wscript, "Sleep", SleepCallback));
-
-        // $262
-        const char Test262[] =
-#include "262.js"
-        ;
-
-        JsValueRef Test262ScriptRef;
-        IfJsrtErrorFailLogAndRetFalse(JsCreateString(Test262, strlen(Test262), &Test262ScriptRef));
-
-        JsValueRef fname;
-        IfJsrtErrorFailLogAndRetFalse(JsCreateString("262", strlen("262"), &fname));
-        IfJsrtErrorFailLogAndRetFalse(JsRun(Test262ScriptRef, WScriptJsrt::GetNextSourceContext(), fname, JsParseScriptAttributeNone, nullptr));
-    }
-
     Error:
     return hr == S_OK;
 }

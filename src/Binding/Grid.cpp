@@ -12,8 +12,9 @@ JsValueRef binding::Grid::JSGridPrototype;
 
 // JsNativeFunction for Pointer constructor - Grid(x, y)
 JsValueRef
-CALLBACK JSGridConstructor(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount,
-                           void *callbackState) {
+CALLBACK binding::Grid::JSGridConstructor(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
+                                          unsigned short argumentCount,
+                                          void *callbackState) {
     Assert(isConstructCall && argumentCount == 3);
     auto *output = JS_INVALID_REFERENCE;
 
@@ -45,8 +46,9 @@ JsValueRef CALLBACK binding::Grid::Process(JsValueRef callee, bool isConstructCa
 }
 
 JsValueRef
-CALLBACK GetNeighbours(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount,
-                       void *callbackState) {
+CALLBACK binding::Grid::GetNeighbours(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
+                                      unsigned short argumentCount,
+                                      void *callbackState) {
     Assert(!isConstructCall && argumentCount == 3);
     JsValueRef output = JS_INVALID_REFERENCE;
 
@@ -70,8 +72,9 @@ CALLBACK GetNeighbours(JsValueRef callee, bool isConstructCall, JsValueRef *argu
     return output;
 }
 
-JsValueRef CALLBACK Draw(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount,
-                         void *callbackState) {
+JsValueRef CALLBACK binding::Grid::Draw(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
+                                        unsigned short argumentCount,
+                                        void *callbackState) {
     Assert(!isConstructCall && argumentCount == 1);
     JsValueRef output = JS_INVALID_REFERENCE;
 

@@ -1,14 +1,15 @@
 // YOU MUST DEFINE THE FILE EXTENSION
-import demoDefault, {heh} from "module.js"
+// import demoDefault, {heh} from "module.js"
 
-demoDefault();
-heh();
+let grid = new Grid(20,20);
 
 while(Window.isOpen()) {
     Window.processEvents()
 
     Window.clear();
 
+    grid.process();
+    grid.draw();
 
     Window.display();
 }

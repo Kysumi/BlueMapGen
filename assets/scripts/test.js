@@ -5,5 +5,10 @@ demoDefault();
 heh();
 
 while(Window.isOpen()) {
+    Window.processEvents()
 
+    Window.clear();
+
+
+    Window.display();
 }

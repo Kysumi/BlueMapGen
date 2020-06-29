@@ -4,6 +4,6 @@ import demoDefault, {heh} from "module.js"
 demoDefault();
 heh();
 
-console.log("Jaaaaaaaa")
+while(Window.isOpen()) {
 
-setTimeout(() => console.log("timeout is working"), 3000)
+}

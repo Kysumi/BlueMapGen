@@ -1763,6 +1763,35 @@ JsValueRef __stdcall WScriptJsrt::GetProxyPropertiesCallback(JsValueRef callee, 
     return returnValue;
 }
 
+void WScriptJsrt::setProperty(JsValueRef object, const wchar_t* propertyName, JsValueRef property)
+{
+    JsPropertyIdRef propertyId;
+    JsGetPropertyIdFromName(propertyName, &propertyId);
+    JsSetProperty(object, propertyId, property, true);
+}
+
+// project a custom native class and its member functions to JS
+// there must be a one-to-one mapping between elements in memberNames and memberFunc
+void WScriptJsrt::ProjectNativeClass(const wchar_t* className, JsNativeFunction constructor, JsValueRef& prototype, std::vector<const char*> memberNames, std::vector<JsNativeFunction> memberFuncs){
+    // project constructor to global scope
+    JsValueRef globalObject;
+    JsGetGlobalObject(&globalObject);
+
+    JsValueRef jsConstructor;
+    JsCreateFunction(constructor, nullptr, &jsConstructor);
+    setProperty(globalObject, className, jsConstructor);
+
+    // create class's prototype and project its member functions
+    JsCreateObject(&prototype);
+    Assert(memberNames.size() == memberNames.size());
+
+    for (int i = 0; i < memberNames.size(); ++i) {
+        InstallObjectsOnObject(prototype, memberNames[i], memberFuncs[i]);
+    }
+
+    setProperty(jsConstructor, L"prototype", prototype);
+}
+
 bool WScriptJsrt::PrintException(LPCSTR fileName, JsErrorCode jsErrorCode)
 {
     LPCWSTR errorTypeString = ConvertErrorCodeToMessage(jsErrorCode);

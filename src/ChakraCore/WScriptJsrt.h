@@ -4,6 +4,7 @@
 //-------------------------------------------------------------------------------------------------------
 #pragma once
 #include <list>
+#include <vector>
 
 enum ModuleState
 {
@@ -109,6 +110,10 @@ public:
     static bool InstallObjectsOnObject(JsValueRef object, const char* name, JsNativeFunction nativeFunction);
     static void FinalizeFree(void * addr);
     static void RegisterScriptDir(DWORD_PTR sourceContext, LPCSTR fullDirNarrow);
+
+    static void ProjectNativeClass(const wchar_t *className, JsNativeFunction constructor, JsValueRef &prototype,
+                                   std::vector<const char *> memberNames, std::vector<JsNativeFunction> memberFuncs);
+
 private:
     static void SetExceptionIf(JsErrorCode errorCode, LPCWSTR errorMessage);
     static bool CreateArgumentsObject(JsValueRef *argsObject);
@@ -156,4 +161,6 @@ private:
     static std::map<JsModuleRecord, std::string> moduleDirMap;
     static std::map<JsModuleRecord, ModuleState> moduleErrMap;
     static std::map<DWORD_PTR, std::string> scriptDirMap;
+
+    static void setProperty(JsValueRef object, const wchar_t *propertyName, JsValueRef property);
 };

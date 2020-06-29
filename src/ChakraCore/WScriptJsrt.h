@@ -114,6 +114,8 @@ public:
     static void ProjectNativeClass(const wchar_t *className, JsNativeFunction constructor, JsValueRef &prototype,
                                    std::vector<const char *> memberNames, std::vector<JsNativeFunction> memberFuncs);
 
+    static void setProperty(JsValueRef object, const wchar_t *propertyName, JsValueRef property);
+
 private:
     static void SetExceptionIf(JsErrorCode errorCode, LPCWSTR errorMessage);
     static bool CreateArgumentsObject(JsValueRef *argsObject);
@@ -162,5 +164,4 @@ private:
     static std::map<JsModuleRecord, ModuleState> moduleErrMap;
     static std::map<DWORD_PTR, std::string> scriptDirMap;
 
-    static void setProperty(JsValueRef object, const wchar_t *propertyName, JsValueRef property);
 };

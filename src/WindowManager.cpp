@@ -3,3 +3,15 @@
 //
 
 #include "WindowManager.h"
+
+sf::RenderWindow* WindowManager::window;
+
+void WindowManager::setActiveWindow(sf::RenderWindow* newWindow)
+{
+    window = newWindow;
+}
+
+sf::RenderWindow* WindowManager::getActiveWindow()
+{
+    return window;
+}

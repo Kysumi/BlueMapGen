@@ -5,9 +5,15 @@
 #ifndef ONGRID_WINDOWMANAGER_H
 #define ONGRID_WINDOWMANAGER_H
 
+#include <SFML/Graphics.hpp>
 
 class WindowManager {
+public:
+    static void setActiveWindow(sf::RenderWindow* newWindow);
+    static sf::RenderWindow* getActiveWindow();
 
+private:
+    static sf::RenderWindow *window;
 };
 
 

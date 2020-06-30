@@ -15,7 +15,7 @@ atlas::Grid::Grid(sf::Vector2i size)
     for (auto xAxis = 0; xAxis < size.x; xAxis++) {
         for (auto yAxis = 0; yAxis < size.y; yAxis++) {
 
-            Node node(xAxis, yAxis, nodeSize);
+            Node node(sf::Vector2i(xAxis, yAxis), nodeSize);
 
             /* generate secret number between 1 and 10: */
             auto number = rand() % 10 + 1;
@@ -69,7 +69,7 @@ void atlas::Grid::Process()
     grid = gridCopy;
 }
 
-std::vector<Node> atlas::Grid::getAliveNeighbours(sf::Vector2i position)
+std::vector<atlas::Node> atlas::Grid::getAliveNeighbours(sf::Vector2i position)
 {
     auto neighbours = getNeighbours(position);
     std::vector<Node> aliveNodes;
@@ -86,12 +86,12 @@ std::vector<Node> atlas::Grid::getAliveNeighbours(sf::Vector2i position)
     return aliveNodes;
 }
 
-std::vector<Node> atlas::Grid::getNeighbours(sf::Vector2i position)
+std::vector<atlas::Node> atlas::Grid::getNeighbours(sf::Vector2i position)
 {
     return getNeighbours(position.x, position.y);
 }
 
-std::vector<Node> atlas::Grid::getNeighbours(int x, int y)
+std::vector<atlas::Node> atlas::Grid::getNeighbours(int x, int y)
 {
     std::vector<Node> neighbours;
     neighbours.reserve(9); // Maximum possible neighbours

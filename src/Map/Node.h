@@ -7,26 +7,47 @@
 
 #include <SFML/Graphics.hpp>
 
-class Node {
-public:
-    // For initializing
-    Node(){};
-    Node(int i, int j, int w);
-    ~Node();
-    bool alive;
+namespace atlas {
+    class Node {
+    public:
+        // For initializing
+        Node() {};
 
-    bool isAlive();
-    void draw(sf::RenderWindow& window);
-    void setPosition(sf::Vector2f pos);
-    void born();
-    void kill();
-    void update(sf::RenderWindow& window);
-    int getX();
-    int getY();
-private:
-    sf::RectangleShape shape;
-    int x, y;
-    int cellSize;
-};
+        Node(sf::Vector2i position, int width);
+
+        ~Node();
+
+        bool alive;
+
+        bool isAlive();
+
+        void draw(sf::RenderWindow &window);
+
+        void setPosition(sf::Vector2f pos);
+
+        void born();
+
+        void kill();
+
+        void update(sf::RenderWindow &window);
+
+        int getGridPositionX();
+
+        int getGridPositionY();
+
+        sf::Vector2i getGridPosition();
+
+        float getWorldPositionX();
+
+        float getWorldPositionY();
+
+        sf::Vector2f getWorldPosition();
+
+    private:
+        sf::RectangleShape shape;
+        int x, y;
+        int size;
+    };
+}
 
 #endif //ONGRID_NODE_H

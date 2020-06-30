@@ -3,6 +3,8 @@
 
 let grid = new Grid(20,20);
 
+Window.describe()
+
 while(Window.isOpen()) {
     Window.processEvents()
 

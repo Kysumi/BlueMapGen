@@ -30,6 +30,10 @@ namespace binding {
         static JsValueRef
         Draw(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount,
              void *callbackState);
+
+        static JsValueRef
+        Describe(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount,
+                 void *callbackState);
     };
 }
 

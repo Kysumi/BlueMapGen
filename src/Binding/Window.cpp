@@ -5,6 +5,7 @@
 #include <src/ChakraCore/stdafx.h>
 #include <ChakraCommon.h>
 #include <src/WindowManager.h>
+#include <iostream>
 #include "Window.h"
 
 JsValueRef CALLBACK binding::Window::Display(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
@@ -49,6 +50,20 @@ JsValueRef CALLBACK binding::Window::IsOpen(JsValueRef callee, bool isConstructC
     return output;
 }
 
+JsValueRef CALLBACK binding::Window::Describe(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
+                                              unsigned short argumentCount, void *callbackState) {
+
+    std::cout << "Window Definition:" << std::endl;
+    std::cout << "clear : Clears the window to the default color" << std::endl;
+    std::cout << "display : Renders the content that has been drawn to the window" << std::endl;
+    std::cout << "processEvents : Processes all of the input events, this includes key presses and mouse movement"
+              << std::endl;
+    std::cout << "isOpen : Returns true or false depending if the window is open" << std::endl;
+    std::cout << "describe : This output" << std::endl;
+
+    return JS_INVALID_REFERENCE;
+}
+
 void binding::Window::bind() {
     JsValueRef globalObject;
     JsGetGlobalObject(&globalObject);
@@ -61,4 +76,5 @@ void binding::Window::bind() {
     WScriptJsrt::InstallObjectsOnObject(jsWindow, "display", Display);
     WScriptJsrt::InstallObjectsOnObject(jsWindow, "processEvents", ProcessEvents);
     WScriptJsrt::InstallObjectsOnObject(jsWindow, "isOpen", IsOpen);
+    WScriptJsrt::InstallObjectsOnObject(jsWindow, "describe", Describe);
 }

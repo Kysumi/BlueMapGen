@@ -34,10 +34,7 @@ int atlas::Node::getGridPositionY() {
 }
 
 void atlas::Node::draw(sf::RenderWindow &window) {
-    int xCoord = this->x * this->size;
-    int yCoord = this->y * this->size;
-    this->shape.setPosition(sf::Vector2f(xCoord, yCoord));
-
+    this->shape.setPosition(getWorldPosition());
     window.draw(this->shape);
 }
 

@@ -7,6 +7,7 @@
 #include <src/Binding/Grid.h>
 #include <src/Binding/Window.h>
 #include <src/Binding/Node.h>
+#include <src/Binding/Vector.h>
 #include "ChakraCore/Chakra.h"
 #include "WindowManager.h"
 
@@ -21,6 +22,7 @@ int main()
     binding::Grid::bind();
     binding::Window::bind();
     binding::Node::bind();
+    binding::Vector::bind();
 
     sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
 

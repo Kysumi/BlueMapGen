@@ -52,16 +52,6 @@ void atlas::Node::born() {
     this->shape.setFillColor(sf::Color::White);
 }
 
-void atlas::Node::update(sf::RenderWindow &window) {
-    if (this->alive) {
-        this->alive = false;
-        this->kill();
-    } else {
-        this->alive = true;
-        this->born();
-    }
-}
-
 sf::Vector2i atlas::Node::getGridPosition() {
     return {this->getGridPositionX(), this->getGridPositionY()};
 }

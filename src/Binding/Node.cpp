@@ -44,12 +44,48 @@ JsValueRef CALLBACK binding::Node::Draw(JsValueRef callee, bool isConstructCall,
     return output;
 }
 
+JsValueRef CALLBACK binding::Node::Kill(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
+                                        unsigned short argumentCount, void *callbackState) {
+    Assert(!isConstructCall && argumentCount == 1);
+    JsValueRef output = JS_INVALID_REFERENCE;
+
+    void *nodeArg;
+
+    if (JsGetExternalData(arguments[0], &nodeArg) == JsNoError) {
+        auto *node = static_cast<atlas::Node *>(nodeArg);
+        node->kill();
+    };
+
+    return output;
+}
+
+JsValueRef CALLBACK binding::Node::Born(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
+                                        unsigned short argumentCount, void *callbackState) {
+    Assert(!isConstructCall && argumentCount == 1);
+    JsValueRef output = JS_INVALID_REFERENCE;
+
+    void *nodeArg;
+
+    if (JsGetExternalData(arguments[0], &nodeArg) == JsNoError) {
+        auto *node = static_cast<atlas::Node *>(nodeArg);
+        node->born();
+    };
+
+    return output;
+}
+
 void binding::Node::bind() {
     std::vector<const char *> memberNames;
     std::vector<JsNativeFunction> memberFuncs;
 
     memberNames.push_back("draw");
     memberFuncs.push_back(Draw);
+
+    memberNames.push_back("born");
+    memberFuncs.push_back(Born);
+
+    memberNames.push_back("kill");
+    memberFuncs.push_back(Kill);
 
     WScriptJsrt::ProjectNativeClass(L"Node", JSNodeConstructor, JSNodePrototype, memberNames, memberFuncs);
 }

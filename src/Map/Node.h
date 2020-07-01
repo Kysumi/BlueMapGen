@@ -29,8 +29,6 @@ namespace atlas {
 
         void kill();
 
-        void update(sf::RenderWindow &window);
-
         int getGridPositionX();
 
         int getGridPositionY();

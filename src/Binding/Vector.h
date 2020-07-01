@@ -16,13 +16,17 @@ namespace binding {
 
     private:
         static JsValueRef
+        JSVectorConstructor(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
+                            unsigned short argumentCount,
+                            void *callbackState);
+
+        static JsValueRef
         X(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount,
           void *callbackState);
 
         static JsValueRef
-        JSVectorConstructor(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
-                            unsigned short argumentCount,
-                            void *callbackState);
+        Y(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount,
+          void *callbackState);
     };
 }
 

@@ -126,3 +126,7 @@ std::vector<atlas::Node> atlas::Grid::getNeighbours(int x, int y)
 atlas::Node *atlas::Grid::getNodeFromGridPosition(int x, int y) {
     return &grid[x][y];
 }
+
+sf::Vector2i* atlas::Grid::getSize() {
+    return &size;
+}

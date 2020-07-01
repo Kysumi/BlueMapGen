@@ -35,6 +35,9 @@ namespace binding {
         CALLBACK GetNodeFromGridPosition(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
                                 unsigned short argumentCount,
                                 void *callbackState);
+
+        static JsValueRef GetSize(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount,
+                                  void *callbackState);
     };
 }
 

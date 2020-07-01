@@ -8,6 +8,7 @@
 #include <src/Binding/Grid.h>
 #include <src/Map/Grid.h>
 #include "Node.h"
+#include "Vector.h"
 
 JsValueRef binding::Grid::JSGridPrototype;
 
@@ -25,7 +26,7 @@ CALLBACK binding::Grid::JSGridConstructor(JsValueRef callee, bool isConstructCal
 
     auto *grid = new atlas::Grid(sf::Vector2i(x, y));
 
-    JsCreateExternalObject(grid, nullptr, &output);
+    JsCreateExternalObject(grid, WScriptJsrt::FinalizeFree, &output);
     JsSetPrototype(output, binding::Grid::JSGridPrototype);
 
     return output;
@@ -111,6 +112,25 @@ JsValueRef CALLBACK binding::Grid::GetNodeFromGridPosition(JsValueRef callee, bo
     return output;
 }
 
+JsValueRef CALLBACK binding::Grid::GetSize(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
+                                                           unsigned short argumentCount,
+                                                           void *callbackState) {
+    Assert(!isConstructCall && argumentCount == 1);
+    JsValueRef output = JS_INVALID_REFERENCE;
+
+    void *gridArg;
+
+    if (JsGetExternalData(arguments[0], &gridArg) == JsNoError) {
+        auto *grid = static_cast<atlas::Grid *>(gridArg);
+        auto vector = grid->getSize();
+        // WScriptJsrt::FinalizeFree
+        JsCreateExternalObject(vector, nullptr, &output);
+        JsSetPrototype(output, binding::Vector::JSVectorPrototype);
+    };
+
+    return output;
+}
+
 void binding::Grid::bind() {
     std::vector<const char *> memberNames;
     std::vector<JsNativeFunction> memberFuncs;
@@ -126,6 +146,9 @@ void binding::Grid::bind() {
 
     memberNames.push_back("getNodeFromGridPosition");
     memberFuncs.push_back(GetNodeFromGridPosition);
+
+    memberNames.push_back("getSize");
+    memberFuncs.push_back(GetSize);
 
     WScriptJsrt::ProjectNativeClass(L"Grid", JSGridConstructor, JSGridPrototype, memberNames, memberFuncs);
 }

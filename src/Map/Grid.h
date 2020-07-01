@@ -18,6 +18,8 @@ namespace atlas {
         void Process();
         void Draw(sf::RenderWindow &window);
 
+        sf::Vector2i* getSize();
+
         std::vector<Node> getNeighbours(sf::Vector2i position);
         std::vector<Node> getAliveNeighbours(sf::Vector2i position);
         std::vector<Node> getNeighbours(int x, int y);

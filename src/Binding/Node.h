@@ -12,11 +12,15 @@ namespace binding {
     public:
         static void bind();
 
-        static JsValueRef JSGridPrototype;
+        static JsValueRef JSNodePrototype;
 
         static JsValueRef
-        JSGridConstructor(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount,
+        JSNodeConstructor(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount,
                           void *callbackState);
+
+        static JsValueRef
+        Draw(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount,
+             void *callbackState);
     };
 }
 

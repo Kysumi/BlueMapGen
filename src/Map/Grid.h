@@ -21,6 +21,7 @@ namespace atlas {
         std::vector<Node> getNeighbours(sf::Vector2i position);
         std::vector<Node> getAliveNeighbours(sf::Vector2i position);
         std::vector<Node> getNeighbours(int x, int y);
+        Node* getNodeFromGridPosition(int x, int y);
 
     private:
         const int nodeSize = 12;

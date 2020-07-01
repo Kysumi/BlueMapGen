@@ -20,20 +20,21 @@ namespace binding {
                          void *callbackState);
 
         static JsValueRef
-        JSGridConstructor(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount,
+        CALLBACK JSGridConstructor(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount,
                           void *callbackState);
 
         static JsValueRef
-        GetNeighbours(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount,
+        CALLBACK GetNeighbours(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount,
                       void *callbackState);
 
         static JsValueRef
-        Draw(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount,
+        CALLBACK Draw(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount,
              void *callbackState);
 
         static JsValueRef
-        Describe(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount,
-                 void *callbackState);
+        CALLBACK GetNodeFromGridPosition(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
+                                unsigned short argumentCount,
+                                void *callbackState);
     };
 }
 

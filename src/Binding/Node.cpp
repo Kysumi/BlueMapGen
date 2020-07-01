@@ -5,11 +5,12 @@
 #include "Node.h"
 #include <src/ChakraCore/stdafx.h>
 #include <src/Map/Node.h>
+#include <src/WindowManager.h>
 
-JsValueRef binding::Node::JSGridPrototype;
+JsValueRef binding::Node::JSNodePrototype;
 
 JsValueRef
-CALLBACK binding::Node::JSGridConstructor(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
+CALLBACK binding::Node::JSNodeConstructor(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
                                           unsigned short argumentCount,
                                           void *callbackState) {
     Assert(isConstructCall && argumentCount == 4);
@@ -23,7 +24,22 @@ CALLBACK binding::Node::JSGridConstructor(JsValueRef callee, bool isConstructCal
     auto *node = new atlas::Node(sf::Vector2i(x, y), width);
 
     JsCreateExternalObject(node, nullptr, &output);
-    JsSetPrototype(output, binding::Node::JSGridPrototype);
+    JsSetPrototype(output, binding::Node::JSNodePrototype);
+
+    return output;
+}
+
+JsValueRef CALLBACK binding::Node::Draw(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
+                                           unsigned short argumentCount, void *callbackState) {
+    Assert(!isConstructCall && argumentCount == 1);
+    JsValueRef output = JS_INVALID_REFERENCE;
+
+    void *nodeArg;
+
+    if (JsGetExternalData(arguments[0], &nodeArg) == JsNoError) {
+        auto *node = static_cast<atlas::Node *>(nodeArg);
+        node->draw(*WindowManager::getActiveWindow());
+    };
 
     return output;
 }
@@ -32,14 +48,8 @@ void binding::Node::bind() {
     std::vector<const char *> memberNames;
     std::vector<JsNativeFunction> memberFuncs;
 
-//    memberNames.push_back("process");
-//    memberFuncs.push_back(Process);
-//
-//    memberNames.push_back("getNeighbours");
-//    memberFuncs.push_back(GetNeighbours);
-//
-//    memberNames.push_back("draw");
-//    memberFuncs.push_back(Draw);
+    memberNames.push_back("draw");
+    memberFuncs.push_back(Draw);
 
-    WScriptJsrt::ProjectNativeClass(L"Grid", JSGridConstructor, JSGridPrototype, memberNames, memberFuncs);
+    WScriptJsrt::ProjectNativeClass(L"Node", JSNodeConstructor, JSNodePrototype, memberNames, memberFuncs);
 }

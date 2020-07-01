@@ -7,6 +7,7 @@
 #include <src/WindowManager.h>
 #include <src/Binding/Grid.h>
 #include <src/Map/Grid.h>
+#include "Node.h"
 
 JsValueRef binding::Grid::JSGridPrototype;
 
@@ -88,6 +89,28 @@ JsValueRef CALLBACK binding::Grid::Draw(JsValueRef callee, bool isConstructCall,
     return output;
 }
 
+JsValueRef CALLBACK binding::Grid::GetNodeFromGridPosition(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
+                                        unsigned short argumentCount,
+                                        void *callbackState) {
+    Assert(!isConstructCall && argumentCount == 3);
+    JsValueRef output = JS_INVALID_REFERENCE;
+
+    int x, y;
+    JsNumberToInt(arguments[1], &x);
+    JsNumberToInt(arguments[2], &y);
+
+    void *gridArg;
+
+    if (JsGetExternalData(arguments[0], &gridArg) == JsNoError) {
+        auto *grid = static_cast<atlas::Grid *>(gridArg);
+        auto node = grid->getNodeFromGridPosition(x,y);
+        JsCreateExternalObject(node, nullptr, &output);
+        JsSetPrototype(output, binding::Node::JSNodePrototype);
+    };
+
+    return output;
+}
+
 void binding::Grid::bind() {
     std::vector<const char *> memberNames;
     std::vector<JsNativeFunction> memberFuncs;
@@ -100,6 +123,9 @@ void binding::Grid::bind() {
 
     memberNames.push_back("draw");
     memberFuncs.push_back(Draw);
+
+    memberNames.push_back("getNodeFromGridPosition");
+    memberFuncs.push_back(GetNodeFromGridPosition);
 
     WScriptJsrt::ProjectNativeClass(L"Grid", JSGridConstructor, JSGridPrototype, memberNames, memberFuncs);
 }

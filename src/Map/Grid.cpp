@@ -122,3 +122,7 @@ std::vector<atlas::Node> atlas::Grid::getNeighbours(int x, int y)
 
     return neighbours;
 }
+
+atlas::Node *atlas::Grid::getNodeFromGridPosition(int x, int y) {
+    return &grid[x][y];
+}

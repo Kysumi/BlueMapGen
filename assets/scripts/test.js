@@ -10,12 +10,11 @@ let y = 0;
 
 while(Window.isOpen()) {
 
-    let node = grid.getNodeFromGridPosition(x,y);
-    node.draw();
-
     Window.processEvents();
 
     Window.clear();
+    let node = grid.getNodeFromGridPosition(x,y);
+    node.draw();
 
     grid.process();
     // grid.draw();

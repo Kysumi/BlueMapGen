@@ -18,7 +18,7 @@ const proccess = () => {
 
 while(Window.isOpen()) {
 
-    // Window.processEvents();
+    Window.processEvents();
     Window.clear();
 
     proccess();

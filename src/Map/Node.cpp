@@ -8,11 +8,12 @@ Node::Node(sf::Vector2i position, int width) {
     this->alive = false;
 
     this->shape.setFillColor(sf::Color::Black);
-    this->shape.setOutlineColor(sf::Color(196, 196, 196, 0));
+    this->shape.setOutlineColor(sf::Color::Magenta);
     this->shape.setOutlineThickness(1);
 
     this->shape.setPointCount(6);
-    this->shape.setRadius((float) width);
+    this->shape.setRadius((float) width - 2);
+    this->shape.setRotation(0);
 
     this->x = position.x;
     this->y = position.y;

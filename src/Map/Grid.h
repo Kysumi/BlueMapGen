@@ -9,25 +9,30 @@
 #include "Node.h"
 
 
-    class Grid {
-    public:
-        Grid(sf::Vector2i size);
-        ~Grid();
+class Grid {
+public:
+    Grid(sf::Vector2i size);
 
-        void Process();
-        void Draw(sf::RenderWindow &window);
+    ~Grid();
 
-        sf::Vector2i* getSize();
+    void Process();
 
-        std::vector<Node> getNeighbours(sf::Vector2i position);
-        std::vector<Node> getAliveNeighbours(sf::Vector2i position);
-        std::vector<Node> getNeighbours(int x, int y);
-        Node* getNodeFromGridPosition(int x, int y);
+    void Draw(sf::RenderWindow &window);
 
-    private:
-        const int nodeSize = 12;
-        sf::Vector2i size;
-        std::vector<std::vector<Node>> grid;
-    };
+    sf::Vector2i *getSize();
+
+    std::vector<Node> getNeighbours(sf::Vector2i position);
+
+    std::vector<Node> getAliveNeighbours(sf::Vector2i position);
+
+    std::vector<Node> getNeighbours(int x, int y);
+
+    Node *getNodeFromGridPosition(int x, int y);
+
+private:
+    const int nodeSize = 30;
+    sf::Vector2i size;
+    std::vector<std::vector<Node>> grid;
+};
 
 #endif //ONGRID_GRID_H

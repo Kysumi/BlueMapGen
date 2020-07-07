@@ -6,43 +6,44 @@
 #define ONGRID_NODE_H
 
 #include <SFML/Graphics.hpp>
-    class Node {
-    public:
-        // For initializing
-        Node() {};
 
-        Node(sf::Vector2i position, int width);
+class Node {
+public:
+    // For initializing
+    Node() {};
 
-        ~Node();
+    Node(sf::Vector2i position, int width);
 
-        bool alive;
+    ~Node();
 
-        bool isAlive();
+    bool alive;
 
-        void draw(sf::RenderWindow &window);
+    bool isAlive();
 
-        void setPosition(sf::Vector2f pos);
+    void draw(sf::RenderWindow &window);
 
-        void born();
+    void setPosition(sf::Vector2f pos);
 
-        void kill();
+    void born();
 
-        int getGridPositionX();
+    void kill();
 
-        int getGridPositionY();
+    int getGridPositionX();
 
-        sf::Vector2i getGridPosition();
+    int getGridPositionY();
 
-        float getWorldPositionX();
+    sf::Vector2i getGridPosition();
 
-        float getWorldPositionY();
+    float getWorldPositionX();
 
-        sf::Vector2f getWorldPosition();
+    float getWorldPositionY();
 
-    private:
-        sf::CircleShape shape;
-        int x, y;
-        int size;
-    };
+    sf::Vector2f getWorldPosition();
+
+private:
+    sf::CircleShape shape;
+    int x, y;
+    int size;
+};
 
 #endif //ONGRID_NODE_H

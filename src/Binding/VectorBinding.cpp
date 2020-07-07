@@ -4,15 +4,15 @@
 
 #include <src/ChakraCore/stdafx.h>
 #include <SFML/Window.hpp>
-#include "Vector.h"
+#include "VectorBinding.h"
 
-JsValueRef binding::Vector::JSVectorPrototype;
+JsValueRef VectorBinding::JSVectorPrototype;
 
 // JsNativeFunction for Pointer constructor - Vector(x, y)
 JsValueRef
-CALLBACK binding::Vector::JSVectorConstructor(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
-                                          unsigned short argumentCount,
-                                          void *callbackState) {
+CALLBACK VectorBinding::JSVectorConstructor(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
+                                                     unsigned short argumentCount,
+                                                     void *callbackState) {
     Assert(isConstructCall && argumentCount == 3);
     auto *output = JS_INVALID_REFERENCE;
 
@@ -23,14 +23,14 @@ CALLBACK binding::Vector::JSVectorConstructor(JsValueRef callee, bool isConstruc
     auto *vec = new sf::Vector2i(x, y);
 
     JsCreateExternalObject(vec, nullptr, &output);
-    JsSetPrototype(output, binding::Vector::JSVectorPrototype);
+    JsSetPrototype(output, JSVectorPrototype);
 
     return output;
 }
 
-JsValueRef CALLBACK binding::Vector::X(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
-                                           unsigned short argumentCount,
-                                           void *callbackState) {
+JsValueRef CALLBACK VectorBinding::X(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
+                                              unsigned short argumentCount,
+                                              void *callbackState) {
     Assert(!isConstructCall && argumentCount == 1);
     JsValueRef output = JS_INVALID_REFERENCE;
 
@@ -44,7 +44,7 @@ JsValueRef CALLBACK binding::Vector::X(JsValueRef callee, bool isConstructCall, 
     return output;
 }
 
-JsValueRef CALLBACK binding::Vector::Y(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
+JsValueRef CALLBACK VectorBinding::Y(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
                                               unsigned short argumentCount,
                                               void *callbackState) {
     Assert(!isConstructCall && argumentCount == 1);
@@ -60,7 +60,7 @@ JsValueRef CALLBACK binding::Vector::Y(JsValueRef callee, bool isConstructCall, 
     return output;
 }
 
-void binding::Vector::bind() {
+void VectorBinding::bind() {
     std::vector<const char *> memberNames;
     std::vector<JsNativeFunction> memberFuncs;
 

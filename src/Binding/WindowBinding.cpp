@@ -6,10 +6,10 @@
 #include <ChakraCommon.h>
 #include <src/WindowManager.h>
 #include <iostream>
-#include "Window.h"
+#include "WindowBinding.h"
 
-JsValueRef CALLBACK binding::Window::Display(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
-                                             unsigned short argumentCount, void *callbackState) {
+JsValueRef CALLBACK WindowBinding::Display(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
+                                                    unsigned short argumentCount, void *callbackState) {
     auto *window = WindowManager::getActiveWindow();
 
     window->display();
@@ -17,8 +17,8 @@ JsValueRef CALLBACK binding::Window::Display(JsValueRef callee, bool isConstruct
     return JS_INVALID_REFERENCE;
 }
 
-JsValueRef CALLBACK binding::Window::Clear(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
-                                           unsigned short argumentCount, void *callbackState) {
+JsValueRef CALLBACK WindowBinding::Clear(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
+                                                  unsigned short argumentCount, void *callbackState) {
     auto *window = WindowManager::getActiveWindow();
 
     window->clear(sf::Color::Blue);
@@ -26,8 +26,8 @@ JsValueRef CALLBACK binding::Window::Clear(JsValueRef callee, bool isConstructCa
     return JS_INVALID_REFERENCE;
 }
 
-JsValueRef CALLBACK binding::Window::ProcessEvents(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
-                                                   unsigned short argumentCount, void *callbackState) {
+JsValueRef CALLBACK WindowBinding::ProcessEvents(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
+                                                          unsigned short argumentCount, void *callbackState) {
     auto *window = WindowManager::getActiveWindow();
 
     sf::Event event;
@@ -40,8 +40,8 @@ JsValueRef CALLBACK binding::Window::ProcessEvents(JsValueRef callee, bool isCon
     return JS_INVALID_REFERENCE;
 }
 
-JsValueRef CALLBACK binding::Window::IsOpen(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
-                                            unsigned short argumentCount, void *callbackState) {
+JsValueRef CALLBACK WindowBinding::IsOpen(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
+                                                   unsigned short argumentCount, void *callbackState) {
     auto *window = WindowManager::getActiveWindow();
 
     JsValueRef output = JS_INVALID_REFERENCE;
@@ -50,8 +50,8 @@ JsValueRef CALLBACK binding::Window::IsOpen(JsValueRef callee, bool isConstructC
     return output;
 }
 
-JsValueRef CALLBACK binding::Window::Describe(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
-                                              unsigned short argumentCount, void *callbackState) {
+JsValueRef CALLBACK WindowBinding::Describe(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
+                                                     unsigned short argumentCount, void *callbackState) {
 
     std::cout << "Window Definition:" << std::endl;
     std::cout << "clear : Clears the window to the default color" << std::endl;
@@ -64,7 +64,7 @@ JsValueRef CALLBACK binding::Window::Describe(JsValueRef callee, bool isConstruc
     return JS_INVALID_REFERENCE;
 }
 
-void binding::Window::bind() {
+void WindowBinding::bind() {
     JsValueRef globalObject;
     JsGetGlobalObject(&globalObject);
 

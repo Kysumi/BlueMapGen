@@ -5,18 +5,18 @@
 #include <SFML/System.hpp>
 #include <src/ChakraCore/stdafx.h>
 #include <src/WindowManager.h>
-#include <src/Binding/Grid.h>
+#include <src/Binding/GridBinding.h>
 #include <src/Map/Grid.h>
-#include "Node.h"
-#include "Vector.h"
+#include "NodeBinding.h"
+#include "VectorBinding.h"
 
-JsValueRef binding::Grid::JSGridPrototype;
+JsValueRef GridBinding::JSGridPrototype;
 
 // JsNativeFunction for Pointer constructor - Grid(x, y)
 JsValueRef
-CALLBACK binding::Grid::JSGridConstructor(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
-                                          unsigned short argumentCount,
-                                          void *callbackState) {
+CALLBACK GridBinding::JSGridConstructor(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
+                                        unsigned short argumentCount,
+                                        void *callbackState) {
     Assert(isConstructCall && argumentCount == 3);
     auto *output = JS_INVALID_REFERENCE;
 
@@ -27,13 +27,13 @@ CALLBACK binding::Grid::JSGridConstructor(JsValueRef callee, bool isConstructCal
     auto *grid = new atlas::Grid(sf::Vector2i(x, y));
 
     JsCreateExternalObject(grid, WScriptJsrt::FinalizeFree, &output);
-    JsSetPrototype(output, binding::Grid::JSGridPrototype);
+    JsSetPrototype(output, JSGridPrototype);
 
     return output;
 }
 
-JsValueRef CALLBACK binding::Grid::Process(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
-                                           unsigned short argumentCount, void *callbackState) {
+JsValueRef CALLBACK GridBinding::Process(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
+                                         unsigned short argumentCount, void *callbackState) {
     Assert(!isConstructCall && argumentCount == 1);
     JsValueRef output = JS_INVALID_REFERENCE;
 
@@ -48,9 +48,9 @@ JsValueRef CALLBACK binding::Grid::Process(JsValueRef callee, bool isConstructCa
 }
 
 JsValueRef
-CALLBACK binding::Grid::GetNeighbours(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
-                                      unsigned short argumentCount,
-                                      void *callbackState) {
+CALLBACK GridBinding::GetNeighbours(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
+                                    unsigned short argumentCount,
+                                    void *callbackState) {
     Assert(!isConstructCall && argumentCount == 3);
     JsValueRef output = JS_INVALID_REFERENCE;
 
@@ -74,9 +74,9 @@ CALLBACK binding::Grid::GetNeighbours(JsValueRef callee, bool isConstructCall, J
     return output;
 }
 
-JsValueRef CALLBACK binding::Grid::Draw(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
-                                        unsigned short argumentCount,
-                                        void *callbackState) {
+JsValueRef CALLBACK GridBinding::Draw(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
+                                      unsigned short argumentCount,
+                                      void *callbackState) {
     Assert(!isConstructCall && argumentCount == 1);
     JsValueRef output = JS_INVALID_REFERENCE;
 
@@ -90,9 +90,9 @@ JsValueRef CALLBACK binding::Grid::Draw(JsValueRef callee, bool isConstructCall,
     return output;
 }
 
-JsValueRef CALLBACK binding::Grid::GetNodeFromGridPosition(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
-                                        unsigned short argumentCount,
-                                        void *callbackState) {
+JsValueRef CALLBACK GridBinding::GetNodeFromGridPosition(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
+                                                         unsigned short argumentCount,
+                                                         void *callbackState) {
     Assert(!isConstructCall && argumentCount == 3);
     JsValueRef output = JS_INVALID_REFERENCE;
 
@@ -104,17 +104,17 @@ JsValueRef CALLBACK binding::Grid::GetNodeFromGridPosition(JsValueRef callee, bo
 
     if (JsGetExternalData(arguments[0], &gridArg) == JsNoError) {
         auto *grid = static_cast<atlas::Grid *>(gridArg);
-        auto node = grid->getNodeFromGridPosition(x,y);
+        auto node = grid->getNodeFromGridPosition(x, y);
         JsCreateExternalObject(node, nullptr, &output);
-        JsSetPrototype(output, binding::Node::JSNodePrototype);
+        JsSetPrototype(output, NodeBinding::JSNodePrototype);
     };
 
     return output;
 }
 
-JsValueRef CALLBACK binding::Grid::GetSize(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
-                                                           unsigned short argumentCount,
-                                                           void *callbackState) {
+JsValueRef CALLBACK GridBinding::GetSize(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
+                                         unsigned short argumentCount,
+                                         void *callbackState) {
     Assert(!isConstructCall && argumentCount == 1);
     JsValueRef output = JS_INVALID_REFERENCE;
 
@@ -125,13 +125,13 @@ JsValueRef CALLBACK binding::Grid::GetSize(JsValueRef callee, bool isConstructCa
         auto vector = grid->getSize();
         // WScriptJsrt::FinalizeFree
         JsCreateExternalObject(vector, nullptr, &output);
-        JsSetPrototype(output, binding::Vector::JSVectorPrototype);
+        JsSetPrototype(output, VectorBinding::JSVectorPrototype);
     };
 
     return output;
 }
 
-void binding::Grid::bind() {
+void GridBinding::bind() {
     std::vector<const char *> memberNames;
     std::vector<JsNativeFunction> memberFuncs;
 

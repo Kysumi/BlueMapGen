@@ -2,17 +2,17 @@
 // Created by scott on 6/30/2020.
 //
 
-#include "Node.h"
+#include "NodeBinding.h"
 #include <src/ChakraCore/stdafx.h>
 #include <src/Map/Node.h>
 #include <src/WindowManager.h>
 
-JsValueRef binding::Node::JSNodePrototype;
+JsValueRef NodeBinding::JSNodePrototype;
 
 JsValueRef
-CALLBACK binding::Node::JSNodeConstructor(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
-                                          unsigned short argumentCount,
-                                          void *callbackState) {
+CALLBACK NodeBinding::JSNodeConstructor(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
+                                                 unsigned short argumentCount,
+                                                 void *callbackState) {
     Assert(isConstructCall && argumentCount == 4);
     auto *output = JS_INVALID_REFERENCE;
 
@@ -24,13 +24,13 @@ CALLBACK binding::Node::JSNodeConstructor(JsValueRef callee, bool isConstructCal
     auto *node = new atlas::Node(sf::Vector2i(x, y), width);
 
     JsCreateExternalObject(node, nullptr, &output);
-    JsSetPrototype(output, binding::Node::JSNodePrototype);
+    JsSetPrototype(output, JSNodePrototype);
 
     return output;
 }
 
-JsValueRef CALLBACK binding::Node::Draw(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
-                                           unsigned short argumentCount, void *callbackState) {
+JsValueRef CALLBACK NodeBinding::Draw(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
+                                               unsigned short argumentCount, void *callbackState) {
     Assert(!isConstructCall && argumentCount == 1);
     JsValueRef output = JS_INVALID_REFERENCE;
 
@@ -44,8 +44,8 @@ JsValueRef CALLBACK binding::Node::Draw(JsValueRef callee, bool isConstructCall,
     return output;
 }
 
-JsValueRef CALLBACK binding::Node::Kill(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
-                                        unsigned short argumentCount, void *callbackState) {
+JsValueRef CALLBACK NodeBinding::Kill(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
+                                               unsigned short argumentCount, void *callbackState) {
     Assert(!isConstructCall && argumentCount == 1);
     JsValueRef output = JS_INVALID_REFERENCE;
 
@@ -59,8 +59,8 @@ JsValueRef CALLBACK binding::Node::Kill(JsValueRef callee, bool isConstructCall,
     return output;
 }
 
-JsValueRef CALLBACK binding::Node::Born(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
-                                        unsigned short argumentCount, void *callbackState) {
+JsValueRef CALLBACK NodeBinding::Born(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
+                                               unsigned short argumentCount, void *callbackState) {
     Assert(!isConstructCall && argumentCount == 1);
     JsValueRef output = JS_INVALID_REFERENCE;
 
@@ -74,7 +74,7 @@ JsValueRef CALLBACK binding::Node::Born(JsValueRef callee, bool isConstructCall,
     return output;
 }
 
-void binding::Node::bind() {
+void NodeBinding::bind() {
     std::vector<const char *> memberNames;
     std::vector<JsNativeFunction> memberFuncs;
 

@@ -24,7 +24,7 @@ file(GLOB CHAKRA ${PROJECT_SOURCE_DIR}/src/ChakraCore/*.cpp)
 
 include(${PROJECT_SOURCE_DIR}/src/ChakraCore/CMakeLists.txt)
 
-add_executable(OnGrid src/main.cpp ${ChakraSource} src/WindowManager.cpp src/WindowManager.h src/Map/Node.cpp src/Map/Node.h src/Binding/Grid.cpp src/Binding/Grid.h src/Map/Grid.cpp src/Map/Grid.h src/Binding/Window.cpp src/Binding/Window.h src/Binding/Node.cpp src/Binding/Node.h src/Binding/Vector.cpp src/Binding/Vector.h)
+add_executable(OnGrid src/main.cpp ${ChakraSource} src/WindowManager.cpp src/WindowManager.h src/Map/Node.cpp src/Map/Node.h src/Binding/GridBinding.cpp src/Binding/GridBinding.h src/Map/Grid.cpp src/Map/Grid.h src/Binding/WindowBinding.cpp src/Binding/WindowBinding.h src/Binding/NodeBinding.cpp src/Binding/NodeBinding.h src/Binding/VectorBinding.cpp src/Binding/VectorBinding.h)
 
 message("-- Compiling ChakraCore..")
 

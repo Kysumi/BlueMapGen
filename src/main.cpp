@@ -4,25 +4,24 @@
 #include "ChakraCore/stdafx.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include <src/Binding/Grid.h>
-#include <src/Binding/Window.h>
-#include <src/Binding/Node.h>
-#include <src/Binding/Vector.h>
+#include <src/Binding/GridBinding.h>
+#include <src/Binding/WindowBinding.h>
+#include <src/Binding/NodeBinding.h>
+#include <src/Binding/VectorBinding.h>
 #include "ChakraCore/Chakra.h"
 #include "WindowManager.h"
 
 // TODO take a look into
 //https://youtu.be/VguG_y05Xe8?t=452
 
-int main()
-{
+int main() {
     std::cout << "Starting up OnGrid..." << std::endl;
     Chakra::Init("assets/scripts");
 
-    binding::Grid::bind();
-    binding::Window::bind();
-    binding::Node::bind();
-    binding::Vector::bind();
+    GridBinding::bind();
+    WindowBinding::bind();
+    NodeBinding::bind();
+    VectorBinding::bind();
 
     sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
 

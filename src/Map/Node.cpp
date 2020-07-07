@@ -10,12 +10,16 @@ Node::Node(sf::Vector2i position, int width) {
     this->shape.setFillColor(sf::Color::Black);
     this->shape.setOutlineColor(sf::Color(196, 196, 196, 0));
     this->shape.setOutlineThickness(1);
-    this->shape.setSize(sf::Vector2f(10, 10));
+
+    this->shape.setPointCount(6);
+    this->shape.setRadius((float) width);
 
     this->x = position.x;
     this->y = position.y;
 
     this->size = width;
+
+    this->shape.setPosition(getWorldPosition());
 }
 
 Node::~Node() {
@@ -34,7 +38,6 @@ int Node::getGridPositionY() {
 }
 
 void Node::draw(sf::RenderWindow &window) {
-    this->shape.setPosition(getWorldPosition());
     window.draw(this->shape);
 }
 
@@ -57,11 +60,11 @@ sf::Vector2i Node::getGridPosition() {
 }
 
 float Node::getWorldPositionX() {
-    return this->getGridPositionX() * this->size;
+    return this->getGridPositionX() * (sqrt(3) * this->size);
 }
 
 float Node::getWorldPositionY() {
-    return this->getGridPositionY() * this->size;
+    return this->getGridPositionY() * (this->size * 2);
 }
 
 sf::Vector2f Node::getWorldPosition() {

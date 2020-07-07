@@ -40,7 +40,7 @@
         sf::Vector2f getWorldPosition();
 
     private:
-        sf::RectangleShape shape;
+        sf::CircleShape shape;
         int x, y;
         int size;
     };

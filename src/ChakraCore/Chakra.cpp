@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Chakra.h"
 #include <iostream>
+#include <utility>
 
 unsigned int MessageBase::s_messageCount = 0;
 JsRuntimeHandle Chakra::chRuntime = JS_INVALID_RUNTIME_HANDLE;
@@ -8,6 +9,7 @@ BOOL Chakra::doTTRecord = false;
 
 JsRuntimeHandle Chakra::runtime;
 JsContextRef Chakra::context;
+std::string Chakra::scriptsDir = "";
 
 JsRuntimeAttributes Chakra::jsrtAttributes = JsRuntimeAttributeNone;
 
@@ -187,7 +189,41 @@ HRESULT Chakra::CreateAndRunSerializedScript(const char *fileName, LPCSTR fileCo
     return hr;
 }
 
-bool Chakra::RunScript(const std::string& filePath) {
+void Chakra::Init(std::string _scriptsDir) {
+    scriptsDir = std::move(_scriptsDir);
+
+    // Create a runtime.
+    JsCreateRuntime(JsRuntimeAttributeEnableExperimentalFeatures, nullptr, &runtime);
+
+    // enabling scripts to run as modules
+    HostConfigFlags::flags.Module = true;
+    HostConfigFlags::flags.TrackRejectedPromises = true;
+
+    // Create an execution context.
+    JsCreateContext(runtime, &context);
+
+    // Now set the current execution context.
+    JsSetCurrentContext(context);
+}
+
+/**
+ * Gets the full file path to the script we are going to execute
+ *
+ * @param filePath
+ *
+ * @return std::string
+ */
+std::string Chakra::GetFilePath(const std::string &filePath) {
+    std::string output = filePath;
+
+    if (!scriptsDir.empty()) {
+        output = scriptsDir + "/" + filePath;
+    }
+
+    return output;
+}
+
+bool Chakra::RunScript(const std::string &filePath) {
 
     HRESULT hr = S_OK;
     LPCSTR fileContents = nullptr;
@@ -199,8 +235,8 @@ bool Chakra::RunScript(const std::string& filePath) {
     char fullPath[_MAX_PATH];
     size_t len = 0;
 
-
-    const char *fileName = filePath.c_str();
+    auto fullFilePath = GetFilePath(filePath);
+    const char *fileName = fullFilePath.c_str();
 
     hr = Helpers::LoadScriptFromFile(fileName, fileContents, &lengthBytes);
     contentsRaw;
@@ -213,13 +249,10 @@ bool Chakra::RunScript(const std::string& filePath) {
 
     // Spin up bindings
     if (!WScriptJsrt::Initialize()) {
-
         std::cout << "Failed to Initialize Chakra!" << std::endl;
-//        IfFailGo(E_FAIL);
     }
 
     if (_fullpath(fullPath, fileName, _MAX_PATH) == nullptr) {
-//        IfFailGo(E_FAIL);
         std::cout << "File path could not be found" << std::endl;
     }
 

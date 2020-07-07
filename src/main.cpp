@@ -17,7 +17,7 @@
 int main()
 {
     std::cout << "Starting up OnGrid..." << std::endl;
-    Chakra::init();
+    Chakra::Init("assets/scripts");
 
     binding::Grid::bind();
     binding::Window::bind();
@@ -28,7 +28,7 @@ int main()
 
     WindowManager::setActiveWindow(&window);
 
-    Chakra::RunScript("assets/scripts/test.js");
+    Chakra::RunScript("main.js");
 
     return 0;
 }

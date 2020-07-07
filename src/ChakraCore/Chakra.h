@@ -2,20 +2,7 @@
 
 class Chakra {
 public:
-    static void init() {
-        // Create a runtime.
-        JsCreateRuntime(JsRuntimeAttributeEnableExperimentalFeatures, nullptr, &runtime);
-
-        // enabling scripts to run as modules
-        HostConfigFlags::flags.Module = true;
-        HostConfigFlags::flags.TrackRejectedPromises = true;
-
-        // Create an execution context.
-        JsCreateContext(runtime, &context);
-
-        // Now set the current execution context.
-        JsSetCurrentContext(context);
-    };
+    static void Init(std::string scriptsDir);
     static bool RunScript(const std::string& filePath);
 
 private:
@@ -31,13 +18,15 @@ private:
     static HRESULT GetParserStateBuffer(LPCSTR fileContents, JsFinalizeCallback fileContentsFinalizeCallback, JsValueRef *parserStateBuffer);
     static HRESULT CreateParserState(LPCSTR fileContents, size_t fileLength, JsFinalizeCallback fileContentsFinalizeCallback, LPCWSTR fullPath);
 
+    static std::string GetFilePath(const std::string& filePath);
+
+    static std::string scriptsDir;
     static JsRuntimeHandle chRuntime;
     static BOOL doTTRecord;
     static JsRuntimeAttributes jsrtAttributes;
 
     static JsRuntimeHandle runtime;
     static JsContextRef context;
-
 
     typedef struct {
         void *scriptBody;

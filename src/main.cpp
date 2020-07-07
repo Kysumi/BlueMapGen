@@ -12,8 +12,8 @@
 #include "WindowManager.h"
 
 // TODO take a look into
-//https://youtu.be/VguG_y05Xe8?t=452
-
+// https://youtu.be/VguG_y05Xe8?t=452
+// https://www.redblobgames.com/grids/hexagons/implementation.html <-- Excellent hexagon grid resource
 int main() {
     std::cout << "Starting up OnGrid..." << std::endl;
     Chakra::Init("assets/scripts");

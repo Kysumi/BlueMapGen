@@ -13,8 +13,14 @@ Grid::Grid(sf::Vector2i size) {
 
     for (auto xAxis = 0; xAxis < size.x; xAxis++) {
         for (auto yAxis = 0; yAxis < size.y; yAxis++) {
+            auto xOffSet = 0;
+            auto yOffset = 0;
 
-            Node node(sf::Vector2i(xAxis, yAxis), nodeSize);
+            if (xAxis % 2 == 0) {
+                yOffset = nodeSize * 3/4;
+            }
+
+            Node node(sf::Vector2i(xAxis, yAxis), nodeSize, xOffSet, yOffset);
 
             /* generate secret number between 1 and 10: */
             auto number = rand() % 10 + 1;

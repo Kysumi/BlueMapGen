@@ -30,7 +30,7 @@ public:
     Node *getNodeFromGridPosition(int x, int y);
 
 private:
-    const int nodeSize = 30;
+    const int nodeSize = 8;
     sf::Vector2i size;
     std::vector<std::vector<Node>> grid;
 };

@@ -12,7 +12,7 @@ public:
     // For initializing
     Node() {};
 
-    Node(sf::Vector2i position, int width);
+    Node(sf::Vector2i position, int width, float xOffset, float yOffset);
 
     ~Node();
 

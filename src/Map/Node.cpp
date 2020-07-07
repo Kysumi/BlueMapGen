@@ -4,7 +4,7 @@
 
 #include "Node.h"
 
-Node::Node(sf::Vector2i position, int width) {
+Node::Node(sf::Vector2i position, int width, float xOffset, float yOffset) {
     this->alive = false;
 
     this->shape.setFillColor(sf::Color::Black);
@@ -13,14 +13,17 @@ Node::Node(sf::Vector2i position, int width) {
 
     this->shape.setPointCount(6);
     this->shape.setRadius((float) width - 2);
-    this->shape.setRotation(0);
+    this->shape.setRotation(30);
 
     this->x = position.x;
     this->y = position.y;
 
     this->size = width;
 
-    this->shape.setPosition(getWorldPosition());
+    auto worldPos = getWorldPosition();
+    worldPos.x += xOffset;
+    worldPos.y += yOffset;
+    this->shape.setPosition(worldPos);
 }
 
 Node::~Node() {

@@ -21,7 +21,7 @@ CALLBACK NodeBinding::JSNodeConstructor(JsValueRef callee, bool isConstructCall,
     JsNumberToInt(arguments[2], &y);
     JsNumberToInt(arguments[3], &width);
 
-    auto *node = new Node(sf::Vector2i(x, y), width);
+    auto *node = new Node(sf::Vector2i(x, y), width, 0, 0);
 
     JsCreateExternalObject(node, nullptr, &output);
     JsSetPrototype(output, JSNodePrototype);

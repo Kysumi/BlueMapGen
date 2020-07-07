@@ -4,7 +4,7 @@
 
 #include "Node.h"
 
-atlas::Node::Node(sf::Vector2i position, int width) {
+Node::Node(sf::Vector2i position, int width) {
     this->alive = false;
 
     this->shape.setFillColor(sf::Color::Black);
@@ -18,52 +18,52 @@ atlas::Node::Node(sf::Vector2i position, int width) {
     this->size = width;
 }
 
-atlas::Node::~Node() {
+Node::~Node() {
 }
 
-bool atlas::Node::isAlive() {
+bool Node::isAlive() {
     return this->alive;
 }
 
-int atlas::Node::getGridPositionX() {
+int Node::getGridPositionX() {
     return this->x;
 }
 
-int atlas::Node::getGridPositionY() {
+int Node::getGridPositionY() {
     return this->y;
 }
 
-void atlas::Node::draw(sf::RenderWindow &window) {
+void Node::draw(sf::RenderWindow &window) {
     this->shape.setPosition(getWorldPosition());
     window.draw(this->shape);
 }
 
-void atlas::Node::setPosition(sf::Vector2f pos) {
+void Node::setPosition(sf::Vector2f pos) {
     this->shape.setPosition(pos);
 }
 
-void atlas::Node::kill() {
+void Node::kill() {
     this->alive = false;
     this->shape.setFillColor(sf::Color::Black);
 }
 
-void atlas::Node::born() {
+void Node::born() {
     this->alive = true;
     this->shape.setFillColor(sf::Color::White);
 }
 
-sf::Vector2i atlas::Node::getGridPosition() {
+sf::Vector2i Node::getGridPosition() {
     return {this->getGridPositionX(), this->getGridPositionY()};
 }
 
-float atlas::Node::getWorldPositionX() {
+float Node::getWorldPositionX() {
     return this->getGridPositionX() * this->size;
 }
 
-float atlas::Node::getWorldPositionY() {
+float Node::getWorldPositionY() {
     return this->getGridPositionY() * this->size;
 }
 
-sf::Vector2f atlas::Node::getWorldPosition() {
+sf::Vector2f Node::getWorldPosition() {
     return {this->getWorldPositionX(), this->getWorldPositionY()};
 }

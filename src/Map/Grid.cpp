@@ -4,8 +4,7 @@
 
 #include "Grid.h"
 
-atlas::Grid::Grid(sf::Vector2i size)
-{
+Grid::Grid(sf::Vector2i size) {
     this->size = size;
 
     grid = std::vector<std::vector<Node>>(size.x, std::vector<Node>(size.y));
@@ -20,8 +19,7 @@ atlas::Grid::Grid(sf::Vector2i size)
             /* generate secret number between 1 and 10: */
             auto number = rand() % 10 + 1;
 
-            if (number > 7)
-            {
+            if (number > 7) {
                 node.born();
             }
 
@@ -30,10 +28,9 @@ atlas::Grid::Grid(sf::Vector2i size)
     }
 }
 
-atlas::Grid::~Grid() = default;
+Grid::~Grid() = default;
 
-void atlas::Grid::Draw(sf::RenderWindow& window)
-{
+void Grid::Draw(sf::RenderWindow &window) {
     for (auto xAxis = 0; xAxis < size.x; xAxis++) {
         for (auto yAxis = 0; yAxis < size.y; yAxis++) {
             auto node = grid[xAxis][yAxis];
@@ -42,8 +39,7 @@ void atlas::Grid::Draw(sf::RenderWindow& window)
     }
 }
 
-void atlas::Grid::Process()
-{
+void Grid::Process() {
     // Replicate grid state to copy
     auto gridCopy = grid;
 
@@ -55,11 +51,9 @@ void atlas::Grid::Process()
 
             if (count < 2) {
                 gridCopy[xAxis][yAxis].kill();
-            }
-            else if (count > 3) {
+            } else if (count > 3) {
                 gridCopy[xAxis][yAxis].kill();
-            }
-            else if (count == 3) {
+            } else if (count == 3) {
                 gridCopy[xAxis][yAxis].born();
             }
         }
@@ -69,16 +63,13 @@ void atlas::Grid::Process()
     grid = gridCopy;
 }
 
-std::vector<atlas::Node> atlas::Grid::getAliveNeighbours(sf::Vector2i position)
-{
+std::vector<Node> Grid::getAliveNeighbours(sf::Vector2i position) {
     auto neighbours = getNeighbours(position);
     std::vector<Node> aliveNodes;
     aliveNodes.reserve(9); // maximum possible
 
-    for (auto node : neighbours)
-    {
-        if (node.isAlive())
-        {
+    for (auto node : neighbours) {
+        if (node.isAlive()) {
             aliveNodes.emplace_back(node);
         }
     }
@@ -86,33 +77,26 @@ std::vector<atlas::Node> atlas::Grid::getAliveNeighbours(sf::Vector2i position)
     return aliveNodes;
 }
 
-std::vector<atlas::Node> atlas::Grid::getNeighbours(sf::Vector2i position)
-{
+std::vector<Node> Grid::getNeighbours(sf::Vector2i position) {
     return getNeighbours(position.x, position.y);
 }
 
-std::vector<atlas::Node> atlas::Grid::getNeighbours(int x, int y)
-{
+std::vector<Node> Grid::getNeighbours(int x, int y) {
     std::vector<Node> neighbours;
     neighbours.reserve(9); // Maximum possible neighbours
 
-    for (auto xAxis = x - 1; xAxis <= x + 1; xAxis++)
-    {
-        for (auto yAxis = y - 1; yAxis <= y + 1; yAxis++)
-        {
-            if (xAxis < 0 || yAxis < 0)
-            {
+    for (auto xAxis = x - 1; xAxis <= x + 1; xAxis++) {
+        for (auto yAxis = y - 1; yAxis <= y + 1; yAxis++) {
+            if (xAxis < 0 || yAxis < 0) {
                 continue;
             }
 
-            if (xAxis > grid.size() - 1 || yAxis > grid[0].size() - 1)
-            {
+            if (xAxis > grid.size() - 1 || yAxis > grid[0].size() - 1) {
                 continue;
             }
 
             // Its the node we are trying to find the neighbours of
-            if (xAxis == x && yAxis == y)
-            {
+            if (xAxis == x && yAxis == y) {
                 continue;
             }
 
@@ -123,10 +107,10 @@ std::vector<atlas::Node> atlas::Grid::getNeighbours(int x, int y)
     return neighbours;
 }
 
-atlas::Node *atlas::Grid::getNodeFromGridPosition(int x, int y) {
+Node *Grid::getNodeFromGridPosition(int x, int y) {
     return &grid[x][y];
 }
 
-sf::Vector2i* atlas::Grid::getSize() {
+sf::Vector2i *Grid::getSize() {
     return &size;
 }

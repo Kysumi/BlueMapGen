@@ -24,7 +24,7 @@ CALLBACK GridBinding::JSGridConstructor(JsValueRef callee, bool isConstructCall,
     JsNumberToInt(arguments[1], &x);
     JsNumberToInt(arguments[2], &y);
 
-    auto *grid = new atlas::Grid(sf::Vector2i(x, y));
+    auto *grid = new Grid(sf::Vector2i(x, y));
 
     JsCreateExternalObject(grid, WScriptJsrt::FinalizeFree, &output);
     JsSetPrototype(output, JSGridPrototype);
@@ -40,7 +40,7 @@ JsValueRef CALLBACK GridBinding::Process(JsValueRef callee, bool isConstructCall
     void *gridArg;
 
     if (JsGetExternalData(arguments[0], &gridArg) == JsNoError) {
-        auto *grid = static_cast<atlas::Grid *>(gridArg);
+        auto *grid = static_cast<Grid *>(gridArg);
         grid->Process();
     };
 
@@ -55,11 +55,11 @@ CALLBACK GridBinding::GetNeighbours(JsValueRef callee, bool isConstructCall, JsV
     JsValueRef output = JS_INVALID_REFERENCE;
 
     void *gridArg;
-    atlas::Grid *grid;
+    Grid *grid;
 
     // Load grid object from JSLAND
     if (JsGetExternalData(arguments[0], &gridArg) == JsNoError) {
-        grid = static_cast<atlas::Grid *>(gridArg);
+        grid = static_cast<Grid *>(gridArg);
     } else {
         throw "AHHHHHH no grid object";
     }
@@ -83,7 +83,7 @@ JsValueRef CALLBACK GridBinding::Draw(JsValueRef callee, bool isConstructCall, J
     void *gridArg;
 
     if (JsGetExternalData(arguments[0], &gridArg) == JsNoError) {
-        auto *grid = static_cast<atlas::Grid *>(gridArg);
+        auto *grid = static_cast<Grid *>(gridArg);
         grid->Draw(*WindowManager::getActiveWindow());
     };
 
@@ -103,7 +103,7 @@ JsValueRef CALLBACK GridBinding::GetNodeFromGridPosition(JsValueRef callee, bool
     void *gridArg;
 
     if (JsGetExternalData(arguments[0], &gridArg) == JsNoError) {
-        auto *grid = static_cast<atlas::Grid *>(gridArg);
+        auto *grid = static_cast<Grid *>(gridArg);
         auto node = grid->getNodeFromGridPosition(x, y);
         JsCreateExternalObject(node, nullptr, &output);
         JsSetPrototype(output, NodeBinding::JSNodePrototype);
@@ -121,7 +121,7 @@ JsValueRef CALLBACK GridBinding::GetSize(JsValueRef callee, bool isConstructCall
     void *gridArg;
 
     if (JsGetExternalData(arguments[0], &gridArg) == JsNoError) {
-        auto *grid = static_cast<atlas::Grid *>(gridArg);
+        auto *grid = static_cast<Grid *>(gridArg);
         auto vector = grid->getSize();
         // WScriptJsrt::FinalizeFree
         JsCreateExternalObject(vector, nullptr, &output);

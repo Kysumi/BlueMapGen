@@ -8,7 +8,6 @@
 #include <SFML/System.hpp>
 #include "Node.h"
 
-namespace atlas {
 
     class Grid {
     public:
@@ -30,6 +29,5 @@ namespace atlas {
         sf::Vector2i size;
         std::vector<std::vector<Node>> grid;
     };
-}
 
 #endif //ONGRID_GRID_H

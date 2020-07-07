@@ -6,8 +6,6 @@
 #define ONGRID_NODE_H
 
 #include <SFML/Graphics.hpp>
-
-namespace atlas {
     class Node {
     public:
         // For initializing
@@ -46,6 +44,5 @@ namespace atlas {
         int x, y;
         int size;
     };
-}
 
 #endif //ONGRID_NODE_H

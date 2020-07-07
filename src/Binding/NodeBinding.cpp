@@ -21,7 +21,7 @@ CALLBACK NodeBinding::JSNodeConstructor(JsValueRef callee, bool isConstructCall,
     JsNumberToInt(arguments[2], &y);
     JsNumberToInt(arguments[3], &width);
 
-    auto *node = new atlas::Node(sf::Vector2i(x, y), width);
+    auto *node = new Node(sf::Vector2i(x, y), width);
 
     JsCreateExternalObject(node, nullptr, &output);
     JsSetPrototype(output, JSNodePrototype);
@@ -37,7 +37,7 @@ JsValueRef CALLBACK NodeBinding::Draw(JsValueRef callee, bool isConstructCall, J
     void *nodeArg;
 
     if (JsGetExternalData(arguments[0], &nodeArg) == JsNoError) {
-        auto *node = static_cast<atlas::Node *>(nodeArg);
+        auto *node = static_cast<Node *>(nodeArg);
         node->draw(*WindowManager::getActiveWindow());
     };
 
@@ -52,7 +52,7 @@ JsValueRef CALLBACK NodeBinding::Kill(JsValueRef callee, bool isConstructCall, J
     void *nodeArg;
 
     if (JsGetExternalData(arguments[0], &nodeArg) == JsNoError) {
-        auto *node = static_cast<atlas::Node *>(nodeArg);
+        auto *node = static_cast<Node *>(nodeArg);
         node->kill();
     };
 
@@ -67,7 +67,7 @@ JsValueRef CALLBACK NodeBinding::Born(JsValueRef callee, bool isConstructCall, J
     void *nodeArg;
 
     if (JsGetExternalData(arguments[0], &nodeArg) == JsNoError) {
-        auto *node = static_cast<atlas::Node *>(nodeArg);
+        auto *node = static_cast<Node *>(nodeArg);
         node->born();
     };
 

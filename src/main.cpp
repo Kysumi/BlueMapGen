@@ -14,6 +14,7 @@
 // TODO take a look into
 // https://youtu.be/VguG_y05Xe8?t=452
 // https://www.redblobgames.com/grids/hexagons/implementation.html <-- Excellent hexagon grid resource
+// https://embeddedartistry.com/blog/2017/08/30/choosing-the-right-container-associative-containers/
 int main() {
     std::cout << "Starting up OnGrid..." << std::endl;
     Chakra::Init("assets/scripts");

@@ -7,7 +7,17 @@
 
 #include <SFML/System.hpp>
 #include "Node.h"
+#include <unordered_set>
 
+// class for hash function
+class HashFunc {
+public:
+    // id is returned as hash function
+    size_t operator()(Node& t) const
+    {
+        return t.getGridPositionX() + t.getGridPositionY();
+    }
+};
 
 class Grid {
 public:
@@ -32,7 +42,7 @@ public:
 private:
     const int nodeSize = 8;
     sf::Vector2i size;
-    std::vector<std::vector<Node>> grid;
+    std::unordered_set<Node, HashFunc> map;
 };
 
 #endif //ONGRID_GRID_H

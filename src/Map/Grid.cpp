@@ -6,10 +6,10 @@
 
 Grid::Grid(sf::Vector2i size) {
     this->size = size;
-
-    grid = std::vector<std::vector<Node>>(size.x, std::vector<Node>(size.y));
-
     srand(time(NULL));
+
+    map.reserve(1024);
+    map.max_load_factor(0.25);
 
     for (auto xAxis = 0; xAxis < size.x; xAxis++) {
         for (auto yAxis = 0; yAxis < size.y; yAxis++) {
@@ -29,7 +29,7 @@ Grid::Grid(sf::Vector2i size) {
                 node.born();
             }
 
-            grid[xAxis][yAxis] = node;
+            map.insert(node);
         }
     }
 }
@@ -39,7 +39,7 @@ Grid::~Grid() = default;
 void Grid::Draw(sf::RenderWindow &window) {
     for (auto xAxis = 0; xAxis < size.x; xAxis++) {
         for (auto yAxis = 0; yAxis < size.y; yAxis++) {
-            auto node = grid[xAxis][yAxis];
+            auto node = map.find(xAxis+yAxis);
             node.draw(window);
         }
     }

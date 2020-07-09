@@ -53,13 +53,14 @@ void Grid::Process() {
     for (auto xAxis = 0; xAxis < size.x; xAxis++) {
         for (auto yAxis = 0; yAxis < size.y; yAxis++) {
             auto count = getAliveNeighbours(sf::Vector2i(xAxis, yAxis)).size();
+            auto nodeHash = getMap(xAxis, yAxis);
 
             if (count < 2) {
-                gridCopy[xAxis + yAxis].kill();
+                gridCopy[nodeHash].kill();
             } else if (count > 3) {
-                gridCopy[xAxis + yAxis].kill();
+                gridCopy[nodeHash].kill();
             } else if (count == 3) {
-                gridCopy[xAxis + yAxis].born();
+                gridCopy[nodeHash].born();
             }
         }
     }
@@ -121,10 +122,5 @@ sf::Vector2i *Grid::getSize() {
 }
 
 int Grid::getMap(int x, int y) {
-
-    std::hash<int> int_hash;
-    size_t hashX = int_hash(x);
-    size_t hashY = int_hash(y);
-
-    return hashX ^ (hashY << 1);
+    return ((x + y) * (x + y) + x - y) / 2;
 }

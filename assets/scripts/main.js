@@ -1,7 +1,7 @@
 // YOU MUST DEFINE THE FILE EXTENSION
 // import demoDefault, {heh} from "module.js"
 
-let grid = new Grid(24,24);
+let grid = new Grid(100,100);
 const gridSize = grid.getSize();
 
 const proccess = () => {

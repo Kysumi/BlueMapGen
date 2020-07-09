@@ -19,7 +19,7 @@ public:
 
     void Draw(sf::RenderWindow &window);
 
-    int getMap(int x, int y);
+    static int getMap(int x, int y);
 
     sf::Vector2i *getSize();
 
@@ -32,7 +32,7 @@ public:
     Node *getNodeFromGridPosition(int x, int y);
 
 private:
-    const int nodeSize = 8;
+    const int nodeSize = 5;
     sf::Vector2i size;
     std::unordered_map<int, Node> map;
 };

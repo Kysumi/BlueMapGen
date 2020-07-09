@@ -74,6 +74,22 @@ JsValueRef CALLBACK NodeBinding::Born(JsValueRef callee, bool isConstructCall, J
     return output;
 }
 
+JsValueRef CALLBACK NodeBinding::Alive(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
+                                              unsigned short argumentCount, void *callbackState) {
+    Assert(!isConstructCall && argumentCount == 1);
+    JsValueRef output = JS_INVALID_REFERENCE;
+
+    void *nodeArg;
+
+    if (JsGetExternalData(arguments[0], &nodeArg) == JsNoError) {
+        auto *node = static_cast<Node *>(nodeArg);
+
+        JsBoolToBoolean(node->alive, &output);
+    };
+
+    return output;
+}
+
 void NodeBinding::bind() {
     std::vector<const char *> memberNames;
     std::vector<JsNativeFunction> memberFuncs;
@@ -86,6 +102,9 @@ void NodeBinding::bind() {
 
     memberNames.push_back("kill");
     memberFuncs.push_back(Kill);
+
+    memberNames.push_back("alive");
+    memberFuncs.push_back(Alive);
 
     WScriptJsrt::ProjectNativeClass(L"Node", JSNodeConstructor, JSNodePrototype, memberNames, memberFuncs);
 }

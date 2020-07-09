@@ -29,6 +29,9 @@ public:
     static JsValueRef
     Born(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount,
          void *callbackState);
+
+    static JsValueRef Alive(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount,
+                            void *callbackState);
 };
 
 

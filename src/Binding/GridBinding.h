@@ -14,9 +14,6 @@ public:
     static JsValueRef JSGridPrototype;
 
 private:
-    static JsValueRef
-    CALLBACK Process(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount,
-                     void *callbackState);
 
     static JsValueRef
     CALLBACK JSGridConstructor(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
@@ -39,6 +36,9 @@ private:
     static JsValueRef
     GetSize(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount,
             void *callbackState);
+
+    static JsValueRef FlipBuffer(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount,
+                                 void *callbackState);
 };
 
 #endif //ONGRID_GRID_H

@@ -32,7 +32,7 @@ CALLBACK GridBinding::JSGridConstructor(JsValueRef callee, bool isConstructCall,
     return output;
 }
 
-JsValueRef CALLBACK GridBinding::Process(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
+JsValueRef CALLBACK GridBinding::FlipBuffer(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
                                          unsigned short argumentCount, void *callbackState) {
     Assert(!isConstructCall && argumentCount == 1);
     JsValueRef output = JS_INVALID_REFERENCE;
@@ -41,7 +41,7 @@ JsValueRef CALLBACK GridBinding::Process(JsValueRef callee, bool isConstructCall
 
     if (JsGetExternalData(arguments[0], &gridArg) == JsNoError) {
         auto *grid = static_cast<Grid *>(gridArg);
-        grid->Process();
+        grid->flipBuffer();
     };
 
     return output;
@@ -69,7 +69,22 @@ CALLBACK GridBinding::GetNeighbours(JsValueRef callee, bool isConstructCall, JsV
     JsNumberToInt(arguments[2], &y);
 
     auto neighbours = grid->getNeighbours(x, y);
-    JsCreateExternalObject(&neighbours, nullptr, &output);
+    JsCreateArray(neighbours.size(), &output);
+
+    int count = 0;
+    for (auto &node : neighbours)
+    {
+        JsValueRef nodeRef;
+        JsCreateExternalObject(&node, nullptr, &nodeRef);
+        JsSetPrototype(nodeRef, NodeBinding::JSNodePrototype);
+
+        JsValueRef indexValue;
+        JsIntToNumber(count, &indexValue);
+
+        JsSetIndexedProperty(output, indexValue, nodeRef);
+
+        count++;
+    }
 
     return output;
 }
@@ -135,8 +150,8 @@ void GridBinding::bind() {
     std::vector<const char *> memberNames;
     std::vector<JsNativeFunction> memberFuncs;
 
-    memberNames.push_back("process");
-    memberFuncs.push_back(Process);
+    memberNames.push_back("flipBuffer");
+    memberFuncs.push_back(FlipBuffer);
 
     memberNames.push_back("getNeighbours");
     memberFuncs.push_back(GetNeighbours);

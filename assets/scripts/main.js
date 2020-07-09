@@ -21,7 +21,8 @@ while(Window.isOpen()) {
     Window.processEvents();
     Window.clear();
 
-    proccess();
+    grid.process();
+    grid.draw();
 
     Window.display();
 

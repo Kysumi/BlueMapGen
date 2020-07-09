@@ -8,7 +8,7 @@ Grid::Grid(sf::Vector2i size) {
     this->size = size;
     srand(time(NULL));
 
-    map.reserve(1024);
+    map.reserve(size.x * size.y);
     map.max_load_factor(0.25);
 
     for (auto xAxis = 0; xAxis < size.x; xAxis++) {
@@ -29,7 +29,8 @@ Grid::Grid(sf::Vector2i size) {
                 node.born();
             }
 
-            map.insert(node);
+            auto hash = getMap(yAxis, xAxis);
+            map[hash] = node;
         }
     }
 }
@@ -39,7 +40,7 @@ Grid::~Grid() = default;
 void Grid::Draw(sf::RenderWindow &window) {
     for (auto xAxis = 0; xAxis < size.x; xAxis++) {
         for (auto yAxis = 0; yAxis < size.y; yAxis++) {
-            auto node = map.find(xAxis+yAxis);
+            auto node = map[getMap(xAxis, yAxis)];
             node.draw(window);
         }
     }
@@ -47,26 +48,24 @@ void Grid::Draw(sf::RenderWindow &window) {
 
 void Grid::Process() {
     // Replicate grid state to copy
-    auto gridCopy = grid;
+    auto gridCopy = map;
 
     for (auto xAxis = 0; xAxis < size.x; xAxis++) {
         for (auto yAxis = 0; yAxis < size.y; yAxis++) {
-
-            auto node = gridCopy[xAxis][yAxis];
             auto count = getAliveNeighbours(sf::Vector2i(xAxis, yAxis)).size();
 
             if (count < 2) {
-                gridCopy[xAxis][yAxis].kill();
+                gridCopy[xAxis + yAxis].kill();
             } else if (count > 3) {
-                gridCopy[xAxis][yAxis].kill();
+                gridCopy[xAxis + yAxis].kill();
             } else if (count == 3) {
-                gridCopy[xAxis][yAxis].born();
+                gridCopy[xAxis + yAxis].born();
             }
         }
     }
 
     // Flip array back again
-    grid = gridCopy;
+    map = gridCopy;
 }
 
 std::vector<Node> Grid::getAliveNeighbours(sf::Vector2i position) {
@@ -97,7 +96,7 @@ std::vector<Node> Grid::getNeighbours(int x, int y) {
                 continue;
             }
 
-            if (xAxis > grid.size() - 1 || yAxis > grid[0].size() - 1) {
+            if (xAxis >= size.x - 1 || yAxis > size.y - 1) {
                 continue;
             }
 
@@ -105,8 +104,8 @@ std::vector<Node> Grid::getNeighbours(int x, int y) {
             if (xAxis == x && yAxis == y) {
                 continue;
             }
-
-            neighbours.emplace_back(grid[xAxis][yAxis]);
+            auto hash = getMap(xAxis, yAxis);
+            neighbours.emplace_back(map[hash]);
         }
     }
 
@@ -114,9 +113,18 @@ std::vector<Node> Grid::getNeighbours(int x, int y) {
 }
 
 Node *Grid::getNodeFromGridPosition(int x, int y) {
-    return &grid[x][y];
+    return &map[getMap(x, y)];
 }
 
 sf::Vector2i *Grid::getSize() {
     return &size;
+}
+
+int Grid::getMap(int x, int y) {
+
+    std::hash<int> int_hash;
+    size_t hashX = int_hash(x);
+    size_t hashY = int_hash(y);
+
+    return hashX ^ (hashY << 1);
 }

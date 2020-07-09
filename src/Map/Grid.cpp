@@ -17,7 +17,7 @@ Grid::Grid(sf::Vector2i size) {
             auto yOffset = 0;
 
             if (xAxis % 2 == 0) {
-                yOffset = nodeSize * 3/4;
+                yOffset = nodeSize * 3 / 4;
             }
 
             Node node(sf::Vector2i(xAxis, yAxis), nodeSize, xOffSet, yOffset);
@@ -33,6 +33,9 @@ Grid::Grid(sf::Vector2i size) {
             map[hash] = node;
         }
     }
+
+    // Load the new map onto the buffer
+    mapBuffer = map;
 }
 
 Grid::~Grid() = default;
@@ -46,46 +49,46 @@ void Grid::Draw(sf::RenderWindow &window) {
     }
 }
 
-void Grid::Process() {
-    // Replicate grid state to copy
-    auto gridCopy = map;
+//void Grid::Process() {
+//    // Replicate grid state to copy
+//    auto gridCopy = map;
+//
+//    for (auto xAxis = 0; xAxis < size.x; xAxis++) {
+//        for (auto yAxis = 0; yAxis < size.y; yAxis++) {
+//            auto count = getAliveNeighbours(sf::Vector2i(xAxis, yAxis)).size();
+//            auto nodeHash = getUniqueHash(xAxis, yAxis);
+//
+//            if (count < 2) {
+//                gridCopy[nodeHash].kill();
+//            } else if (count > 3) {
+//                gridCopy[nodeHash].kill();
+//            } else if (count == 3) {
+//                gridCopy[nodeHash].born();
+//            }
+//        }
+//    }
+//
+//    // Flip array back again
+//    map = gridCopy;
+//}
 
-    for (auto xAxis = 0; xAxis < size.x; xAxis++) {
-        for (auto yAxis = 0; yAxis < size.y; yAxis++) {
-            auto count = getAliveNeighbours(sf::Vector2i(xAxis, yAxis)).size();
-            auto nodeHash = getUniqueHash(xAxis, yAxis);
+//std::vector<Node> Grid::getAliveNeighbours(sf::Vector2i position) {
+//    auto neighbours = getNeighbours(position);
+//    std::vector<Node> aliveNodes;
+//    aliveNodes.reserve(9); // maximum possible
+//
+//    for (auto node : neighbours) {
+//        if (node.isAlive()) {
+//            aliveNodes.emplace_back(node);
+//        }
+//    }
+//
+//    return aliveNodes;
+//}
 
-            if (count < 2) {
-                gridCopy[nodeHash].kill();
-            } else if (count > 3) {
-                gridCopy[nodeHash].kill();
-            } else if (count == 3) {
-                gridCopy[nodeHash].born();
-            }
-        }
-    }
-
-    // Flip array back again
-    map = gridCopy;
-}
-
-std::vector<Node> Grid::getAliveNeighbours(sf::Vector2i position) {
-    auto neighbours = getNeighbours(position);
-    std::vector<Node> aliveNodes;
-    aliveNodes.reserve(9); // maximum possible
-
-    for (auto node : neighbours) {
-        if (node.isAlive()) {
-            aliveNodes.emplace_back(node);
-        }
-    }
-
-    return aliveNodes;
-}
-
-std::vector<Node> Grid::getNeighbours(sf::Vector2i position) {
-    return getNeighbours(position.x, position.y);
-}
+//std::vector<Node> Grid::getNeighbours(sf::Vector2i position) {
+//    return getNeighbours(position.x, position.y);
+//}
 
 std::vector<Node> Grid::getNeighbours(int x, int y) {
     std::vector<Node> neighbours;
@@ -113,10 +116,26 @@ std::vector<Node> Grid::getNeighbours(int x, int y) {
     return neighbours;
 }
 
+/**
+ * BE CAREFUL!! this specifically returns the node from the buffer
+ * and not the current "map" which is rendered.
+ *
+ * This is so that when this copy of the node is modified it does not
+ * effect the current state of the "world"
+ *
+ * @param x
+ * @param y
+ * @return
+ */
 Node *Grid::getNodeFromGridPosition(int x, int y) {
-    return &map[getUniqueHash(x, y)];
+    return &mapBuffer[getUniqueHash(x, y)];
 }
 
+/**
+ * Returns the size of the grid
+ *
+ * @return
+ */
 sf::Vector2i *Grid::getSize() {
     return &size;
 }
@@ -132,4 +151,15 @@ sf::Vector2i *Grid::getSize() {
  */
 int Grid::getUniqueHash(int x, int y) {
     return (x + y) * (x + y + 1) / 2 + y;
+}
+
+/**
+ * Copies the current mapBuffer instance onto the map instance
+ * this should be done just before drawing the current map state
+ * if any changes to nodes has happened
+ */
+void Grid::flipBuffer() {
+    map = mapBuffer;
+    // Clean up the obj this might not be required
+    // mapBuffer = std::unordered_map<int, Node>();
 }

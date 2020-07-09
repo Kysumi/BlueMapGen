@@ -19,7 +19,7 @@ public:
 
     void Draw(sf::RenderWindow &window);
 
-    static int getMap(int x, int y);
+    static int getUniqueHash(int x, int y);
 
     sf::Vector2i *getSize();
 

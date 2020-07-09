@@ -29,7 +29,7 @@ Grid::Grid(sf::Vector2i size) {
                 node.born();
             }
 
-            auto hash = getMap(yAxis, xAxis);
+            auto hash = getUniqueHash(yAxis, xAxis);
             map[hash] = node;
         }
     }
@@ -40,7 +40,7 @@ Grid::~Grid() = default;
 void Grid::Draw(sf::RenderWindow &window) {
     for (auto xAxis = 0; xAxis < size.x; xAxis++) {
         for (auto yAxis = 0; yAxis < size.y; yAxis++) {
-            auto node = map[getMap(xAxis, yAxis)];
+            auto node = map[getUniqueHash(xAxis, yAxis)];
             node.draw(window);
         }
     }
@@ -53,7 +53,7 @@ void Grid::Process() {
     for (auto xAxis = 0; xAxis < size.x; xAxis++) {
         for (auto yAxis = 0; yAxis < size.y; yAxis++) {
             auto count = getAliveNeighbours(sf::Vector2i(xAxis, yAxis)).size();
-            auto nodeHash = getMap(xAxis, yAxis);
+            auto nodeHash = getUniqueHash(xAxis, yAxis);
 
             if (count < 2) {
                 gridCopy[nodeHash].kill();
@@ -105,7 +105,7 @@ std::vector<Node> Grid::getNeighbours(int x, int y) {
             if (xAxis == x && yAxis == y) {
                 continue;
             }
-            auto hash = getMap(xAxis, yAxis);
+            auto hash = getUniqueHash(xAxis, yAxis);
             neighbours.emplace_back(map[hash]);
         }
     }
@@ -114,13 +114,22 @@ std::vector<Node> Grid::getNeighbours(int x, int y) {
 }
 
 Node *Grid::getNodeFromGridPosition(int x, int y) {
-    return &map[getMap(x, y)];
+    return &map[getUniqueHash(x, y)];
 }
 
 sf::Vector2i *Grid::getSize() {
     return &size;
 }
 
-int Grid::getMap(int x, int y) {
-    return ((x + y) * (x + y) + x - y) / 2;
+/**
+ * Using the cantor pairing method as described here
+ * https://pipme.github.io/2020-04-25-cantor-pairing/
+ *
+ * @param x
+ * @param y
+ *
+ * @return unique number for the input params
+ */
+int Grid::getUniqueHash(int x, int y) {
+    return (x + y) * (x + y + 1) / 2 + y;
 }

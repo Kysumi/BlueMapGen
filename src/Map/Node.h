@@ -15,9 +15,7 @@ public:
     Node(sf::Vector2i position, int width, float xOffset, float yOffset);
 
     ~Node();
-
-    bool alive;
-
+    
     bool isAlive();
 
     void draw(sf::RenderWindow &window);
@@ -42,6 +40,7 @@ public:
 
 private:
     sf::CircleShape shape;
+    bool alive;
     int x, y;
     int size;
 };

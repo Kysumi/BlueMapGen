@@ -32,6 +32,14 @@ public:
 
     static JsValueRef Alive(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount,
                             void *callbackState);
+
+    static JsValueRef
+    X(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount,
+      void *callbackState);
+
+    static JsValueRef
+    Y(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount,
+      void *callbackState);
 };
 
 

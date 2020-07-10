@@ -72,10 +72,10 @@ CALLBACK GridBinding::GetNeighbours(JsValueRef callee, bool isConstructCall, JsV
     JsCreateArray(neighbours.size(), &output);
 
     int count = 0;
-    for (auto &node : neighbours)
+    for (auto *node : neighbours)
     {
         JsValueRef nodeRef;
-        JsCreateExternalObject(&node, nullptr, &nodeRef);
+        JsCreateExternalObject(node, nullptr, &nodeRef);
         JsSetPrototype(nodeRef, NodeBinding::JSNodePrototype);
 
         JsValueRef indexValue;

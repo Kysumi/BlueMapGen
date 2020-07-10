@@ -90,8 +90,8 @@ void Grid::Draw(sf::RenderWindow &window) {
 //    return getNeighbours(position.x, position.y);
 //}
 
-std::vector<Node> Grid::getNeighbours(int x, int y) {
-    std::vector<Node> neighbours;
+std::vector<Node*> Grid::getNeighbours(int x, int y) {
+    std::vector<Node*> neighbours;
     neighbours.reserve(9); // Maximum possible neighbours
 
     for (auto xAxis = x - 1; xAxis <= x + 1; xAxis++) {
@@ -100,7 +100,7 @@ std::vector<Node> Grid::getNeighbours(int x, int y) {
                 continue;
             }
 
-            if (xAxis >= size.x - 1 || yAxis > size.y - 1) {
+            if (xAxis >= size.x || yAxis >= size.y) {
                 continue;
             }
 
@@ -108,8 +108,10 @@ std::vector<Node> Grid::getNeighbours(int x, int y) {
             if (xAxis == x && yAxis == y) {
                 continue;
             }
+
             auto hash = getUniqueHash(xAxis, yAxis);
-            neighbours.emplace_back(map[hash]);
+            auto node = &map[hash];
+            neighbours.emplace_back(node);
         }
     }
 

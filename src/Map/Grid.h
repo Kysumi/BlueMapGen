@@ -29,7 +29,7 @@ public:
 
 //    std::vector<Node> getAliveNeighbours(sf::Vector2i position);
 
-    std::vector<Node> getNeighbours(int x, int y);
+    std::vector<Node*> getNeighbours(int x, int y);
 
     Node *getNodeFromGridPosition(int x, int y);
 

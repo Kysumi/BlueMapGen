@@ -84,7 +84,39 @@ JsValueRef CALLBACK NodeBinding::Alive(JsValueRef callee, bool isConstructCall, 
     if (JsGetExternalData(arguments[0], &nodeArg) == JsNoError) {
         auto *node = static_cast<Node *>(nodeArg);
 
-        JsBoolToBoolean(node->alive, &output);
+        JsBoolToBoolean(node->isAlive(), &output);
+    };
+
+    return output;
+}
+
+JsValueRef CALLBACK NodeBinding::X(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
+                                       unsigned short argumentCount, void *callbackState) {
+    Assert(!isConstructCall && argumentCount == 1);
+    JsValueRef output = JS_INVALID_REFERENCE;
+
+    void *nodeArg;
+
+    if (JsGetExternalData(arguments[0], &nodeArg) == JsNoError) {
+        auto *node = static_cast<Node *>(nodeArg);
+
+        JsIntToNumber(node->getGridPositionX(), &output);
+    };
+
+    return output;
+}
+
+JsValueRef CALLBACK NodeBinding::Y(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
+                                   unsigned short argumentCount, void *callbackState) {
+    Assert(!isConstructCall && argumentCount == 1);
+    JsValueRef output = JS_INVALID_REFERENCE;
+
+    void *nodeArg;
+
+    if (JsGetExternalData(arguments[0], &nodeArg) == JsNoError) {
+        auto *node = static_cast<Node *>(nodeArg);
+
+        JsIntToNumber(node->getGridPositionX(), &output);
     };
 
     return output;
@@ -105,6 +137,12 @@ void NodeBinding::bind() {
 
     memberNames.push_back("alive");
     memberFuncs.push_back(Alive);
+
+    memberNames.push_back("x");
+    memberFuncs.push_back(X);
+
+    memberNames.push_back("y");
+    memberFuncs.push_back(Y);
 
     WScriptJsrt::ProjectNativeClass(L"Node", JSNodeConstructor, JSNodePrototype, memberNames, memberFuncs);
 }

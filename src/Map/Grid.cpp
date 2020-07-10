@@ -49,47 +49,6 @@ void Grid::Draw(sf::RenderWindow &window) {
     }
 }
 
-//void Grid::Process() {
-//    // Replicate grid state to copy
-//    auto gridCopy = map;
-//
-//    for (auto xAxis = 0; xAxis < size.x; xAxis++) {
-//        for (auto yAxis = 0; yAxis < size.y; yAxis++) {
-//            auto count = getAliveNeighbours(sf::Vector2i(xAxis, yAxis)).size();
-//            auto nodeHash = getUniqueHash(xAxis, yAxis);
-//
-//            if (count < 2) {
-//                gridCopy[nodeHash].kill();
-//            } else if (count > 3) {
-//                gridCopy[nodeHash].kill();
-//            } else if (count == 3) {
-//                gridCopy[nodeHash].born();
-//            }
-//        }
-//    }
-//
-//    // Flip array back again
-//    map = gridCopy;
-//}
-
-//std::vector<Node> Grid::getAliveNeighbours(sf::Vector2i position) {
-//    auto neighbours = getNeighbours(position);
-//    std::vector<Node> aliveNodes;
-//    aliveNodes.reserve(9); // maximum possible
-//
-//    for (auto node : neighbours) {
-//        if (node.isAlive()) {
-//            aliveNodes.emplace_back(node);
-//        }
-//    }
-//
-//    return aliveNodes;
-//}
-
-//std::vector<Node> Grid::getNeighbours(sf::Vector2i position) {
-//    return getNeighbours(position.x, position.y);
-//}
-
 std::vector<Node*> Grid::getNeighbours(int x, int y) {
     std::vector<Node*> neighbours;
     neighbours.reserve(9); // Maximum possible neighbours

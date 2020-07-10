@@ -4,7 +4,6 @@ import {defaultNodeCallback, iterateNodes} from "./node.js";
 let grid = new Grid(100, 100);
 
 const proccessNodes = () => {
-    console.log('Processing next iteration');
     iterateNodes(grid, defaultNodeCallback)
 }
 

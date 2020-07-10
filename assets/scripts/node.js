@@ -19,9 +19,7 @@ export const defaultNodeCallback = (x, y, grid) => {
 
     if (aliveNodesCount < 2 || aliveNodesCount > 3) {
         node.kill();
-        // console.log(`KILL! ${x} : ${y}`)
     } else {
-        // console.log(`BORN! ${x} : ${y}`)
         node.born();
     }
 }

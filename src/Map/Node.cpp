@@ -2,14 +2,15 @@
 // Created by scott on 6/29/2020.
 //
 
+#include <src/Assets/TextureManager.h>
 #include "Node.h"
 
 Node::Node(sf::Vector2i position, int width, float xOffset, float yOffset) {
     this->alive = false;
 
-    this->shape.setFillColor(sf::Color::Black);
-    this->shape.setOutlineColor(sf::Color::Magenta);
-    this->shape.setOutlineThickness(1);
+//    this->shape.setFillColor(sf::Color::Black);
+//    this->shape.setOutlineColor(sf::Color::Magenta);
+//    this->shape.setOutlineThickness(1);
 
     this->shape.setPointCount(6);
     this->shape.setRadius((float) width - 2);
@@ -45,19 +46,19 @@ void Node::draw(sf::RenderWindow &window) {
     window.draw(this->shape);
 }
 
-void Node::setPosition(sf::Vector2f pos) {
-    this->shape.setPosition(pos);
-}
+//void Node::setPosition(sf::Vector2f pos) {
+//    this->shape.setPosition(pos);
+//}
 
-void Node::kill() {
-    this->alive = false;
-    this->shape.setFillColor(sf::Color::Black);
-}
-
-void Node::born() {
-    this->alive = true;
-    this->shape.setFillColor(sf::Color::White);
-}
+//void Node::kill() {
+//    this->alive = false;
+//    this->shape.setFillColor(sf::Color::Black);
+//}
+//
+//void Node::born() {
+//    this->alive = true;
+//    this->shape.setFillColor(sf::Color::White);
+//}
 
 sf::Vector2i Node::getGridPosition() {
     return {this->getGridPositionX(), this->getGridPositionY()};
@@ -73,4 +74,12 @@ float Node::getWorldPositionY() {
 
 sf::Vector2f Node::getWorldPosition() {
     return {this->getWorldPositionX(), this->getWorldPositionY()};
+}
+
+void Node::setTexture(const std::string& textureName) {
+    sf::Texture *texture = TextureManager::getTexture(textureName);
+//    this->sprite = sf::Sprite(*texture);
+
+    this->shape.setTexture(texture);
+
 }

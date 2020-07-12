@@ -6,7 +6,6 @@
 
 Grid::Grid(sf::Vector2i size) {
     this->size = size;
-    srand(time(NULL));
 
     map.reserve(size.x * size.y);
     map.max_load_factor(0.25);
@@ -21,14 +20,6 @@ Grid::Grid(sf::Vector2i size) {
             }
 
             Node node(sf::Vector2i(xAxis, yAxis), nodeSize, xOffSet, yOffset);
-
-            /* generate secret number between 1 and 10: */
-            auto number = rand() % 10 + 1;
-
-            if (number > 7) {
-                node.born();
-            }
-
             auto hash = getUniqueHash(yAxis, xAxis);
             map[hash] = node;
         }
@@ -121,6 +112,4 @@ int Grid::getUniqueHash(int x, int y) {
  */
 void Grid::flipBuffer() {
     map = mapBuffer;
-    // Clean up the obj this might not be required
-    // mapBuffer = std::unordered_map<int, Node>();
 }

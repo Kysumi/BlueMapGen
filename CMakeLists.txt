@@ -24,7 +24,7 @@ file(GLOB CHAKRA ${PROJECT_SOURCE_DIR}/src/ChakraCore/*.cpp)
 
 include(${PROJECT_SOURCE_DIR}/src/ChakraCore/CMakeLists.txt)
 
-add_executable(OnGrid src/main.cpp ${ChakraSource} src/WindowManager.cpp src/WindowManager.h src/Map/Node.cpp src/Map/Node.h src/Binding/Map/GridBinding.cpp src/Binding/Map/GridBinding.h src/Map/Grid.cpp src/Map/Grid.h src/Binding/WindowBinding.cpp src/Binding/WindowBinding.h src/Binding/Map/NodeBinding.cpp src/Binding/Map/NodeBinding.h src/Binding/VectorBinding.cpp src/Binding/VectorBinding.h src/Assets/TextureManager.cpp src/Assets/TextureManager.h src/Binding/Assets/TextureManagerBinding.cpp src/Binding/Assets/TextureManagerBinding.h)
+add_executable(OnGrid src/main.cpp ${ChakraSource} src/WindowManager.cpp src/WindowManager.h src/Map/Node.cpp src/Map/Node.h src/Binding/Map/GridBinding.cpp src/Binding/Map/GridBinding.h src/Map/Grid.cpp src/Map/Grid.h src/Binding/WindowBinding.cpp src/Binding/WindowBinding.h src/Binding/Map/NodeBinding.cpp src/Binding/Map/NodeBinding.h src/Binding/VectorBinding.cpp src/Binding/VectorBinding.h src/Assets/TextureManager.cpp src/Assets/TextureManager.h src/Binding/Assets/TextureManagerBinding.cpp src/Binding/Assets/TextureManagerBinding.h src/Setting.h src/Binding/SettingBinding.cpp src/Binding/SettingBinding.h)
 
 message("-- Compiling ChakraCore..")
 

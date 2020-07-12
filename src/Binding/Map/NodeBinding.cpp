@@ -29,51 +29,6 @@ CALLBACK NodeBinding::JSNodeConstructor(JsValueRef callee, bool isConstructCall,
     return output;
 }
 
-JsValueRef CALLBACK NodeBinding::Draw(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
-                                               unsigned short argumentCount, void *callbackState) {
-    Assert(!isConstructCall && argumentCount == 1);
-    JsValueRef output = JS_INVALID_REFERENCE;
-
-    void *nodeArg;
-
-    if (JsGetExternalData(arguments[0], &nodeArg) == JsNoError) {
-        auto *node = static_cast<Node *>(nodeArg);
-        node->draw(*WindowManager::getActiveWindow());
-    };
-
-    return output;
-}
-
-JsValueRef CALLBACK NodeBinding::Kill(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
-                                               unsigned short argumentCount, void *callbackState) {
-    Assert(!isConstructCall && argumentCount == 1);
-    JsValueRef output = JS_INVALID_REFERENCE;
-
-    void *nodeArg;
-
-    if (JsGetExternalData(arguments[0], &nodeArg) == JsNoError) {
-        auto *node = static_cast<Node *>(nodeArg);
-        node->kill();
-    };
-
-    return output;
-}
-
-JsValueRef CALLBACK NodeBinding::Born(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
-                                               unsigned short argumentCount, void *callbackState) {
-    Assert(!isConstructCall && argumentCount == 1);
-    JsValueRef output = JS_INVALID_REFERENCE;
-
-    void *nodeArg;
-
-    if (JsGetExternalData(arguments[0], &nodeArg) == JsNoError) {
-        auto *node = static_cast<Node *>(nodeArg);
-        node->born();
-    };
-
-    return output;
-}
-
 JsValueRef CALLBACK NodeBinding::Alive(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
                                               unsigned short argumentCount, void *callbackState) {
     Assert(!isConstructCall && argumentCount == 1);
@@ -122,18 +77,29 @@ JsValueRef CALLBACK NodeBinding::Y(JsValueRef callee, bool isConstructCall, JsVa
     return output;
 }
 
+JsValueRef
+NodeBinding::SetTexture(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount,
+                        void *callbackState) {
+
+    Assert(!isConstructCall && argumentCount == 2);
+
+    JsValueRef output = JS_INVALID_REFERENCE;
+
+    auto textureName = WScriptJsrt::JSStringToStdString(arguments[1]);
+
+    void *nodeArg;
+
+    if (JsGetExternalData(arguments[0], &nodeArg) == JsNoError) {
+        auto *node = static_cast<Node *>(nodeArg);
+        node->setTexture(textureName);
+    };
+
+    return output;
+}
+
 void NodeBinding::bind() {
     std::vector<const char *> memberNames;
     std::vector<JsNativeFunction> memberFuncs;
-
-    memberNames.push_back("draw");
-    memberFuncs.push_back(Draw);
-
-    memberNames.push_back("born");
-    memberFuncs.push_back(Born);
-
-    memberNames.push_back("kill");
-    memberFuncs.push_back(Kill);
 
     memberNames.push_back("alive");
     memberFuncs.push_back(Alive);
@@ -143,6 +109,9 @@ void NodeBinding::bind() {
 
     memberNames.push_back("y");
     memberFuncs.push_back(Y);
+
+    memberNames.push_back("setTexture");
+    memberFuncs.push_back(SetTexture);
 
     WScriptJsrt::ProjectNativeClass(L"Node", JSNodeConstructor, JSNodePrototype, memberNames, memberFuncs);
 }

@@ -1,8 +1,9 @@
-import {drawGrid} from "./grid.js";
+import {drawGrid, initialize} from "./grid.js";
 import {defaultNodeCallback, iterateNodes} from "./node.js";
 import {loadAllTextures} from "./node_config/configs.js";
 
-let grid = new Grid(24, 24);
+let grid = new Grid(10, 10);
+initialize(grid)
 
 loadAllTextures();
 

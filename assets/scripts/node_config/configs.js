@@ -7,6 +7,11 @@ export const loadAllTextures = () => {
     loadTextures(dirtFiles);
 }
 
+export const randomTexture = (textures) => {
+    const num = Setting.getRandomNumber(0, textures.length)
+    return textures[num].name
+}
+
 export default {
     "grass": processGrass,
     "dirt": processDirt

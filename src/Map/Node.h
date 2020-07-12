@@ -20,11 +20,11 @@ public:
 
     void draw(sf::RenderWindow &window);
 
-    void setPosition(sf::Vector2f pos);
+//    void setPosition(sf::Vector2f pos);
 
-    void born();
-
-    void kill();
+//    void born();
+//
+//    void kill();
 
     int getGridPositionX();
 
@@ -38,11 +38,14 @@ public:
 
     sf::Vector2f getWorldPosition();
 
+    void setTexture(const std::string& textureName);
+
 private:
     sf::CircleShape shape;
     bool alive;
     int x, y;
     int size;
+//    sf::Sprite sprite;
 };
 
 #endif //ONGRID_NODE_H

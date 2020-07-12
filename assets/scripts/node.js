@@ -17,11 +17,11 @@ export const defaultNodeCallback = (x, y, grid) => {
     let neighbours = grid.getNeighbours(x, y);
     let aliveNodesCount = getAliveNodesCount(neighbours);
 
-    if (aliveNodesCount < 2 || aliveNodesCount > 3) {
-        node.kill();
-    } else {
-        node.born();
-    }
+    // if (aliveNodesCount < 2 || aliveNodesCount > 3) {
+    //     node.kill();
+    // } else {
+    //     node.born();
+    // }
 }
 
 export const iterateNodes = (grid, callback) => {

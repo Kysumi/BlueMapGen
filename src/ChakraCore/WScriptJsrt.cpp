@@ -4,6 +4,8 @@
 //-------------------------------------------------------------------------------------------------------
 #include "stdafx.h"
 #include "ChakraICU.h"
+#include "WScriptJsrt.h"
+
 #include <vector>
 
 #if defined(_X86_) || defined(_M_IX86)
@@ -2227,5 +2229,17 @@ void WScriptJsrt::PromiseRejectionTrackerCallback(JsValueRef promise, JsValueRef
     }
 
     fflush(stdout);
+}
+
+std::string WScriptJsrt::JSStringToStdString(JsValueRef jsString) {
+
+    const wchar_t *resultWC;
+    size_t stringLength;
+    JsStringToPointer(jsString, &resultWC, &stringLength);
+
+    std::wstring resultW(resultWC);
+    std::string outputString(resultW.begin(), resultW.end());
+
+    return outputString;
 }
 

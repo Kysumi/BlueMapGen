@@ -116,6 +116,8 @@ public:
 
     static void setProperty(JsValueRef object, const wchar_t *propertyName, JsValueRef property);
 
+    static std::string JSStringToStdString(JsValueRef jsString);
+
 private:
     static void SetExceptionIf(JsErrorCode errorCode, LPCWSTR errorMessage);
     static bool CreateArgumentsObject(JsValueRef *argsObject);

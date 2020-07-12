@@ -50,6 +50,7 @@ JsValueRef CALLBACK WindowBinding::IsOpen(JsValueRef callee, bool isConstructCal
     return output;
 }
 
+// TODO decide if i should go ahead with this
 JsValueRef CALLBACK WindowBinding::Describe(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
                                                      unsigned short argumentCount, void *callbackState) {
 

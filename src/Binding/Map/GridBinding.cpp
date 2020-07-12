@@ -5,10 +5,10 @@
 #include <SFML/System.hpp>
 #include <src/ChakraCore/stdafx.h>
 #include <src/WindowManager.h>
-#include <src/Binding/GridBinding.h>
+#include <src/Binding/Map/GridBinding.h>
 #include <src/Map/Grid.h>
 #include "NodeBinding.h"
-#include "VectorBinding.h"
+#include "src/Binding/VectorBinding.h"
 
 JsValueRef GridBinding::JSGridPrototype;
 

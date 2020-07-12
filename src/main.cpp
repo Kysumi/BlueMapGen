@@ -4,9 +4,9 @@
 #include "ChakraCore/stdafx.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include <src/Binding/GridBinding.h>
+#include <src/Binding/Map/GridBinding.h>
 #include <src/Binding/WindowBinding.h>
-#include <src/Binding/NodeBinding.h>
+#include <src/Binding/Map/NodeBinding.h>
 #include <src/Binding/VectorBinding.h>
 #include "ChakraCore/Chakra.h"
 #include "WindowManager.h"

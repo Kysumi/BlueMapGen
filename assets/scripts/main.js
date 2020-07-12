@@ -1,9 +1,10 @@
 import {drawGrid} from "./grid.js";
 import {defaultNodeCallback, iterateNodes} from "./node.js";
+import {loadAllTextures} from "./node_config/configs.js";
 
-let grid = new Grid(100, 100);
+let grid = new Grid(24, 24);
 
-TextureManager.loadFromFile('assets\\sprites\\img_dirt_0.png', 'dirt_0')
+loadAllTextures();
 
 const proccessNodes = () => {
     iterateNodes(grid, defaultNodeCallback)

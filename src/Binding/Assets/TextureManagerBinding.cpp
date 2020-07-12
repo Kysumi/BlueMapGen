@@ -12,7 +12,7 @@ JsValueRef TextureManagerBinding::LoadFromFile(JsValueRef callee, bool isConstru
     Assert(argumentCount == 3);
 
     auto *output = JS_INVALID_REFERENCE;
-    
+
     auto filePath = WScriptJsrt::JSStringToStdString(arguments[1]);
     auto name = WScriptJsrt::JSStringToStdString(arguments[2]);
 

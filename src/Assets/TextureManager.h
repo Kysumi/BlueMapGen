@@ -5,7 +5,6 @@
 #ifndef ONGRID_TEXTUREMANAGER_H
 #define ONGRID_TEXTUREMANAGER_H
 
-
 #include <string>
 #include <unordered_map>
 #include <SFML/Graphics/Texture.hpp>

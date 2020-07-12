@@ -10,6 +10,7 @@
 #include <src/Binding/VectorBinding.h>
 #include <src/Binding/Assets/TextureManagerBinding.h>
 #include <src/Binding/SettingBinding.h>
+#include <src/Assets/TextureManager.h>
 #include "ChakraCore/Chakra.h"
 #include "WindowManager.h"
 
@@ -20,6 +21,7 @@
 int main() {
     std::cout << "Starting up OnGrid..." << std::endl;
     Chakra::Init("assets/scripts");
+    TextureManager::setBaseDir("assets/sprites/");
 
     GridBinding::bind();
     WindowBinding::bind();

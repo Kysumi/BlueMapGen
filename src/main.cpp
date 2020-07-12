@@ -8,6 +8,7 @@
 #include <src/Binding/WindowBinding.h>
 #include <src/Binding/Map/NodeBinding.h>
 #include <src/Binding/VectorBinding.h>
+#include <src/Binding/Assets/TextureManagerBinding.h>
 #include "ChakraCore/Chakra.h"
 #include "WindowManager.h"
 
@@ -23,6 +24,7 @@ int main() {
     WindowBinding::bind();
     NodeBinding::bind();
     VectorBinding::bind();
+    TextureManagerBinding::bind();
 
     sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
 

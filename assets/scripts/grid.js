@@ -1,7 +1,7 @@
 import {iterateNodes} from "./node.js";
 import {randomTexture} from "./node_config/configs.js";
-import {textureFiles as dirtTextures} from "./node_config/dirt.js";
-import {textureFiles as grassTextures} from "./node_config/grass.js";
+import dirtTextures from "node_config/tiles_textures/dirt.js";
+import grassTextures from "node_config/tiles_textures/grass.js";
 
 export const drawGrid = (grid) => {
     grid.flipBuffer();

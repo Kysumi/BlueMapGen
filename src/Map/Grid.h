@@ -28,7 +28,7 @@ public:
     Node *getNodeFromGridPosition(int x, int y);
 
 private:
-    const int nodeSize = 5;
+    const int nodeSize = 20;
     sf::Vector2i size;
     std::unordered_map<int, Node> map;
     std::unordered_map<int, Node> mapBuffer;

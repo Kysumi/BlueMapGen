@@ -15,7 +15,6 @@ const getAliveNodesCount = (nodes) => {
 export const defaultNodeCallback = (x, y, grid) => {
     let node = grid.getNodeFromGridPosition(x, y);
     let neighbours = grid.getNeighbours(x, y);
-    let aliveNodesCount = getAliveNodesCount(neighbours);
 
     // if(aliveNodesCount < 2)
     // {

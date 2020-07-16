@@ -1,7 +1,6 @@
 //
 // Created by Scott on 25/06/2020.
 //
-#include "ChakraCore/stdafx.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <src/Binding/Map/GridBinding.h>

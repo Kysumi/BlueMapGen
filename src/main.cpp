@@ -8,6 +8,7 @@
 #include <src/Binding/Map/NodeBinding.h>
 #include <src/Binding/VectorBinding.h>
 #include <src/Binding/Assets/TextureManagerBinding.h>
+#include <src/Binding/Map/BiomeBinding.h>
 #include <src/Binding/SettingBinding.h>
 #include <src/Assets/TextureManager.h>
 #include "ChakraCore/Chakra.h"
@@ -28,6 +29,7 @@ int main() {
     VectorBinding::bind();
     TextureManagerBinding::bind();
     SettingBinding::bind();
+    BiomeBinding::bind();
 
     sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
 

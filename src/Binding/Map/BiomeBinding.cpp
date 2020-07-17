@@ -20,8 +20,8 @@ JsValueRef BiomeBinding::JSBiomeConstructor(JsValueRef callee, bool isConstructC
     return output;
 }
 
-JsValueRef CALLBACK BiomeBinding::getName(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
-                                       unsigned short argumentCount, void *callbackState) {
+JsValueRef CALLBACK BiomeBinding::GetName(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
+                                          unsigned short argumentCount, void *callbackState) {
     Assert(!isConstructCall && argumentCount == 1);
     JsValueRef output = JS_INVALID_REFERENCE;
 
@@ -36,7 +36,7 @@ JsValueRef CALLBACK BiomeBinding::getName(JsValueRef callee, bool isConstructCal
     return output;
 }
 
-JsValueRef CALLBACK BiomeBinding::setName(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
+JsValueRef CALLBACK BiomeBinding::SetName(JsValueRef callee, bool isConstructCall, JsValueRef *arguments,
                                           unsigned short argumentCount, void *callbackState) {
     Assert(!isConstructCall && argumentCount == 1);
     JsValueRef output = JS_INVALID_REFERENCE;
@@ -50,4 +50,17 @@ JsValueRef CALLBACK BiomeBinding::setName(JsValueRef callee, bool isConstructCal
     };
 
     return output;
+}
+
+void BiomeBinding::bind() {
+    std::vector<const char *> memberNames;
+    std::vector<JsNativeFunction> memberFuncs;
+
+    memberNames.push_back("getName");
+    memberFuncs.push_back(GetName);
+
+    memberNames.push_back("setName");
+    memberFuncs.push_back(SetName);
+
+    WScriptJsrt::ProjectNativeClass(L"Biome", JSBiomeConstructor, JSBiomePrototype, memberNames, memberFuncs);
 }

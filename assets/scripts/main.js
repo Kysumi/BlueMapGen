@@ -2,7 +2,7 @@ import {drawGrid, initialize} from "./grid.js";
 import {defaultNodeCallback, iterateNodes} from "./node.js";
 import {loadAllTextures} from "./node_config/configs.js";
 
-let grid = new Grid(10, 10);
+let grid = new Grid(30, 30);
 initialize(grid)
 
 loadAllTextures();

@@ -21,7 +21,7 @@ JsValueRef CALLBACK WindowBinding::Clear(JsValueRef callee, bool isConstructCall
                                                   unsigned short argumentCount, void *callbackState) {
     auto *window = WindowManager::getActiveWindow();
 
-    window->clear(sf::Color::Blue);
+    window->clear(sf::Color::White);
 
     return JS_INVALID_REFERENCE;
 }

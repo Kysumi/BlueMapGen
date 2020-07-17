@@ -15,10 +15,13 @@ const randomize = (x, y, grid) => {
 
     if (num > 5) {
         node.setTexture(randomTexture(dirtTextures))
+        node.setBiome("dirt")
     } else if (num < 1) {
         node.setTexture(randomTexture(waterTextures))
+        node.setBiome("river")
     } else {
         node.setTexture(randomTexture(grassTextures))
+        node.setBiome("grass")
     }
 }
 

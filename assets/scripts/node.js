@@ -16,6 +16,11 @@ export const defaultNodeCallback = (x, y, grid) => {
     let node = grid.getNodeFromGridPosition(x, y);
     let neighbours = grid.getNeighbours(x, y);
 
+    const biome = node.getBiome();
+    console.log(biome)
+
+    const process = biome
+
     // if(aliveNodesCount < 2)
     // {
     //     node.kill()

@@ -31,6 +31,12 @@ public:
     static JsValueRef
     SetTexture(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount,
       void *callbackState);
+
+    static JsValueRef GetBiome(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount,
+                        void *callbackState);
+
+    static JsValueRef SetBiome(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount,
+                               void *callbackState);
 };
 
 

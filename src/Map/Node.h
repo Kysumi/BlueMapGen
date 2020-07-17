@@ -40,6 +40,7 @@ public:
 
     void setTexture(const std::string& textureName);
 
+    std::string biomePlaceHolder;
 private:
     sf::CircleShape shape;
     bool alive;

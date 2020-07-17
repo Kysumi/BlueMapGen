@@ -3,6 +3,7 @@
 //
 
 #include "NodeBinding.h"
+#include "BiomeBinding.h"
 #include <src/ChakraCore/stdafx.h>
 #include <src/Map/Node.h>
 #include <src/WindowManager.h>
@@ -97,6 +98,42 @@ NodeBinding::SetTexture(JsValueRef callee, bool isConstructCall, JsValueRef *arg
     return output;
 }
 
+JsValueRef
+NodeBinding::GetBiome(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount,
+                        void *callbackState) {
+
+    Assert(!isConstructCall && argumentCount == 1);
+
+    JsValueRef output = JS_INVALID_REFERENCE;
+    void *nodeArg;
+
+    if (JsGetExternalData(arguments[0], &nodeArg) == JsNoError) {
+        auto *node = static_cast<Node *>(nodeArg);
+        auto name = node->biomePlaceHolder;
+
+        JsCreateString(name.c_str(), name.size(), &output);
+    };
+
+    return output;
+}
+
+JsValueRef
+NodeBinding::SetBiome(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount,
+                      void *callbackState) {
+
+    Assert(!isConstructCall && argumentCount == 2);
+
+    JsValueRef output = JS_INVALID_REFERENCE;
+    void *nodeArg;
+
+    if (JsGetExternalData(arguments[0], &nodeArg) == JsNoError) {
+        auto *node = static_cast<Node *>(nodeArg);
+        node->biomePlaceHolder = WScriptJsrt::JSStringToStdString(arguments[1]);
+    };
+
+    return output;
+}
+
 void NodeBinding::bind() {
     std::vector<const char *> memberNames;
     std::vector<JsNativeFunction> memberFuncs;
@@ -112,6 +149,12 @@ void NodeBinding::bind() {
 
     memberNames.push_back("setTexture");
     memberFuncs.push_back(SetTexture);
+
+    memberNames.push_back("getBiome");
+    memberFuncs.push_back(GetBiome);
+
+    memberNames.push_back("setBiome");
+    memberFuncs.push_back(SetBiome);
 
     WScriptJsrt::ProjectNativeClass(L"Node", JSNodeConstructor, JSNodePrototype, memberNames, memberFuncs);
 }

@@ -1,25 +1,21 @@
 // Handles node operations
+import config from "./node_config/configs.js"
 
-const getAliveNodesCount = (nodes) => {
-    let aliveNodes = [];
-
-    nodes.forEach((node) => {
-        if (node.alive()) {
-            aliveNodes.push(node);
-        }
-    })
-
-    return aliveNodes.length;
+const getNodesOfType = (nodes, type) => {
+    return nodes.map((node) => {
+       if (node.getBiome() === type) {
+           return node;
+       }
+    });
 }
 
 export const defaultNodeCallback = (x, y, grid) => {
     let node = grid.getNodeFromGridPosition(x, y);
     let neighbours = grid.getNeighbours(x, y);
 
-    const biome = node.getBiome();
-    console.log(biome)
+    const neighboursOfType = getNodesOfType(neighbours, node.getBiome())
 
-    const process = biome
+    config[node.getBiome()]()
 
     // if(aliveNodesCount < 2)
     // {

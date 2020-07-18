@@ -1,3 +1,3 @@
-export const processGrass = () => {
+export const processGrass = (node, grid) => {
     console.log('Grass!!')
 }

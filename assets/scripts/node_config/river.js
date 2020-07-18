@@ -1,3 +1,3 @@
-export const processRiver = () => {
+export const processRiver = (node, grid) => {
     console.log('twas river!!')
 }

@@ -1,7 +1,7 @@
 // Handles node operations
 import config from "./node_config/configs.js"
 
-const getNodesOfType = (nodes, type) => {
+export const getNodesOfType = (nodes, type) => {
     return nodes.map((node) => {
        if (node.getBiome() === type) {
            return node;
@@ -11,24 +11,7 @@ const getNodesOfType = (nodes, type) => {
 
 export const defaultNodeCallback = (x, y, grid) => {
     let node = grid.getNodeFromGridPosition(x, y);
-    let neighbours = grid.getNeighbours(x, y);
-
-    const neighboursOfType = getNodesOfType(neighbours, node.getBiome())
-
-    config[node.getBiome()]()
-
-    // if(aliveNodesCount < 2)
-    // {
-    //     node.kill()
-    // }
-    // else if(aliveNodesCount == 3)
-    // {
-    //     node.born()
-    // }
-    // else if(aliveNodesCount > 3)
-    // {
-    //     node.kill()
-    // }
+    config[node.getBiome()](node, grid)
 }
 
 export const iterateNodes = (grid, callback) => {
@@ -43,3 +26,18 @@ export const iterateNodes = (grid, callback) => {
         }
     }
 }
+
+/// Game of life conditions
+
+// if(aliveNodesCount < 2)
+// {
+//     node.kill()
+// }
+// else if(aliveNodesCount == 3)
+// {
+//     node.born()
+// }
+// else if(aliveNodesCount > 3)
+// {
+//     node.kill()
+// }

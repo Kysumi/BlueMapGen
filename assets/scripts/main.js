@@ -1,11 +1,12 @@
 import {drawGrid, initialize} from "./grid.js";
 import {defaultNodeCallback, iterateNodes} from "./node.js";
-import {loadAllTextures} from "./node_config/configs.js";
+import {loadTextures} from "./assetLoader.js";
+import {textures} from "./node_config/tiles_textures/index.js"
+
+loadTextures(textures);
 
 let grid = new Grid(30, 30);
 initialize(grid)
-
-loadAllTextures();
 
 const proccessNodes = () => {
     iterateNodes(grid, defaultNodeCallback)

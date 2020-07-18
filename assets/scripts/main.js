@@ -5,7 +5,7 @@ import {textures} from "./node_config/tiles_textures/index.js"
 
 loadTextures(textures);
 
-let grid = new Grid(30, 30);
+let grid = new Grid(10, 10);
 initialize(grid)
 
 const proccessNodes = () => {

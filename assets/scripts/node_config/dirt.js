@@ -12,12 +12,12 @@ export const processDirt = (node, grid) => {
     if(typeCount < 2)
     {
         node.setTexture(randomTexture(waterTextures))
-        node.setBiome("dirt")
+        node.setBiome("river")
     }
     else if(typeCount > 3)
     {
         node.setTexture(randomTexture(grassTextures))
-        node.setBiome("river")
+        node.setBiome("grass")
     }
 
     console.log('dirt was called yo')
